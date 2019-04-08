@@ -39,8 +39,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <file>src/api/openapi.json</file>
-                    <outputFile>target/openapi.json</outputFile>
+                    <file>${project.basedir}/src/api/openapi.json</file>
+                    <outputFile>${project.basedir}/target/openapi.json</outputFile>
                     <replacements>
                         <replacement>
                             <token>(\s\s\s)\"\"$</token>
