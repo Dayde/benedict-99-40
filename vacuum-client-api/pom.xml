@@ -10,13 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>vacuum-client-api</artifactId>
-
+    <name>[${project.packaging}] ${project.artifactId} :: ${project.version}</name>
 
     <dependencies>
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator</artifactId>
-            <version>3.3.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,7 +28,6 @@
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>

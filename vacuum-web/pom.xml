@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>vacuum-web</artifactId>
+    <name>[${project.packaging}] ${project.artifactId} :: ${project.version}</name>
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -34,9 +36,7 @@
         <dependency>
             <groupId>fr.destiny</groupId>
             <artifactId>vacuum-client-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 
 </project>
