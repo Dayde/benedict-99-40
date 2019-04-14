@@ -48,6 +48,10 @@
                             <token>"name": ""</token>
                             <value>"name": "Core"</value>
                         </replacement>
+                        <replacement>
+                            <token>uint32</token>
+                            <value>int64</value>
+                        </replacement>
                     </replacements>
                     <regexFlags>
                         <regexFlag>MULTILINE</regexFlag>
