@@ -2,22 +2,24 @@ package fr.destiny.vacuum.web.config;
 
 
 import fr.destiny.api.ApiClient;
-import fr.destiny.vacuum.web.interceptor.ApiKeyInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ConfigurationProperties("fr.destiny.api")
-@ComponentScan(basePackageClasses = ApiClient.class)
+@ComponentScan(basePackageClasses = ApiClient.class,
+        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ApiClient.class))
 public class VacuumConfig {
 
-    @Bean
-    public RestTemplate restTemplate(ApiKeyInterceptor apiKeyInterceptor) {
-        return new RestTemplateBuilder().interceptors(apiKeyInterceptor).build();
-    }
+    @Value("${api.key}")
+    private String apiKey;
 
+    @Bean
+    public ApiClient apiClient() {
+        return new ApiClient().addDefaultHeader("X-API-Key", apiKey);
+    }
 }
