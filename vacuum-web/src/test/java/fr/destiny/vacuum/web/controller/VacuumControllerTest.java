@@ -1,7 +1,8 @@
 package fr.destiny.vacuum.web.controller;
 
-import fr.destiny.api.model.InlineResponse2003;
-import fr.destiny.vacuum.web.service.VacuumService;
+import fr.destiny.api.model.UserGeneralUser;
+import fr.destiny.vacuum.web.service.ItemService;
+import fr.destiny.vacuum.web.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,10 @@ import static org.mockito.Mockito.*;
 public class VacuumControllerTest {
 
     @Mock
-    private VacuumService vacuumService;
+    private ItemService itemService;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private VacuumController vacuumController;
@@ -24,8 +28,8 @@ public class VacuumControllerTest {
     public void userInfo_shouldCallServiceAndReturnTheResult() {
         // Given
         String username = "Daydraeck";
-        InlineResponse2003 mockResponse = mock(InlineResponse2003.class);
-        when(vacuumService.userInfo(username)).thenReturn(mockResponse);
+        UserGeneralUser mockResponse = mock(UserGeneralUser.class);
+        when(userService.userInfo(username)).thenReturn(mockResponse);
         String fakeResult = "toto";
         when(mockResponse.toString()).thenReturn(fakeResult);
 
@@ -34,6 +38,6 @@ public class VacuumControllerTest {
 
         // Then
         assertThat(result).isEqualTo(fakeResult);
-        verify(vacuumService).userInfo(username);
+        verify(userService).userInfo(username);
     }
 }
