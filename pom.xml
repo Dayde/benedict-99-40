@@ -35,6 +35,8 @@
         <junit.version>5.4.1</junit.version>
         <assertj.version>3.12.2</assertj.version>
         <mockito.version>2.26.0</mockito.version>
+        <spring-jdbc.version>5.1.5.RELEASE</spring-jdbc.version>
+        <sqlite-jdbc.version>3.27.2.1</sqlite-jdbc.version>
     </properties>
 
     <dependencyManagement>
@@ -76,6 +78,16 @@
                 <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>${sqlite-jdbc.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -101,5 +113,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>

@@ -42,15 +42,19 @@
                     <replacements>
                         <replacement>
                             <token>(\s\s\s)\"\"$</token>
-                            <value>$1"Core"</value>
+                            <value>$1"Default"</value>
                         </replacement>
                         <replacement>
                             <token>"name": ""</token>
-                            <value>"name": "Core"</value>
+                            <value>"name": "Default"</value>
                         </replacement>
                         <replacement>
                             <token>uint32</token>
                             <value>int64</value>
+                        </replacement>
+                        <replacement>
+                            <token>\"string\"(.*\r\n.*\"byte\")</token>
+                            <value>"integer"$1</value>
                         </replacement>
                     </replacements>
                     <regexFlags>
@@ -86,5 +90,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
