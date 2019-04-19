@@ -31,7 +31,7 @@ public class DestinyInventoryItemRepository {
         return mapJsonToItem(json);
     }
 
-    public Set<DestinyDefinitionsDestinyInventoryItemDefinition> findAllById(List<Long> hashes) {
+    public Set<DestinyDefinitionsDestinyInventoryItemDefinition> findAllById(Set<Long> hashes) {
         Set<Integer> ids = hashes.stream()
                 .map(Long::intValue)
                 .collect(Collectors.toSet());

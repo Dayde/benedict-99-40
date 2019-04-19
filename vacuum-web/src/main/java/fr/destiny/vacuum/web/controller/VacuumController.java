@@ -33,12 +33,13 @@ public class VacuumController {
     public String items(@RequestParam String username, @RequestParam String platform, @RequestParam String classType, @RequestParam String itemCategory) {
         Integer membershipType = BungieMembershipType.fromValue(platform).getValue();
         Long membershipId = userService.destinyMembershipid(username, membershipType);
-        return itemService.getAllItems(
+        return itemService.getAllItemsDefinitions(
                 membershipId,
                 membershipType,
                 ClassType.valueOf(classType),
                 ItemCategory.valueOf(itemCategory)
-        ).stream()
+        ).values()
+                .stream()
                 .map(this::imgTag)
                 .collect(Collectors.joining());
     }
