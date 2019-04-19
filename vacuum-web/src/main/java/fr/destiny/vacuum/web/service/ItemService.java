@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -23,7 +24,6 @@ public class ItemService {
 
     @Autowired
     private DestinyInventoryItemRepository itemRepository;
-
 
     public List<DestinyDefinitionsDestinyInventoryItemDefinition> getAllItems(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
         DestinyResponsesDestinyProfileResponse profile = destiny2Api
@@ -37,20 +37,26 @@ public class ItemService {
                 ).getResponse();
 
         List<Long> hashes = new ArrayList<>();
-        hashes.addAll(profile.getProfileInventory()
-                .getData()
-                .getItems()
-                .stream()
-                .filter(item -> GearBucketHashEnum.fromHash(item.getBucketHash()) != null)
-                .map(DestinyEntitiesItemsDestinyItemComponent::getItemHash)
-                .collect(Collectors.toList()));
-
-        for (DestinyEntitiesInventoryDestinyInventoryComponent characterInvetory : profile.getCharacterInventories().getData().values()) {
-            hashes.addAll(characterInvetory.getItems()
+        DestinyEntitiesInventoryDestinyInventoryComponent data = profile.getProfileInventory()
+                .getData();
+        if (data != null) {
+            hashes.addAll(data
+                    .getItems()
                     .stream()
                     .filter(item -> GearBucketHashEnum.fromHash(item.getBucketHash()) != null)
                     .map(DestinyEntitiesItemsDestinyItemComponent::getItemHash)
                     .collect(Collectors.toList()));
+        }
+
+        Map<String, DestinyEntitiesInventoryDestinyInventoryComponent> datas = profile.getCharacterInventories().getData();
+        if (datas != null) {
+            for (DestinyEntitiesInventoryDestinyInventoryComponent characterInvetory : datas.values()) {
+                hashes.addAll(characterInvetory.getItems()
+                        .stream()
+                        .filter(item -> GearBucketHashEnum.fromHash(item.getBucketHash()) != null)
+                        .map(DestinyEntitiesItemsDestinyItemComponent::getItemHash)
+                        .collect(Collectors.toList()));
+            }
         }
 
         return itemRepository.findAllById(hashes)
