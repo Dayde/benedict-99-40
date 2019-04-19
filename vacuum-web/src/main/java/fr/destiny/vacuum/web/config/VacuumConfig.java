@@ -57,7 +57,7 @@ public class VacuumConfig {
                 .getMobileWorldContentPaths()
                 .get("en");
         String[] split = path.split("/");
-        Path resourcePath = Paths.get("/tmp/").resolve(split[split.length - 1]);
+        Path resourcePath = Paths.get(System.getProperty("java.io.tmpdir")).resolve(split[split.length - 1]);
 
         if (!Files.exists(resourcePath)) {
             downloadLatestManifest(restTemplate, path, resourcePath);
@@ -65,7 +65,7 @@ public class VacuumConfig {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl("jdbc:sqlite::resource:file:" + resourcePath);
+        dataSource.setUrl("jdbc:sqlite::resource:" + resourcePath.toUri());
         return dataSource;
     }
 
