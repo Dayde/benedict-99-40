@@ -3,11 +3,11 @@ package fr.destiny.vacuum.web.service;
 import com.google.common.collect.ImmutableMap;
 import fr.destiny.api.client.Destiny2Api;
 import fr.destiny.api.model.*;
-import fr.destiny.vacuum.web.model.ItemInstance;
-import fr.destiny.vacuum.web.repository.DestinyInventoryItemRepository;
 import fr.destiny.vacuum.web.model.ClassType;
 import fr.destiny.vacuum.web.model.GearBucketHash;
 import fr.destiny.vacuum.web.model.ItemCategory;
+import fr.destiny.vacuum.web.model.ItemInstance;
+import fr.destiny.vacuum.web.repository.DestinyInventoryItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class ItemService {
         );
     }
 
-    public Set<ItemInstance> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
+    public List<ItemInstance> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
         DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
         Map<Long, Set<Long>> instanceIdsByItemHash = new HashMap<>();
@@ -53,8 +53,8 @@ public class ItemService {
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
     }
 
-    private Set<ItemInstance> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
-        Set<ItemInstance> itemInstances = new HashSet<>();
+    private List<ItemInstance> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
+        List<ItemInstance> itemInstances = new ArrayList<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
             ClassType itemClassType = ClassType.fromHash(itemDefinition.getClassType());

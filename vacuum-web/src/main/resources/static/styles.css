@@ -9,7 +9,7 @@ body {
     display: inline;
 }
 
-.item-container>img {
+.item-container > img {
     border: 1px solid white;
 }
 
