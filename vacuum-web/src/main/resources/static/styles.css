@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+}
+
+.item-container {
+    position: relative;
+    text-align: center;
+    color: white;
+    display: inline;
+}
+
+.item-container>img {
+    border: 1px solid white;
+}
+
+.top-right {
+    position: absolute;
+    top: -83px;
+    right: 1px;
+    display: inline;
+    padding: 3px;
+    background-color: dimgrey;
+    text-align: right;
+    width: 25px;
+}

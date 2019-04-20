@@ -53,4 +53,14 @@ public class DestinyInventoryItemRepository {
         }
         return null;
     }
+
+    public Set<DestinyDefinitionsDestinyInventoryItemDefinition> findAll() {
+        List<String> jsonRows = jdbcTemplate.queryForList(
+                "SELECT json FROM DestinyInventoryItemDefinition",
+                Collections.emptyMap(),
+                String.class);
+        return jsonRows.stream()
+                .map(this::mapJsonToItem)
+                .collect(Collectors.toSet());
+    }
 }

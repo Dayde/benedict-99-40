@@ -1,19 +1,19 @@
 package fr.destiny.vacuum.web.service;
 
+import com.google.common.collect.ImmutableMap;
 import fr.destiny.api.client.Destiny2Api;
 import fr.destiny.api.model.*;
+import fr.destiny.vacuum.web.model.ItemInstance;
 import fr.destiny.vacuum.web.repository.DestinyInventoryItemRepository;
-import fr.destiny.vacuum.web.utils.ClassType;
-import fr.destiny.vacuum.web.utils.GearBucketHashEnum;
-import fr.destiny.vacuum.web.utils.ItemCategory;
+import fr.destiny.vacuum.web.model.ClassType;
+import fr.destiny.vacuum.web.model.GearBucketHash;
+import fr.destiny.vacuum.web.model.ItemCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -25,63 +25,135 @@ public class ItemService {
     @Autowired
     private DestinyInventoryItemRepository itemRepository;
 
-    public Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> getAllItemsDefinitions(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
-        Set<DestinyDefinitionsDestinyInventoryItemDefinition> allItems = new HashSet<>();
-        allItems.addAll(getEquippedItems(membershipId, membershipType, classType, itemCategory));
-        allItems.addAll(getCharacterInventoryItems(membershipId, membershipType, classType, itemCategory));
-        allItems.addAll(getVaultItems(membershipId, membershipType, classType, itemCategory));
-        return allItems.stream().collect(Collectors.toMap(DestinyDefinitionsDestinyInventoryItemDefinition::getHash, item -> item));
+    Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
+
+    ItemService(Destiny2Api destiny2Api, DestinyInventoryItemRepository itemRepository) {
+        this.destiny2Api = destiny2Api;
+        this.itemRepository = itemRepository;
+        this.itemDefinitions = ImmutableMap.copyOf(
+                itemRepository.findAll()
+                        .stream()
+                        .collect(Collectors.toMap(DestinyDefinitionsDestinyInventoryItemDefinition::getHash,
+                                item -> item))
+        );
     }
 
-    private Set<DestinyDefinitionsDestinyInventoryItemDefinition> getVaultItems(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
-        DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType, DestinyDestinyComponentType.NUMBER_102);
+    public Set<ItemInstance> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
+        DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
-        Set<Long> hashes = new HashSet<>();
+        Map<Long, Set<Long>> instanceIdsByItemHash = new HashMap<>();
+
+        instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getEquippedItems(profile));
+        instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getCharacterInventoryItems(profile));
+        instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getVaultItems(profile));
+
+        Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances = profile.getItemComponents().getInstances().getData();
+        Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets = profile.getItemComponents().getSockets().getData();
+
+        return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
+    }
+
+    private Set<ItemInstance> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
+        Set<ItemInstance> itemInstances = new HashSet<>();
+        instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
+            DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
+            ClassType itemClassType = ClassType.fromHash(itemDefinition.getClassType());
+
+            if (classType != ClassType.ANY
+                    && itemClassType != ClassType.ANY
+                    && classType != itemClassType) {
+                return;
+            }
+
+            if (!itemDefinition.getItemCategoryHashes().contains(itemCategory.getHash())) {
+                return;
+            }
+
+            instanceIds.forEach(instanceId ->
+                    itemInstances.add(new ItemInstance(
+                            instances.get(Long.toString(instanceId)),
+                            sockets.get(Long.toString(instanceId)),
+                            itemDefinition,
+                            itemDefinitions
+                    )));
+        });
+
+        return itemInstances;
+    }
+
+    private Map<Long, Set<Long>> getVaultItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
 
         DestinyEntitiesInventoryDestinyInventoryComponent data = profile.getProfileInventory().getData();
         if (data != null) {
-            hashes.addAll(collectItemHashes(data));
+            itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(data));
         }
 
-        return restieveItemsFromManifest(classType, itemCategory, hashes);
+        return itemInstanceIds;
     }
 
-    private Set<DestinyDefinitionsDestinyInventoryItemDefinition> getCharacterInventoryItems(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
-        DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType, DestinyDestinyComponentType.NUMBER_201);
-
-        Set<Long> hashes = new HashSet<>();
+    private Map<Long, Set<Long>> getCharacterInventoryItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
 
         Map<String, DestinyEntitiesInventoryDestinyInventoryComponent> datas = profile.getCharacterInventories().getData();
         if (datas != null) {
             for (DestinyEntitiesInventoryDestinyInventoryComponent characterInvetory : datas.values()) {
-                hashes.addAll(collectItemHashes(characterInvetory));
+                itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(characterInvetory));
             }
         }
 
-        return restieveItemsFromManifest(classType, itemCategory, hashes);
+        return itemInstanceIds;
     }
 
-    private Set<DestinyDefinitionsDestinyInventoryItemDefinition> getEquippedItems(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
-        DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType, DestinyDestinyComponentType.NUMBER_205);
-
-        Set<Long> hashes = new HashSet<>();
+    private Map<Long, Set<Long>> getEquippedItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
 
         Map<String, DestinyEntitiesInventoryDestinyInventoryComponent> datas = profile.getCharacterEquipment().getData();
         if (datas != null) {
             for (DestinyEntitiesInventoryDestinyInventoryComponent characterEquipment : datas.values()) {
-                hashes.addAll(collectItemHashes(characterEquipment));
+                itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(characterEquipment));
+
             }
         }
 
-        return restieveItemsFromManifest(classType, itemCategory, hashes);
+        return itemInstanceIds;
     }
 
-    private DestinyResponsesDestinyProfileResponse getProfile(Long membershipId, Integer membershipType, DestinyDestinyComponentType... components) {
+    private Map<Long, Set<Long>> mergeMaps(Map<Long, Set<Long>> map1, Map<Long, Set<Long>> map2) {
+        return Stream.concat(
+                map1.entrySet().stream(),
+                map2.entrySet().stream()
+        ).collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (set1, set2) -> {
+                    Set<Long> mergedSet = new HashSet<>(set1);
+                    mergedSet.addAll(set2);
+                    return mergedSet;
+                }
+        ));
+    }
+
+    private DestinyResponsesDestinyProfileResponse getProfile(Long membershipId, Integer membershipType) {
+        List<DestinyDestinyComponentType> requiredComponents = Arrays.asList(
+                // Vault
+                DestinyDestinyComponentType.NUMBER_102,
+                // Character Inventories
+                DestinyDestinyComponentType.NUMBER_201,
+                // Character equipment
+                DestinyDestinyComponentType.NUMBER_205,
+                // Item Instances
+                DestinyDestinyComponentType.NUMBER_300,
+                // Item Sockets
+                DestinyDestinyComponentType.NUMBER_305
+        );
         return destiny2Api
                 .destiny2GetProfile(
                         membershipId,
                         membershipType,
-                        Arrays.stream(components).map(DestinyDestinyComponentType::getValue).collect(Collectors.toList())
+                        requiredComponents.stream()
+                                .map(DestinyDestinyComponentType::getValue)
+                                .collect(Collectors.toList())
                 ).getResponse();
     }
 
@@ -96,12 +168,22 @@ public class ItemService {
                 .collect(Collectors.toSet());
     }
 
-    private Set<Long> collectItemHashes(DestinyEntitiesInventoryDestinyInventoryComponent data) {
+    private Map<Long, Set<Long>> collectItemHashes(DestinyEntitiesInventoryDestinyInventoryComponent data) {
         return data
                 .getItems()
                 .stream()
-                .filter(item -> GearBucketHashEnum.fromHash(item.getBucketHash()) != null)
-                .map(DestinyEntitiesItemsDestinyItemComponent::getItemHash)
-                .collect(Collectors.toSet());
+                .filter(item -> GearBucketHash.fromHash(item.getBucketHash()) != null)
+                .collect(Collectors.groupingBy(DestinyEntitiesItemsDestinyItemComponent::getItemHash))
+                .entrySet()
+                .stream()
+                .collect(
+                        Collectors.toMap(
+                                Map.Entry::getKey,
+                                entry -> entry.getValue()
+                                        .stream()
+                                        .map(DestinyEntitiesItemsDestinyItemComponent::getItemInstanceId)
+                                        .collect(Collectors.toSet())
+                        )
+                );
     }
 }

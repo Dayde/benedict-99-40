@@ -1,6 +1,6 @@
-package fr.destiny.vacuum.web.utils;
+package fr.destiny.vacuum.web.model;
 
-public enum GearBucketHashEnum {
+public enum GearBucketHash {
 
     KINETIC_WEAPON(1498876634L),
     ENERGY_WEAPON(2465295065L),
@@ -16,7 +16,7 @@ public enum GearBucketHashEnum {
 
     private long hash;
 
-    GearBucketHashEnum(long hash) {
+    GearBucketHash(long hash) {
         this.hash = hash;
     }
 
@@ -24,8 +24,8 @@ public enum GearBucketHashEnum {
         return hash;
     }
 
-    public static GearBucketHashEnum fromHash(long hash) {
-        for (GearBucketHashEnum bucketHash : GearBucketHashEnum.values()) {
+    public static GearBucketHash fromHash(long hash) {
+        for (GearBucketHash bucketHash : GearBucketHash.values()) {
             if (bucketHash.hash == hash) {
                 return bucketHash;
             }

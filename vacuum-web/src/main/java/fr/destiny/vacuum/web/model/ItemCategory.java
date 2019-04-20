@@ -1,4 +1,4 @@
-package fr.destiny.vacuum.web.utils;
+package fr.destiny.vacuum.web.model;
 
 public enum ItemCategory {
 
