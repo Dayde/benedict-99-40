@@ -26,6 +26,13 @@ public class ItemInstance {
         this.powerLevel = instance.getPrimaryStat().getValue();
         this.perks = socketsComponent.getSockets()
                 .stream()
+                .filter(plug -> {
+                    if (plug == null || plug.getPlugHash() == null) {
+                        return false;
+                    }
+                    DestinyDefinitionsDestinyInventoryItemDefinition plugDefinition = itemDefinitions.get(plug.getPlugHash());
+                    return plugDefinition != null && "Armor Perk".equals(plugDefinition.getItemTypeDisplayName());
+                })
                 .map(DestinyEntitiesItemsDestinyItemSocketState::getReusablePlugHashes)
                 .filter(Objects::nonNull)
                 .map(plugHashes -> new PerkChoice(plugHashes, itemDefinitions)).collect(Collectors.toList());
