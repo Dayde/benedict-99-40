@@ -1,11 +1,16 @@
 <div class="item-container">
     <img src="https://www.bungie.net{{icon}}" alt="{{name}}">
     <div class="top-right">{{powerLevel}}</div>
-    <div class="perk-container">
+    <div class="item-sockets">
         {{#perks}}
-        {{#choices}}
-        <img src="https://www.bungie.net{{icon}}" alt="{{name}}">
-        {{/choices}}
+        <div class="item-socket">
+            {{#choices}}
+            <div class="socket-container">
+                <img src="https://www.bungie.net{{icon}}" alt="{{name}}">
+            </div>
+            {{/choices}}
+        </div>
         {{/perks}}
     </div>
 </div>
+

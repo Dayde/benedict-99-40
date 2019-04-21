@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static fr.destiny.vacuum.web.utils.Utils.mergeMaps;
 
 
 @Service
@@ -71,6 +72,7 @@ public class ItemService {
 
             instanceIds.forEach(instanceId ->
                     itemInstances.add(new ItemInstance(
+                            instanceId,
                             instances.get(Long.toString(instanceId)),
                             sockets.get(Long.toString(instanceId)),
                             itemDefinition,
@@ -119,20 +121,6 @@ public class ItemService {
         return itemInstanceIds;
     }
 
-    private Map<Long, Set<Long>> mergeMaps(Map<Long, Set<Long>> map1, Map<Long, Set<Long>> map2) {
-        return Stream.concat(
-                map1.entrySet().stream(),
-                map2.entrySet().stream()
-        ).collect(Collectors.toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue,
-                (set1, set2) -> {
-                    Set<Long> mergedSet = new HashSet<>(set1);
-                    mergedSet.addAll(set2);
-                    return mergedSet;
-                }
-        ));
-    }
 
     private DestinyResponsesDestinyProfileResponse getProfile(Long membershipId, Integer membershipType) {
         List<DestinyDestinyComponentType> requiredComponents = Arrays.asList(
