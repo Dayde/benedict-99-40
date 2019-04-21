@@ -1,19 +1,28 @@
 body {
-    background-color: black;
+    background-color: #414141;
 }
 
 h1 {
     color: white;
 }
 
-.item-container {
-    position: relative;
-    text-align: center;
-    color: white;
-    display: inline-block;
+.item-containers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.item-container > img {
+.item-container {
+    display: flex;
+    flex-direction: column;
+    margin: 2px
+}
+
+.item-image {
+    position: relative;
+}
+
+.item-image > img {
     border: 1px solid white;
 }
 
@@ -21,7 +30,6 @@ h1 {
     position: absolute;
     top: 1px;
     right: 1px;
-    display: inline;
     padding: 3px;
     background-color: dimgrey;
     text-align: right;
@@ -39,16 +47,14 @@ h1 {
 }
 
 .socket-container {
-    position: relative;
-    display: inline-block;
+    display: inline-flex;
     border: 1px solid #999999;
     border-radius: 50%;
-    transform: scale(0.9);
+    margin: 2px;
 }
 
-.socket-container img {
+.socket-container > img {
     width: 30px;
     height: 30px;
-    display: block;
+    padding: 2px;
 }
-

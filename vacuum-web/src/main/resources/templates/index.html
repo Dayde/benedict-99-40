@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="styles.css">
@@ -7,16 +8,19 @@
 
 <h1>Sort</h1>
 
-{{#sort}}
-{{>item}}
-{{/sort}}
+<div class="item-containers">
+    {{#sort}}
+    {{>item}}
+    {{/sort}}
+</div>
 
 <h1>Keep</h1>
 
-{{#keep}}
-{{>item}}
-{{/keep}}
-
+<div class="item-containers">
+    {{#keep}}
+    {{>item}}
+    {{/keep}}
+</div>
 
 </body>
 </html>
