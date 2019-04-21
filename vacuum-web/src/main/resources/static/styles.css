@@ -19,12 +19,14 @@ h1 {
 .item-container {
     display: flex;
     flex-direction: column;
-    margin: 2px;
+    margin: 4px;
     align-items: center;
 }
 
 .item-image {
     position: relative;
+    width: 100px;
+    height: 100px;
 }
 
 .item-image > img {
@@ -45,12 +47,13 @@ h1 {
 .item-sockets {
     display: flex;
     flex-direction: row;
+    background-color: rgba(100, 100, 100, 1);
+    padding: 4px;
 }
 
 .item-socket {
     display: flex;
     flex-direction: column;
-    background-color: rgba(100, 100, 100, 1);
 }
 
 .socket-container {
