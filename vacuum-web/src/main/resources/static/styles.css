@@ -1,5 +1,9 @@
+* {
+    font-family: sans-serif;
+}
+
 body {
-    background-color: #414141;
+    background-color: rgba(50, 50, 50, 1);
 }
 
 h1 {
@@ -23,17 +27,18 @@ h1 {
 }
 
 .item-image > img {
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 .top-right {
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: 2px;
+    right: 2px;
     padding: 3px;
-    background-color: dimgrey;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9) 70%);
+    color: white;
     text-align: right;
-    width: 25px;
+    width: 50px;
 }
 
 .item-sockets {
@@ -48,13 +53,14 @@ h1 {
 
 .socket-container {
     display: inline-flex;
-    border: 1px solid #999999;
+    border: 1px solid rgba(100, 100, 100, 1);
     border-radius: 50%;
     margin: 2px;
+    background-color: rgba(25, 25, 25, 1);
 }
 
 .socket-container > img {
     width: 30px;
     height: 30px;
-    padding: 2px;
+    padding: 5px;
 }
