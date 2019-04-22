@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacuum</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Vacuuming your vault has never been that easy.</h1>
+    <form method="get" action="items">
+        <div class="form-entries">
+            <div class="labels">
+                <label for="username">Username</label>
+                <label for="platform">Platform</label>
+                <label for="classType">Class</label>
+                <label for="itemCategory">Gear type</label>
+            </div>
+            <div class="inputs">
+                <input type="text" name="username" id="username" autocomplete="on" required>
+                <select name="platform" id="platform" required>
+                    <option value="">-- Choose your platform --</option>
+                    <option value="1">Xbox</option>
+                    <option value="2">Playstation</option>
+                    <option value="4">PC</option>
+                </select>
+                <select name="classType" id="classType" required>
+                    <option value="">-- Choose your class --</option>
+                    <option value="TITAN">Titan</option>
+                    <option value="HUNTER">Hunter</option>
+                    <option value="WARLOCK">Warlock</option>
+                </select>
+                <select name="itemCategory" id="itemCategory" required>
+                    <option value="">-- What are we vacuuming --</option>
+                    <option value="ARMOR">Armors</option>
+                    <option value="HELMET">Helmets</option>
+                    <option value="GAUNTLETS">Gauntlets</option>
+                    <option value="CHEST_ARMOR">Chest Armors</option>
+                    <option value="LEG_ARMOR">Leg Armors</option>
+                    <option value="CLASS_ARMOR">Class Armors</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" value="Vacuum" class="submit">
+    </form>
+</div>
+
+</body>
+</html>

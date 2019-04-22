@@ -23,7 +23,7 @@ public class VacuumController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/")
+    @RequestMapping("/user")
     public String userInfo(@RequestParam String username) {
         return userService.userInfo(username).toString();
     }
@@ -91,6 +91,6 @@ public class VacuumController {
         Map<String, Object> model = new HashMap<>();
         model.put("keep", toKeepSorted);
         model.put("sort", toSortSorted);
-        return new ModelAndView("index", model);
+        return new ModelAndView("result", model);
     }
 }

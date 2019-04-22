@@ -4,10 +4,41 @@
 
 body {
     background-color: rgba(50, 50, 50, 1);
+    color: white;
 }
 
 h1 {
-    color: white;
+    text-align: center;
+}
+
+.form-container, .form-container > form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-entries {
+    display: flex;
+    justify-content: center;
+}
+
+.labels, .inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+label, input, select {
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
+}
+
+.submit {
+    font-size: xx-large;
+    width: 80px;
+    margin: auto;
 }
 
 .item-containers {
