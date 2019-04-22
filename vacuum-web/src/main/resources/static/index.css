@@ -8,41 +8,70 @@ body {
     margin: 0;
 }
 
-h1 {
+.title {
     text-align: center;
 }
 
-.form-container, .form-container > form {
+.form-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.form-entries {
+.form-container > form {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+
 }
 
-.labels, .inputs {
+.form-container > form > div {
     display: flex;
-    flex-direction: column;
 }
 
-label, input, select {
-    margin-bottom: 10px;
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-label {
-    padding-right: 10px;
+[type=radio] + img {
+    cursor: pointer;
+    filter: brightness(65%);
+}
+
+[type=radio]:checked + img {
+    background-color: rgba(100, 100, 100, 1);
+    border: darkgray solid 2px;
+    margin: 0;
+    filter: brightness(100%);
+}
+
+.form-img {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+}
+
+.platform-img {
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    margin: 2px;
+}
+
+#username {
+    margin: auto;
 }
 
 .submit {
     font-size: large;
+    height: 50px;
 }
 
 iframe {
     position: absolute;
     border: none;
     width: 100%;
-    height: 74%;
+    height: 84%;
 }
