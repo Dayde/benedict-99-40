@@ -1,1 +1,1 @@
-web: java -jar target/benedict-web/target/benedict-web-*
+web: java -jar benedict-web/target/benedict-web-*.jar
