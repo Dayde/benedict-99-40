@@ -23,6 +23,42 @@ public class BenedictController {
     @Autowired
     private ItemService itemService;
 
+    @RequestMapping("/")
+    public ModelAndView index(
+            @RequestParam(required = false) String username,
+            @RequestParam(required = false) String platform,
+            @RequestParam(required = false) String classType) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("username", username);
+        if (platform != null) {
+            switch (platform) {
+                case "1":
+                    model.put("xbox", true);
+                    break;
+                case "2":
+                    model.put("playstation", true);
+                    break;
+                case "4":
+                    model.put("battlenet", true);
+                    break;
+            }
+        }
+        if (classType != null) {
+            switch (classType) {
+                case "TITAN":
+                    model.put("titan", true);
+                    break;
+                case "HUNTER":
+                    model.put("hunter", true);
+                    break;
+                case "WARLOCK":
+                    model.put("warlock", true);
+                    break;
+            }
+        }
+        return new ModelAndView("index", model);
+    }
+
     @RequestMapping("/user")
     public String userInfo(@RequestParam String username) {
         return userService.userInfo(username).toString();

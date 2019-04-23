@@ -13,37 +13,38 @@
     <h2 class="title">Benedict 99-40 helps you sweep your vault</h2>
     <form method="get" action="items" target="result">
         <div>
-            <input type="text" name="username" id="username" placeholder="Username" required>
+            <input type="text" name="username" id="username" placeholder="Username"
+                   {{#username}}value="{{username}}" {{/username}} required>
         </div>
 
         <div>
             <label>
-                <input type="radio" name="platform" value="1">
+                <input type="radio" name="platform" value="1" {{#xbox}}checked{{/xbox}}>
                 <i class="fab fa-xbox platform-icon"></i>
             </label>
             <label>
-                <input type="radio" name="platform" value="2">
+                <input type="radio" name="platform" value="2" {{#playstation}}checked{{/playstation}}>
                 <i class="fab fa-playstation  platform-icon"></i>
             </label>
             <label>
-                <input type="radio" name="platform" value="4">
+                <input type="radio" name="platform" value="4" {{#battlenet}}checked{{/battlenet}}>
                 <i class="fab fa-battle-net platform-icon"></i>
             </label>
         </div>
 
         <div>
             <label>
-                <input type="radio" name="classType" id="titan" value="TITAN">
+                <input type="radio" name="classType" id="titan" value="TITAN" {{#titan}}checked{{/titan}}>
                 <img src="https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png"
                      class="form-img">
             </label>
             <label>
-                <input type="radio" name="classType" id="hunter" value="HUNTER" class="hunter">
+                <input type="radio" name="classType" id="hunter" value="HUNTER" {{#hunter}}checked{{/hunter}}>
                 <img src="https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png"
                      class="form-img">
             </label>
             <label>
-                <input type="radio" name="classType" id="warlock" value="WARLOCK" class="warlock">
+                <input type="radio" name="classType" id="warlock" value="WARLOCK" {{#warlock}}checked{{/warlock}}>
                 <img src="https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png"
                      class="form-img">
             </label>
