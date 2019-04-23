@@ -19,7 +19,9 @@ public class ItemInstance implements Comparable {
     private String icon;
     private String tierType;
     private int powerLevel;
+    private boolean masterwork;
     private List<PerkChoice> perks;
+
 
     public ItemInstance(long instanceId,
                         DestinyEntitiesItemsDestinyItemInstanceComponent instance,
@@ -31,6 +33,16 @@ public class ItemInstance implements Comparable {
         this.icon = itemDefinition.getDisplayProperties().getIcon();
         this.tierType = itemDefinition.getInventory().getTierTypeName();
         this.powerLevel = instance.getPrimaryStat().getValue();
+        this.masterwork = socketsComponent.getSockets()
+                .stream()
+                .anyMatch(
+                        plug -> plug != null
+                                && plug.getPlugHash() != null
+                                && itemDefinitions.get(plug.getPlugHash())
+                                .getDisplayProperties()
+                                .getName()
+                                .equals("Masterwork")
+                );
         this.perks = socketsComponent.getSockets()
                 .stream()
                 .filter(plug -> {
@@ -58,6 +70,10 @@ public class ItemInstance implements Comparable {
 
     public int getPowerLevel() {
         return powerLevel;
+    }
+
+    public boolean isMasterwork() {
+        return masterwork;
     }
 
     public List<PerkChoice> getPerks() {
