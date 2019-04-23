@@ -32,7 +32,7 @@ public class BenedictConfig {
 
     public static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
 
-    @Value("${api.key}")
+    @Value("${BUNGIE_API_KEY}")
     private String apiKey;
 
     @Bean
