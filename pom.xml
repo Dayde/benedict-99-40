@@ -15,7 +15,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>[${project.packaging}] ${project.artifactId} :: ${project.version}</name>
-    <description>Vacuuming your vault has never been that easy !</description>
+    <description>Benedict 99-40 helps you sweep your vault</description>
 
     <modules>
         <module>bungie-client-api</module>
