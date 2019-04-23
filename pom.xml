@@ -11,15 +11,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.destiny</groupId>
-    <artifactId>vacuum</artifactId>
+    <artifactId>benedict</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>[${project.packaging}] ${project.artifactId} :: ${project.version}</name>
     <description>Vacuuming your vault has never been that easy !</description>
 
     <modules>
-        <module>vacuum-client-api</module>
-        <module>vacuum-web</module>
+        <module>bungie-client-api</module>
+        <module>benedict-web</module>
     </modules>
 
     <properties>
@@ -44,7 +44,7 @@
 
             <dependency>
                 <groupId>fr.destiny</groupId>
-                <artifactId>vacuum-client-api</artifactId>
+                <artifactId>bungie-client-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

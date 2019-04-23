@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>benedict</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="form-container">
+    <h2 class="title">Benedict 99-40 helps your sweep your vault</h2>
+    <form method="get" action="items" target="result">
+        <div>
+            <input type="text" name="username" id="username" placeholder="Username" required>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="platform" value="1">
+                <img src="icons/xbox.svg" class="platform-img">
+            </label>
+            <label>
+                <input type="radio" name="platform" value="2">
+                <img src="icons/playstation.svg" class="platform-img">
+            </label>
+            <label>
+                <input type="radio" name="platform" value="4">
+                <img src="icons/blizzard.svg" class="platform-img">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="classType" id="titan" value="TITAN">
+                <img src="https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png"
+                     class="form-img">
+            </label>
+            <label>
+                <input type="radio" name="classType" id="hunter" value="HUNTER" class="hunter">
+                <img src="https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png"
+                     class="form-img">
+            </label>
+            <label>
+                <input type="radio" name="classType" id="warlock" value="WARLOCK" class="warlock">
+                <img src="https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png"
+                     class="form-img">
+            </label>
+        </div>
+
+        <div class="gear-type">
+            <label>
+                <input type="radio" name="itemCategory" id="armor" value="ARMOR">
+                <img src="https://bungie.net/common/destiny2_content/icons/ba288981fc651ad3dc23f3c211e8b209.jpg"
+                     class="form-img">
+            </label>
+            <label>
+                <input type="radio" name="itemCategory" id="helmet" value="HELMET">
+                <img src="https://bungie.net/common/destiny2_content/icons/898624eb5964b7456a03bfa70467fe2d.jpg"
+                     class="titan form-img">
+            </label>
+            <label>
+                <input type="radio" name="itemCategory" id="gauntlets" value="GAUNTLETS">
+                <img src="https://bungie.net/common/destiny2_content/icons/5adad1c8a4bf69befae8f3798802204e.jpg"
+                     class="titan form-img">
+            </label>
+            <label>
+                <input type="radio" name="itemCategory" id="chest_armor" value="CHEST_ARMOR">
+                <img src="https://bungie.net/common/destiny2_content/icons/ab8935563ab99a73e4b7741d2563c266.jpg"
+                     class="titan form-img">
+            </label>
+            <label>
+                <input type="radio" name="itemCategory" id="leg_armor" value="LEG_ARMOR">
+                <img src="https://bungie.net/common/destiny2_content/icons/878e0a9a1ac7b5f81937ff574c3979ff.jpg"
+                     class="titan form-img">
+            </label>
+            <label>
+                <input type="radio" name="itemCategory" id="class_armor" value="CLASS_ARMOR">
+                <img src="https://bungie.net/common/destiny2_content/icons/f6fa8c7171f6396f1dc6f8b14c17c927.jpg"
+                     class="titan form-img">
+            </label>
+        </div>
+        <input type="submit" value="sweep" class="submit">
+    </form>
+</div>
+
+<iframe id="result" name="result"></iframe>
+
+</body>
+</html>

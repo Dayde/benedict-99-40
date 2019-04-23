@@ -1,4 +1,4 @@
 [submodule "vacuum-client-api/src/api"]
-	path = vacuum-client-api/src/api
+	path = bungie-client-api/src/api
 	url = https://github.com/Bungie-net/api.git
 	branch = master

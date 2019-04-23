@@ -1,3 +1,3 @@
-# Vacuum [![CircleCI](https://circleci.com/gh/Dayde/vacuum.svg?style=svg)](https://circleci.com/gh/Dayde/vacuum)
+# Benedict 99-40 [![CircleCI](https://circleci.com/gh/Dayde/benedict-99-40.svg?style=svg)](https://circleci.com/gh/Dayde/benedict-99-40)
 
-#### Vacuuming your vault has never been that easy !
+#### Benedict 99-40 helps your sweep your vault
