@@ -35,12 +35,12 @@ body {
     height: 0;
 }
 
-[type=radio] + img {
+[type=radio] + img, [type=radio] + i {
     cursor: pointer;
     filter: brightness(65%);
 }
 
-[type=radio]:checked + img {
+[type=radio]:checked + img, [type=radio]:checked + i {
     background-color: rgba(100, 100, 100, 1);
     border: darkgray solid 2px;
     margin: 0;
@@ -53,9 +53,8 @@ body {
     margin: 2px;
 }
 
-.platform-img {
-    width: 30px;
-    height: 30px;
+.platform-icon {
+    font-size: 30px;
     padding: 10px;
     margin: 2px;
 }
