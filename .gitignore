@@ -30,3 +30,6 @@ target/
 
 ### MacOS ###
 .DS_Store
+
+### External resources ###
+bungie-client-api/src/api/openapi.json
