@@ -37,6 +37,7 @@
         <mockito.version>2.26.0</mockito.version>
         <spring-jdbc.version>5.1.5.RELEASE</spring-jdbc.version>
         <sqlite-jdbc.version>3.27.2.1</sqlite-jdbc.version>
+        <downloader.version>1.4.1</downloader.version>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +96,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.googlecode.maven-download-plugin</groupId>
+                    <artifactId>download-maven-plugin</artifactId>
+                    <version>${downloader.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
