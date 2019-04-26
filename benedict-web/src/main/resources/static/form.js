@@ -8,38 +8,9 @@ const Form = {
                        type="text" v-model="username">
             </div>
 
-            <div>
-                <label>
-                    <input name="platform" type="radio" v-model="platform" value="1">
-                    <i class="fab fa-xbox platform-icon"></i>
-                </label>
-                <label>
-                    <input name="platform" type="radio" v-model="platform" value="2">
-                    <i class="fab fa-playstation  platform-icon"></i>
-                </label>
-                <label>
-                    <input name="platform" type="radio" v-model="platform" value="4">
-                    <i class="fab fa-battle-net platform-icon"></i>
-                </label>
-            </div>
-
-            <div>
-                <label>
-                    <input id="titan" name="classType" type="radio" v-model="classType" value="TITAN">
-                    <img class="form-img"
-                         src="https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png">
-                </label>
-                <label>
-                    <input id="hunter" name="classType" type="radio" v-model="classType" value="HUNTER">
-                    <img class="form-img"
-                         src="https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png">
-                </label>
-                <label>
-                    <input id="warlock" name="classType" type="radio" v-model="classType" value="WARLOCK">
-                    <img class="form-img"
-                         src="https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png">
-                </label>
-            </div>
+            <platform v-model="platform"></platform>
+            
+            <class-type v-model="classType"></class-type>
 
             <div class="gear-type">
                 <label>
@@ -82,18 +53,20 @@ const Form = {
         </form>
     </div>
 `,
-    props: [
-        'platform',
-        'username',
-        'classType',
-        'itemCategory'
-    ],
+    data() {
+        return {
+            username: this.$route.params.username,
+            platform: this.$route.params.platform,
+            classType: this.$route.params.classType,
+            itemCategory: this.$route.params.itemCategory
+        };
+    },
     watch: {
-        platform(newVal) {
-            this.$router.push({params: {...this.$route.params, platform: newVal}});
-        },
         username(newVal) {
             this.$router.push({params: {...this.$route.params, username: newVal}});
+        },
+        platform(newVal) {
+            this.$router.push({params: {...this.$route.params, platform: newVal}});
         },
         classType(newVal) {
             this.$router.push({params: {...this.$route.params, classType: newVal}});
