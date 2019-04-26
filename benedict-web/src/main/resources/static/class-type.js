@@ -38,6 +38,12 @@ const ClassType = {
             classType: null
         }
     },
+    created() {
+        if (localStorage.classType) {
+            this.$router.push({path: `/${localStorage.username}/${localStorage.platform}/${localStorage.classType}/${localStorage.itemCategory}`});
+        }
+        this.debouncedFetchPlayers = _.debounce(this.fetchPlayers, 500)
+    },
     watch: {
         classType(newVal) {
             let username = this.$route.params.username;

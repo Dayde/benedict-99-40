@@ -17,24 +17,32 @@ const Header = {
     </div>
 `,
     data() {
+        localStorage.username = this.$route.params.username;
+        localStorage.platform = this.$route.params.platform;
+        localStorage.classType = this.$route.params.classType;
+        localStorage.itemCategory = this.$route.params.itemCategory;
         return {
-            username: this.$route.params.username,
-            platform: this.$route.params.platform,
-            classType: this.$route.params.classType,
-            itemCategory: this.$route.params.itemCategory
+            username: localStorage.username,
+            platform: localStorage.platform,
+            classType: localStorage.classType,
+            itemCategory: localStorage.itemCategory
         };
     },
     watch: {
         username(newVal) {
+            localStorage.username = newVal;
             this.$router.push({params: {...this.$route.params, username: newVal}});
         },
         platform(newVal) {
+            localStorage.platform = newVal;
             this.$router.push({params: {...this.$route.params, platform: newVal}});
         },
         classType(newVal) {
+            localStorage.classType = newVal;
             this.$router.push({params: {...this.$route.params, classType: newVal}});
         },
         itemCategory(newVal) {
+            localStorage.itemCategory = newVal;
             this.$router.push({params: {...this.$route.params, itemCategory: newVal}});
         }
     }
