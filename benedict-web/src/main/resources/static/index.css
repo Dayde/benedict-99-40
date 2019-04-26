@@ -23,20 +23,20 @@ html, body, #app {
     text-align: center;
 }
 
-.form-container {
+.header {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     flex-direction: column;
 }
 
-.form-container > form {
+.form-container {
     display: flex;
     justify-content: space-evenly;
 
 }
 
-.form-container > form > div {
+.form-container > div {
     display: flex;
 }
 

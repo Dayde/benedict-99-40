@@ -29,7 +29,7 @@ const routes = [
     {
         path: '/:username/:platform/:classType/:itemCategory',
         components: {
-            default: Form,
+            default: Header,
             result: Result
         },
         props: {

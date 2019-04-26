@@ -1,8 +1,8 @@
-const Form = {
+const Header = {
     template: `
-    <div class="form-container">
+    <div class="header">
         <h2 class="title">Benedict 99-40 helps you sweep your vault</h2>
-        <form action="items" method="get" target="result">
+        <div class="form-container">
             <div>
                 <input id="username" name="username" placeholder="Username" required
                        type="text" v-model="username">
@@ -50,7 +50,7 @@ const Form = {
                          src="https://bungie.net/common/destiny2_content/icons/f6fa8c7171f6396f1dc6f8b14c17c927.jpg">
                 </label>
             </div>
-        </form>
+        </div>
     </div>
 `,
     data() {
