@@ -12,6 +12,50 @@ html, body, #app {
     flex-direction: column;
 }
 
+.home {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+input[type=text] {
+    font-size: 20px;
+    width: 170px;
+    background-color: rgba(100, 100, 100, 0.5);
+    border: none;
+    padding: 6px;
+    color: white;
+    outline-color: white;
+}
+
+input[type=text]:focus {
+    background-color: rgba(100, 100, 100, 1);
+}
+
+.player {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.players {
+    height: 100px;
+}
+
+.choose-class {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.choose-class .form-img {
+    width: 100px;
+    height: 100px;
+}
+
 .loading {
     display: flex;
     flex: auto;

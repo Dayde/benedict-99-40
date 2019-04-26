@@ -28,6 +28,11 @@ public class BenedictController {
         return userService.userInfo(username).toString();
     }
 
+    @RequestMapping("/player")
+    public List<Player> playerInfo(@RequestParam String username) {
+        return userService.retrievePlayer(username);
+    }
+
     @RequestMapping("/items")
     public Map<String, Object> items(@RequestParam String username, @RequestParam String platform, @RequestParam String classType, @RequestParam String itemCategory) {
         Integer membershipType = BungieMembershipType.fromValue(platform).getValue();

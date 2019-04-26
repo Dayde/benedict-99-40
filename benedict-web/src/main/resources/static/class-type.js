@@ -32,7 +32,7 @@ Vue.component('class-type', {
 });
 
 const ClassType = {
-    template: '<class-type v-model="classType"></class-type>',
+    template: '<class-type v-model="classType" class="choose-class"></class-type>',
     data() {
         return {
             classType: null

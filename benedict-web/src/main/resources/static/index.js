@@ -9,15 +9,6 @@ const routes = [
         }
     },
     {
-        path: '/:username',
-        components: {
-            default: Platform
-        },
-        props: {
-            default: true
-        }
-    },
-    {
         path: '/:username/:platform',
         components: {
             default: ClassType

@@ -1,16 +1,51 @@
 const Home = {
     template: `
-<div>
-    <p>
-        <span>Hi there :) what's your name ?</span>
-        <input v-model="username">  
-    </p>
-    <router-link :to="'/' + username">Confirm</router-link>
+<div class="home">
+    <h1>Welcome guardian, may I ask your name ?</h1>
+    <div>
+        <input type="text" v-model="username" placeholder="Username">
+    </div>
+    <div class="players">
+        <div v-if="notFound">
+            No mention of that name was found in the archives
+        </div>
+        <router-link :to="'/' + user.username + '/' + user.platform" v-for="user in users" class="player">
+            <i v-if="user.platform===1" class="fab fa-xbox"></i>
+            <i v-if="user.platform===2" class="fab fa-playstation"></i>
+            <i v-if="user.platform===4" class="fab fa-battle-net"></i>
+            {{user.username}}
+        </router-link>
+    </div>
 </div>
 `,
     data() {
         return {
-            username: ''
+            username: '',
+            users: [],
+            notFound: false
+        }
+    },
+    watch: {
+        username(newVal) {
+            if (newVal) {
+                this.debouncedFetchPlayers(newVal);
+            } else {
+                this.users = [];
+            }
+        }
+    },
+    created() {
+        this.debouncedFetchPlayers = _.debounce(this.fetchPlayers, 500)
+    },
+    methods: {
+        fetchPlayers(username) {
+            this.notFound = false;
+            axios
+                .get('/api/player', {params: {username}})
+                .then(response => {
+                    this.users = response.data;
+                    this.notFound = this.users.length === 0;
+                });
         }
     }
 };

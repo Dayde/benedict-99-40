@@ -74,19 +74,14 @@ const Result = {
         fetchData(username, platform, classType, itemCategory) {
             this.error = false;
             this.loading = true;
-            let url = '/api/items?';
-            url += 'username=' + username;
-            url += '&platform=' + platform;
-            url += '&classType=' + classType;
-            url += '&itemCategory=' + itemCategory;
             axios
-                .get(url)
+                .get('/api/items', {params: {username, platform, classType, itemCategory}})
                 .then(response => {
                     this.loading = false;
                     this.sort = response.data.sort;
                     this.keep = response.data.keep;
                 }, error => {
-                    this.error = true
+                    this.error = true;
                     this.loading = false;
                 });
         }
