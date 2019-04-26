@@ -9,18 +9,16 @@ public class Perk {
     private String name;
     private String icon;
     private boolean primary;
-    private boolean current;
 
-    Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition, boolean current) {
-        this(itemDefinition, true, current);
+    Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition) {
+        this(itemDefinition, true);
     }
 
-    Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition, boolean primary, boolean current) {
+    Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition, boolean primary) {
         this.hash = itemDefinition.getHash();
         this.name = itemDefinition.getDisplayProperties().getName();
         this.icon = itemDefinition.getDisplayProperties().getIcon();
         this.primary = primary;
-        this.current = current;
     }
 
     public long getHash() {
@@ -37,10 +35,6 @@ public class Perk {
 
     public boolean isPrimary() {
         return primary;
-    }
-
-    public boolean isCurrent() {
-        return current;
     }
 
     @Override

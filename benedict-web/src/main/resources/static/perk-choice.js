@@ -1,10 +1,12 @@
 Vue.component('perk-choice', {
     template: `
-<div class="item-socket">
-    <perk :perk="perk" v-for="perk in perks"></perk>
+<div>
+    <div class="item-socket" v-for="perk in perkChoice.choices">
+        <perk :perk="perk" :class="{'socket-current': perk.hash===perkChoice.currentPerkHash}"></perk>
+    </div>
 </div>
 `,
     props: {
-        perks: Array
+        perkChoice: Object
     }
 });

@@ -10,15 +10,17 @@ import static fr.destiny.benedict.web.utils.Utils.GENERIC_PERKS;
 
 public class PerkChoice {
 
+    private long currentPerkHash;
     private List<Perk> choices;
 
     PerkChoice(Long currentPlugHash, List<Long> reusablePlugHashes, Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions) {
+        this.currentPerkHash = currentPlugHash;
         this.choices = new ArrayList<>();
         reusablePlugHashes.forEach(plugHash -> {
-            choices.add(new Perk(itemDefinitions.get(plugHash), plugHash.equals(currentPlugHash)));
+            choices.add(new Perk(itemDefinitions.get(plugHash)));
             if (GENERIC_PERKS.containsKey(plugHash)) {
                 GENERIC_PERKS.get(plugHash).forEach(hash ->
-                        choices.add(new Perk(itemDefinitions.get(hash), false, hash.equals(currentPlugHash))));
+                        choices.add(new Perk(itemDefinitions.get(hash), false)));
             }
         });
     }
@@ -27,5 +29,7 @@ public class PerkChoice {
         return choices;
     }
 
-
+    public long getCurrentPerkHash() {
+        return currentPerkHash;
+    }
 }

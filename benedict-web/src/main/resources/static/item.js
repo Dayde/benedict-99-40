@@ -7,9 +7,7 @@ Vue.component('item', {
         <span class="top-right">{{item.powerLevel}}</span>
     </div>
     <div class="item-sockets">
-        <div v-for="perks in item.perks">
-            <perk-choice :perks="choice" v-for="choice in perks"></perk-choice>
-        </div>
+        <perk-choice :perkChoice="perkChoice" v-for="perkChoice in item.perks"></perk-choice>
     </div>
 </div>
 `,
