@@ -74,15 +74,26 @@ const Result = {
         fetchData(username, platform, classType, itemCategory) {
             this.error = false;
             this.loading = true;
+            if (this.call) {
+                this.call.cancel();
+            }
+            this.call = axios.CancelToken.source();
             axios
-                .get('/api/items', {params: {username, platform, classType, itemCategory}})
+                .get('/api/items', {
+                    params: {username, platform, classType, itemCategory},
+                    cancelToken: this.call.token
+                })
                 .then(response => {
                     this.loading = false;
                     this.sort = response.data.sort;
                     this.keep = response.data.keep;
                 }, error => {
-                    this.error = true;
-                    this.loading = false;
+                    if (axios.isCancel(error)) {
+                        // another request was made no worry
+                    } else {
+                        this.error = true;
+                        this.loading = false;
+                    }
                 });
         }
     }
