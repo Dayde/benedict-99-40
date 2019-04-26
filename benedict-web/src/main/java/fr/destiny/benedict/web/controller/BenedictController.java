@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 public class BenedictController {
 
     @Autowired
@@ -23,49 +23,13 @@ public class BenedictController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/")
-    public ModelAndView index(
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String platform,
-            @RequestParam(required = false) String classType) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("username", username);
-        if (platform != null) {
-            switch (platform) {
-                case "1":
-                    model.put("xbox", true);
-                    break;
-                case "2":
-                    model.put("playstation", true);
-                    break;
-                case "4":
-                    model.put("battlenet", true);
-                    break;
-            }
-        }
-        if (classType != null) {
-            switch (classType) {
-                case "TITAN":
-                    model.put("titan", true);
-                    break;
-                case "HUNTER":
-                    model.put("hunter", true);
-                    break;
-                case "WARLOCK":
-                    model.put("warlock", true);
-                    break;
-            }
-        }
-        return new ModelAndView("index", model);
-    }
-
     @RequestMapping("/user")
     public String userInfo(@RequestParam String username) {
         return userService.userInfo(username).toString();
     }
 
     @RequestMapping("/items")
-    public ModelAndView items(@RequestParam String username, @RequestParam String platform, @RequestParam String classType, @RequestParam String itemCategory) {
+    public Map<String, Object> items(@RequestParam String username, @RequestParam String platform, @RequestParam String classType, @RequestParam String itemCategory) {
         Integer membershipType = BungieMembershipType.fromValue(platform).getValue();
         Long membershipId = userService.destinyMembershipid(username, membershipType);
 
@@ -124,9 +88,9 @@ public class BenedictController {
         toKeepSorted.sort(Comparator.reverseOrder());
 
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("keep", toKeepSorted);
-        model.put("sort", toSortSorted);
-        return new ModelAndView("result", model);
+        Map<String, Object> result = new HashMap<>();
+        result.put("keep", toKeepSorted);
+        result.put("sort", toSortSorted);
+        return result;
     }
 }
