@@ -1,6 +1,9 @@
 const Result = {
     template: `
-<div v-if="loading" class="loading fa-9x">
+<div v-if="error" class="loading">
+    Please check if everything's right up there. 
+</div>
+<div v-else-if="loading" class="loading fa-9x">
   <i class="fas fa-sync fa-spin"></i>
 </div>
 <div v-else class="result">
@@ -16,6 +19,7 @@ const Result = {
 `,
     data() {
         return {
+            error: false,
             loading: true,
             sort: null,
             keep: null
@@ -68,6 +72,7 @@ const Result = {
     },
     methods: {
         fetchData(username, platform, classType, itemCategory) {
+            this.error = false;
             this.loading = true;
             let url = '/api/items?';
             url += 'username=' + username;
@@ -80,6 +85,9 @@ const Result = {
                     this.loading = false;
                     this.sort = response.data.sort;
                     this.keep = response.data.keep;
+                }, error => {
+                    this.error = true
+                    this.loading = false;
                 });
         }
     }
