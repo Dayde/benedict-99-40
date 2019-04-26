@@ -150,9 +150,11 @@ input[type=text]:focus {
 }
 
 .item-image > img.masterwork {
-    border: 3px solid rgba(255, 215, 0, 1);
-    outline: 2px solid rgba(255, 215, 0, 0.5);
-    outline-offset: -5px;
+    position: absolute;
+    top: 0;
+    border: none;
+    width: 100px;
+    height: 100px;
 }
 
 .top-right {
