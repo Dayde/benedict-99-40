@@ -22,35 +22,65 @@ const Result = {
         }
     },
     mounted() {
-        this.loading = true;
-        let url = '/api/items?';
-        url += 'username=' + this.$route.params.username;
-        url += '&platform=' + this.$route.params.platform;
-        url += '&classType=' + this.$route.params.classType;
-        url += '&itemCategory=' + this.$route.params.itemCategory;
-        axios
-            .get(url)
-            .then(response => {
-                this.loading = false;
-                this.sort = response.data.sort;
-                this.keep = response.data.keep;
-            })
+        this.fetchData(
+            this.$route.params.username,
+            this.$route.params.platform,
+            this.$route.params.classType,
+            this.$route.params.itemCategory
+        )
     },
     watch: {
-        '$route'(newVal) {
+        '$route.params.username'(newVal) {
+            this.debouncedGetAnswer(
+                newVal,
+                this.$route.params.platform,
+                this.$route.params.classType,
+                this.$route.params.itemCategory
+            )
+        },
+        '$route.params.platform'(newVal) {
+            this.fetchData(
+                this.$route.params.username,
+                newVal,
+                this.$route.params.classType,
+                this.$route.params.itemCategory
+            )
+        },
+        '$route.params.classType'(newVal) {
+            this.fetchData(
+                this.$route.params.username,
+                this.$route.params.platform,
+                newVal,
+                this.$route.params.itemCategory
+            )
+        },
+        '$route.params.itemCategory'(newVal) {
+            this.fetchData(
+                this.$route.params.username,
+                this.$route.params.platform,
+                this.$route.params.classType,
+                newVal
+            )
+        }
+    },
+    created() {
+        this.debouncedGetAnswer = _.debounce(this.fetchData, 500)
+    },
+    methods: {
+        fetchData(username, platform, classType, itemCategory) {
             this.loading = true;
             let url = '/api/items?';
-            url += 'username=' + newVal.params.username;
-            url += '&platform=' + newVal.params.platform;
-            url += '&classType=' + newVal.params.classType;
-            url += '&itemCategory=' + newVal.params.itemCategory;
+            url += 'username=' + username;
+            url += '&platform=' + platform;
+            url += '&classType=' + classType;
+            url += '&itemCategory=' + itemCategory;
             axios
                 .get(url)
                 .then(response => {
                     this.loading = false;
                     this.sort = response.data.sort;
                     this.keep = response.data.keep;
-                })
+                });
         }
     }
 };

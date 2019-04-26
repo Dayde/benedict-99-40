@@ -1,6 +1,6 @@
 const routes = [
     {
-        path: '/:platform/:username/:classType/:itemCategory',
+        path: '/:username/:platform/:classType/:itemCategory',
         components: {
             form: Form,
             result: Result
