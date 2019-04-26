@@ -12,20 +12,19 @@ public class PerkChoice {
 
     private List<Perk> choices;
 
-
-    public List<Perk> getChoices() {
-        return choices;
-    }
-
     PerkChoice(List<Long> reusablePlugHashes, Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions) {
         this.choices = new ArrayList<>();
         reusablePlugHashes.forEach(plugHash -> {
             choices.add(new Perk(itemDefinitions.get(plugHash)));
             if (GENERIC_PERKS.containsKey(plugHash)) {
                 GENERIC_PERKS.get(plugHash).forEach(hash ->
-                        choices.add(new Perk(itemDefinitions.get(hash))));
+                        choices.add(new Perk(itemDefinitions.get(hash), false)));
             }
         });
+    }
+
+    public List<Perk> getChoices() {
+        return choices;
     }
 
 
