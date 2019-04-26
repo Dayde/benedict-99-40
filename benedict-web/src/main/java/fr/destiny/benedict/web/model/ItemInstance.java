@@ -3,7 +3,6 @@ package fr.destiny.benedict.web.model;
 import fr.destiny.api.model.DestinyDefinitionsDestinyInventoryItemDefinition;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemInstanceComponent;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemSocketsComponent;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -52,8 +51,14 @@ public class ItemInstance implements Comparable {
                     DestinyDefinitionsDestinyInventoryItemDefinition plugDefinition = itemDefinitions.get(plug.getPlugHash());
                     return plugDefinition != null && "Armor Perk".equals(plugDefinition.getItemTypeDisplayName());
                 })
-                .map(socket -> ObjectUtils.firstNonNull(socket.getReusablePlugHashes(), singletonList(socket.getPlugHash())))
-                .map(plugHashes -> new PerkChoice(plugHashes, itemDefinitions)).collect(Collectors.toList());
+                .map(socket -> {
+                    List<Long> plugHashes = socket.getReusablePlugHashes();
+                    if (plugHashes == null) {
+                        plugHashes = singletonList(socket.getPlugHash());
+                    }
+                    return new PerkChoice(socket.getPlugHash(), plugHashes, itemDefinitions);
+                })
+                .collect(Collectors.toList());
     }
 
     public String getName() {

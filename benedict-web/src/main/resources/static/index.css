@@ -188,6 +188,10 @@ input[type=text]:focus {
     background-color: rgba(25, 25, 25, 1);
 }
 
+.socket-current {
+    background-color: rgb(72, 135, 186);
+}
+
 .socket-container > img {
     width: 30px;
     height: 30px;
