@@ -23,7 +23,7 @@ const Result = {
     },
     mounted() {
         this.loading = true;
-        let url = 'http://localhost:3000/api/items?';
+        let url = '/api/items?';
         url += 'username=' + this.$route.params.username;
         url += '&platform=' + this.$route.params.platform;
         url += '&classType=' + this.$route.params.classType;
@@ -39,7 +39,7 @@ const Result = {
     watch: {
         '$route'(newVal) {
             this.loading = true;
-            let url = 'http://localhost:3000/api/items?';
+            let url = '/api/items?';
             url += 'username=' + newVal.params.username;
             url += '&platform=' + newVal.params.platform;
             url += '&classType=' + newVal.params.classType;
