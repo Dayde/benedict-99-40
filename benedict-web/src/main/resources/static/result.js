@@ -80,7 +80,13 @@ const Result = {
             this.call = axios.CancelToken.source();
             axios
                 .get('/api/items', {
-                    params: {username, platform, classType, itemCategory},
+                    params: {
+                        username,
+                        platform,
+                        classType,
+                        itemCategory,
+                        uncommittedPerkHashes: this.uncommittedPerkHashes()
+                    },
                     cancelToken: this.call.token
                 })
                 .then(response => {
@@ -95,6 +101,20 @@ const Result = {
                         this.loading = false;
                     }
                 });
+        },
+        uncommittedPerkHashes() {
+            let committedPerksJSON = localStorage.getItem('committedPerks');
+            let committedPerks = {};
+            if (committedPerksJSON) {
+                committedPerks = JSON.parse(committedPerksJSON);
+            }
+            let uncommittedPerkHashes = [];
+            for (let perkHash in committedPerks) {
+                if (!committedPerks[perkHash]) {
+                    uncommittedPerkHashes.push(perkHash);
+                }
+            }
+            return uncommittedPerkHashes.join(',');
         }
     }
 };
