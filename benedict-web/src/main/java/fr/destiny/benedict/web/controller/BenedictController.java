@@ -34,7 +34,12 @@ public class BenedictController {
     }
 
     @RequestMapping("/items")
-    public Map<String, Object> items(@RequestParam String username, @RequestParam String platform, @RequestParam String classType, @RequestParam String itemCategory) {
+    public Map<String, Object> items(
+            @RequestParam String username,
+            @RequestParam String platform,
+            @RequestParam String classType,
+            @RequestParam String itemCategory,
+            @RequestParam Set<Long> uncommittedPerkHashes) {
         Integer membershipType = BungieMembershipType.fromValue(platform).getValue();
         Long membershipId = userService.destinyMembershipid(username, membershipType);
 
@@ -63,13 +68,19 @@ public class BenedictController {
         });
 
         // Generate permutation
-        Map<List<Perk>, List<ItemInstance>> itemsByPerkPermutation = new HashMap<>();
+        Map<Set<Perk>, List<ItemInstance>> itemsByPerkPermutation = new HashMap<>();
         itemInstances.forEach(instance -> {
             List<List<Perk>> product = Lists.cartesianProduct(instance.getPerks().stream()
                     .map(PerkChoice::getChoices)
                     .collect(Collectors.toList()));
-            product.forEach(pair -> {
-                List<ItemInstance> instances = itemsByPerkPermutation.computeIfAbsent(pair, list -> new ArrayList<>());
+            product.forEach(permutation -> {
+                Set<Perk> finalPermutation = new HashSet<>();
+                for (Perk perk : permutation) {
+                    if (!uncommittedPerkHashes.contains(perk.getHash())) {
+                        finalPermutation.add(perk);
+                    }
+                }
+                List<ItemInstance> instances = itemsByPerkPermutation.computeIfAbsent(finalPermutation, list -> new ArrayList<>());
                 instances.add(instance);
             });
         });

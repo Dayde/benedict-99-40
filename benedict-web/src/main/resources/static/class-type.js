@@ -39,7 +39,7 @@ const ClassType = {
         }
     },
     created() {
-        let itemCategory = localStorage.getItem('classType');
+        let itemCategory = localStorage.getItem('itemCategory');
         if (itemCategory) {
             this.$router.push({
                 path: `/sweep` +
