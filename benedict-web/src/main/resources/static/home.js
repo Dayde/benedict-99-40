@@ -9,7 +9,7 @@ const Home = {
         <div v-if="notFound">
             No mention of that name was found in the archives
         </div>
-        <router-link :to="'/' + user.username + '/' + user.platform" v-for="user in users" class="player">
+        <router-link :to="'/sweep/' + user.username + '/' + user.platform" v-for="user in users" class="player">
             <i v-if="user.platform === 1" class="fab fa-xbox"></i>
             <i v-if="user.platform === 2" class="fab fa-playstation"></i>
             <i v-if="user.platform === 4" class="fab fa-battle-net"></i>
