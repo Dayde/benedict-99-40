@@ -45,8 +45,15 @@ const Home = {
     methods: {
         fetchPlayers(username) {
             this.notFound = false;
+            if (this.call) {
+                this.call.cancel();
+            }
+            this.call = axios.CancelToken.source();
             axios
-                .get('/api/player', {params: {username}})
+                .get('/api/player', {
+                    params: {username},
+                    cancelToken: this.call.token
+                })
                 .then(response => {
                     this.users = response.data;
                     this.notFound = this.users.length === 0;
