@@ -50,6 +50,11 @@ html, body, #app {
     justify-content: center;
 }
 
+.loading > img {
+    height: 100%;
+    image-rendering: pixelated;
+}
+
 .title {
     text-align: center;
 }

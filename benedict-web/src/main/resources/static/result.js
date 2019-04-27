@@ -3,8 +3,8 @@ const Result = {
 <div v-if="error" class="loading">
     Please check if everything's right up there. 
 </div>
-<div v-else-if="loading" class="loading fa-9x">
-  <i class="fas fa-sync fa-spin"></i>
+<div v-else-if="loading" class="loading">
+  <img src="/benedict.gif" alt="Sweep sweep sweep...">
 </div>
 <div v-else class="result">
     <h1>Sort</h1>
