@@ -43,17 +43,53 @@ public class BenedictController {
         Integer membershipType = BungieMembershipType.fromValue(platform).getValue();
         Long membershipId = userService.destinyMembershipid(username, membershipType);
 
-        Set<ItemInstance> itemInstances = new HashSet<>(itemService.getItemInstances(
+        Map<ItemCategory, Set<ItemInstance>> itemInstancesPerCategory = itemService.getItemInstances(
                 membershipId,
                 membershipType,
                 ClassType.valueOf(classType),
                 ItemCategory.valueOf(itemCategory)
-        ));
+        );
+
 
         // We want to sort legendary stuff only
-        itemInstances = itemInstances.stream()
-                .filter(item -> "Legendary".equals(item.getTierType()))
+        for (Map.Entry<ItemCategory, Set<ItemInstance>> itemCategorySetEntry : itemInstancesPerCategory.entrySet()) {
+            ItemCategory key = itemCategorySetEntry.getKey();
+            Set<ItemInstance> value = itemCategorySetEntry.getValue();
+            value = value.stream()
+                    .filter(item -> "Legendary".equals(item.getTierType()))
+                    .collect(Collectors.toSet());
+            itemInstancesPerCategory.put(key, value);
+        }
+
+        Set<ItemInstance> itemInstances = itemInstancesPerCategory.values()
+                .stream()
+                .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+
+        Set<ItemInstance> toKeep = itemInstancesPerCategory.values()
+                .stream()
+                .map(instances -> computeWhatToKeep(instances, uncommittedPerkHashes))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+
+        // if not to be kept, it needs to be sorted
+        List<ItemInstance> toSortSorted = new ArrayList<>(itemInstances);
+        toSortSorted.removeAll(toKeep);
+        toSortSorted.sort(ItemInstance::compareTo);
+        toSortSorted.sort(Comparator.reverseOrder());
+
+        List<ItemInstance> toKeepSorted = new ArrayList<>(toKeep);
+        toKeepSorted.sort(ItemInstance::compareTo);
+        toKeepSorted.sort(Comparator.reverseOrder());
+
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("keep", toKeepSorted);
+        result.put("sort", toSortSorted);
+        return result;
+    }
+
+    private Set<ItemInstance> computeWhatToKeep(Set<ItemInstance> itemInstances, Set<Long> uncommittedPerkHashes) {
 
         Map<String, List<ItemInstance>> instancesGroupByNames = itemInstances.stream()
                 .collect(Collectors.groupingBy(ItemInstance::getName));
@@ -92,22 +128,7 @@ public class BenedictController {
                         toKeep.add(instances.iterator().next());
                     }
                 });
-
-        // if not to be kept, it needs to be sorted
-        List<ItemInstance> toSortSorted = new ArrayList<>(itemInstances);
-        toSortSorted.removeAll(toKeep);
-        toSortSorted.sort(ItemInstance::compareTo);
-        toSortSorted.sort(Comparator.reverseOrder());
-
-        List<ItemInstance> toKeepSorted = new ArrayList<>(toKeep);
-        toKeepSorted.sort(ItemInstance::compareTo);
-        toKeepSorted.sort(Comparator.reverseOrder());
-
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("keep", toKeepSorted);
-        result.put("sort", toSortSorted);
-        return result;
+        return toKeep;
     }
 
     @RequestMapping("/perks")

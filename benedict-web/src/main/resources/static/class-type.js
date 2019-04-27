@@ -55,7 +55,7 @@ const ClassType = {
             let username = this.$route.params.username;
             let platform = this.$route.params.platform;
             this.$router.push({
-                path: `/sweep/${username}/${platform}/${newVal}/HELMET`
+                path: `/sweep/${username}/${platform}/${newVal}/ARMOR`
             });
         }
     }

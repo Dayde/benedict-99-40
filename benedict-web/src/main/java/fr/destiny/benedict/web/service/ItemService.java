@@ -35,7 +35,7 @@ public class ItemService {
         );
     }
 
-    public List<ItemInstance> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
+    public Map<ItemCategory, Set<ItemInstance>> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
         DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
         Map<Long, Set<Long>> instanceIdsByItemHash = new HashMap<>();
@@ -50,8 +50,8 @@ public class ItemService {
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
     }
 
-    private List<ItemInstance> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
-        List<ItemInstance> itemInstances = new ArrayList<>();
+    private Map<ItemCategory ,Set<ItemInstance>> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
+        Map<ItemCategory, Set<ItemInstance>> itemInstances = new HashMap<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
             ClassType itemClassType = ClassType.fromHash(itemDefinition.getClassType());
@@ -62,12 +62,15 @@ public class ItemService {
                 return;
             }
 
+            final ItemCategory preciseItemCategory = itemCategory == ItemCategory.ARMOR ?
+                     ItemCategory.fromSubType(itemDefinition.getItemSubType()): itemCategory;
+
             if (!itemDefinition.getItemCategoryHashes().contains(itemCategory.getHash())) {
                 return;
             }
 
             instanceIds.forEach(instanceId ->
-                    itemInstances.add(new ItemInstance(
+                    itemInstances.computeIfAbsent(preciseItemCategory, set -> new HashSet<>()).add(new ItemInstance(
                             instanceId,
                             instances.get(Long.toString(instanceId)),
                             sockets.get(Long.toString(instanceId)),
