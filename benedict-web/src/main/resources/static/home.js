@@ -35,8 +35,10 @@ const Home = {
         }
     },
     created() {
-        if (localStorage.username && localStorage.platform) {
-            this.$router.push({path: `/${localStorage.username}/${localStorage.platform}`});
+        let username = localStorage.getItem('username');
+        let platform = localStorage.getItem('platform');
+        if (username && platform) {
+            this.$router.push({path: `/sweep/${username}/${platform}`});
         }
         this.debouncedFetchPlayers = _.debounce(this.fetchPlayers, 500)
     },

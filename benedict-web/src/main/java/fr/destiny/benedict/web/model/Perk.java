@@ -10,7 +10,7 @@ public class Perk {
     private String icon;
     private boolean primary;
 
-    Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition) {
+    public Perk(DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition) {
         this(itemDefinition, true);
     }
 

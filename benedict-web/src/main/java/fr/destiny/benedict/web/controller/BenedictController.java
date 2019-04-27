@@ -98,4 +98,9 @@ public class BenedictController {
         result.put("sort", toSortSorted);
         return result;
     }
+
+    @RequestMapping("/perks")
+    public Map<String, List<Perk>> perks() {
+        return itemService.getAllPerksPerSlot();
+    }
 }

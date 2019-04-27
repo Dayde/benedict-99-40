@@ -3,30 +3,31 @@ const routes = [
         path: '/',
         components: {
             default: Home
-        },
-        props: {
-            default: true
         }
     },
     {
-        path: '/:username/:platform',
+        path: '/sweep/:username/:platform',
         components: {
             default: ClassType
-        },
-        props: {
-            default: true
         }
     },
     {
-        path: '/:username/:platform/:classType/:itemCategory',
+        path: '/sweep/:username/:platform/:classType/:itemCategory',
         components: {
             default: Header,
             result: Result
-        },
-        props: {
-            default: true,
-            result: false
         }
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        components: {
+            default: Settings
+        }
+    },
+    {
+        path: '*',
+        redirect: '/'
     }
 ];
 

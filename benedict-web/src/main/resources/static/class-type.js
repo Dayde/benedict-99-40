@@ -39,16 +39,24 @@ const ClassType = {
         }
     },
     created() {
-        if (localStorage.classType) {
-            this.$router.push({path: `/${localStorage.username}/${localStorage.platform}/${localStorage.classType}/${localStorage.itemCategory}`});
+        let itemCategory = localStorage.getItem('classType');
+        if (itemCategory) {
+            this.$router.push({
+                path: `/sweep` +
+                    `/${localStorage.getItem('username')}` +
+                    `/${localStorage.getItem('platform')}` +
+                    `/${localStorage.getItem('classType')}` +
+                    `/${itemCategory}`
+            });
         }
-        this.debouncedFetchPlayers = _.debounce(this.fetchPlayers, 500)
     },
     watch: {
         classType(newVal) {
             let username = this.$route.params.username;
             let platform = this.$route.params.platform;
-            this.$router.push({path: `/${username}/${platform}/${newVal}/ARMOR`});
+            this.$router.push({
+                path: `/${username}/${platform}/${newVal}/ARMOR`
+            });
         }
     }
 };

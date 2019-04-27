@@ -17,32 +17,32 @@ const Header = {
     </div>
 `,
     data() {
-        localStorage.username = this.$route.params.username;
-        localStorage.platform = this.$route.params.platform;
-        localStorage.classType = this.$route.params.classType;
-        localStorage.itemCategory = this.$route.params.itemCategory;
+        localStorage.setItem('username', this.$route.params.username);
+        localStorage.setItem('platform', this.$route.params.platform);
+        localStorage.setItem('classType', this.$route.params.classType);
+        localStorage.setItem('itemCategory', this.$route.params.itemCategory);
         return {
-            username: localStorage.username,
-            platform: localStorage.platform,
-            classType: localStorage.classType,
-            itemCategory: localStorage.itemCategory
+            username: localStorage.getItem('username'),
+            platform: localStorage.getItem('platform'),
+            classType: localStorage.getItem('classType'),
+            itemCategory: localStorage.getItem('itemCategory')
         };
     },
     watch: {
         username(newVal) {
-            localStorage.username = newVal;
+            localStorage.setItem('username', newVal);
             this.$router.push({params: {...this.$route.params, username: newVal}});
         },
         platform(newVal) {
-            localStorage.platform = newVal;
+            localStorage.setItem('platform', newVal);
             this.$router.push({params: {...this.$route.params, platform: newVal}});
         },
         classType(newVal) {
-            localStorage.classType = newVal;
+            localStorage.setItem('classType', newVal);
             this.$router.push({params: {...this.$route.params, classType: newVal}});
         },
         itemCategory(newVal) {
-            localStorage.itemCategory = newVal;
+            localStorage.setItem('itemCategory', newVal);
             this.$router.push({params: {...this.$route.params, itemCategory: newVal}});
         }
     }

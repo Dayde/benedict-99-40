@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static fr.destiny.benedict.web.utils.Utils.GENERIC_PERKS;
+import static fr.destiny.benedict.web.utils.PerkUtils.GENERIC_PERKS;
 
 public class PerkChoice {
 

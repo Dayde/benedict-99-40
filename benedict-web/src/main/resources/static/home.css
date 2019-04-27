@@ -1,0 +1,30 @@
+
+.home {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.player {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.players {
+    height: 100px;
+}
+
+.choose-class {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.choose-class .form-img {
+    width: 100px;
+    height: 100px;
+}
