@@ -68,7 +68,7 @@ public class BenedictController {
         });
 
         // Generate permutation
-        Map<Set<Perk>, List<ItemInstance>> itemsByPerkPermutation = new HashMap<>();
+        Map<Set<Perk>, Set<ItemInstance>> itemsByPerkPermutation = new HashMap<>();
         itemInstances.forEach(instance -> {
             List<List<Perk>> product = Lists.cartesianProduct(instance.getPerks().stream()
                     .map(PerkChoice::getChoices)
@@ -80,7 +80,7 @@ public class BenedictController {
                         finalPermutation.add(perk);
                     }
                 }
-                List<ItemInstance> instances = itemsByPerkPermutation.computeIfAbsent(finalPermutation, list -> new ArrayList<>());
+                Set<ItemInstance> instances = itemsByPerkPermutation.computeIfAbsent(finalPermutation, set -> new HashSet<>());
                 instances.add(instance);
             });
         });
@@ -89,7 +89,7 @@ public class BenedictController {
         itemsByPerkPermutation.values()
                 .forEach(instances -> {
                     if (instances.size() == 1) {
-                        toKeep.add(instances.get(0));
+                        toKeep.add(instances.iterator().next());
                     }
                 });
 
