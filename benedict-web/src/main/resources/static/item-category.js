@@ -2,12 +2,6 @@ Vue.component('item-category', {
     template: `
 <div>
     <label>
-        <input id="armor" name="itemCategory" type="radio" v-model="mutableItemCategory"
-               value="ARMOR">
-        <img class="form-img"
-             src="https://bungie.net/common/destiny2_content/icons/ba288981fc651ad3dc23f3c211e8b209.jpg">
-    </label>
-    <label>
         <input id="helmet" name="itemCategory" type="radio" v-model="mutableItemCategory"
                value="HELMET">
         <img v-if="classType==='TITAN'" class="titan form-img"
