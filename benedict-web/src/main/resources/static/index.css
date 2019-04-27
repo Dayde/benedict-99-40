@@ -12,6 +12,28 @@ html, body, #app {
     flex-direction: column;
 }
 
+/* Scrollbar width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px transparent;
+    border-radius: 10px;
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 1);
+    border-radius: 10px;
+}
+
+/* Scrollbar Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(150, 150, 150, 1);
+}
+
 .settings-link {
     position: fixed;
     top: 0;
