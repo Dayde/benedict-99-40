@@ -26,7 +26,7 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    background-color: rgba(100, 100, 100, 1);
+    background-color: rgba(100, 100, 100, 0.4);
 }
 
 [type=radio] {
@@ -42,7 +42,7 @@ input[type=text]:focus {
 }
 
 [type=radio]:checked + img, [type=radio]:checked + i {
-    background-color: rgba(100, 100, 100, 1);
+    background-color: rgba(100, 100, 100, 0.4);
     border: darkgray solid 2px;
     margin: 0;
     filter: brightness(100%);

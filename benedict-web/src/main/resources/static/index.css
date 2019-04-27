@@ -2,8 +2,12 @@
     font-family: sans-serif;
 }
 
+body {
+    background: url(http://downloads.bungie.net/images/Bungie%20Day%202017%20Wallpaper/4k/13_4k.jpg) rgba(50, 50, 50);
+    background-size: cover;
+}
+
 html, body, #app {
-    background-color: rgba(50, 50, 50, 1);
     color: white;
     height: 100%;
     display: flex;
