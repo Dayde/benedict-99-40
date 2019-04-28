@@ -5,16 +5,11 @@ const Home = {
     <div>
         <input type="text" v-model="username" placeholder="Username" spellcheck="false">
     </div>
-    <div class="players">
+    <div class="users">
         <div v-if="notFound">
             No mention of that name was found in the archives
         </div>
-        <router-link :to="'/sweep/' + user.username + '/' + user.platform" v-for="user in users" class="player">
-            <i v-if="user.platform === 1" class="fab fa-xbox"></i>
-            <i v-if="user.platform === 2" class="fab fa-playstation"></i>
-            <i v-if="user.platform === 4" class="fab fa-battle-net"></i>
-            {{user.username}}
-        </router-link>
+        <user v-for="user in users" :user="user"></user>
     </div>
 </div>
 `,
@@ -28,29 +23,29 @@ const Home = {
     watch: {
         username(newVal) {
             if (newVal) {
-                this.debouncedFetchPlayers(newVal);
+                this.debouncedFetchUsers(newVal);
             } else {
                 this.users = [];
             }
         }
     },
     created() {
-        let username = localStorage.getItem('username');
-        let platform = localStorage.getItem('platform');
-        if (username && platform) {
-            this.$router.push({path: `/sweep/${username}/${platform}`});
+        let userJSON = localStorage.getItem('user');
+        if (userJSON) {
+            let user = JSON.parse(userJSON);
+            this.$router.push({path: `/sweep/${user.userId}/${user.platform}`});
         }
-        this.debouncedFetchPlayers = _.debounce(this.fetchPlayers, 500)
+        this.debouncedFetchUsers = _.debounce(this.fetchUsers, 500)
     },
     methods: {
-        fetchPlayers(username) {
+        fetchUsers(username) {
             this.notFound = false;
             if (this.call) {
                 this.call.cancel();
             }
             this.call = axios.CancelToken.source();
             axios
-                .get('/api/player', {
+                .get('/api/users', {
                     params: {username},
                     cancelToken: this.call.token
                 })

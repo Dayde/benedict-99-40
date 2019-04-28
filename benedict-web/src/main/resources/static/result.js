@@ -27,14 +27,14 @@ const Result = {
     },
     mounted() {
         this.fetchData(
-            this.$route.params.username,
+            this.$route.params.userId,
             this.$route.params.platform,
             this.$route.params.classType,
             this.$route.params.itemCategory
         )
     },
     watch: {
-        '$route.params.username'(newVal) {
+        '$route.params.userId'(newVal) {
             this.debouncedGetAnswer(
                 newVal,
                 this.$route.params.platform,
@@ -44,7 +44,7 @@ const Result = {
         },
         '$route.params.platform'(newVal) {
             this.fetchData(
-                this.$route.params.username,
+                this.$route.params.userId,
                 newVal,
                 this.$route.params.classType,
                 this.$route.params.itemCategory
@@ -52,7 +52,7 @@ const Result = {
         },
         '$route.params.classType'(newVal) {
             this.fetchData(
-                this.$route.params.username,
+                this.$route.params.userId,
                 this.$route.params.platform,
                 newVal,
                 this.$route.params.itemCategory
@@ -60,7 +60,7 @@ const Result = {
         },
         '$route.params.itemCategory'(newVal) {
             this.fetchData(
-                this.$route.params.username,
+                this.$route.params.userId,
                 this.$route.params.platform,
                 this.$route.params.classType,
                 newVal
@@ -71,7 +71,7 @@ const Result = {
         this.debouncedGetAnswer = _.debounce(this.fetchData, 500)
     },
     methods: {
-        fetchData(username, platform, classType, itemCategory) {
+        fetchData(userId, platform, classType, itemCategory) {
             this.error = false;
             this.loading = true;
             if (this.call) {
@@ -81,7 +81,7 @@ const Result = {
             axios
                 .get('/api/items', {
                     params: {
-                        username,
+                        userId,
                         platform,
                         classType,
                         itemCategory,

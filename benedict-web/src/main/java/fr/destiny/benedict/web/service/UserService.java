@@ -1,14 +1,13 @@
 package fr.destiny.benedict.web.service;
 
 import fr.destiny.api.client.Destiny2Api;
-import fr.destiny.api.client.UserApi;
-import fr.destiny.api.model.UserGeneralUser;
-import fr.destiny.benedict.web.model.Player;
+import fr.destiny.benedict.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,26 +18,27 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserApi userApi;
+    private final Destiny2Api destiny2Api;
 
-    @Autowired
-    private Destiny2Api destiny2Api;
-
-    public UserGeneralUser userInfo(String username) {
-        return userApi.userSearchUsers(username).getResponse().get(0);
+    public UserService(@Autowired Destiny2Api destiny2Api) {
+        this.destiny2Api = destiny2Api;
     }
 
-    public Long destinyMembershipid(String username, Integer membershipType) {
-        return destiny2Api.destiny2SearchDestinyPlayer(username, membershipType).getResponse().get(0).getMembershipId();
-    }
-
-    public List<Player> retrievePlayer(String username) {
+    public List<User> findUsersByUsernameAndPlatform(String username, int membershipType) {
+        String urlEncodedUsername;
         try {
-            return destiny2Api.destiny2SearchDestinyPlayer(URLEncoder.encode(username, UTF_8.toString()), -1).getResponse().stream().map(player -> new Player(player.getDisplayName(), player.getMembershipType())).collect(Collectors.toList());
+            urlEncodedUsername = URLEncoder.encode(username, UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        return destiny2Api.destiny2SearchDestinyPlayer(urlEncodedUsername, membershipType)
+                .getResponse()
+                .stream()
+                .map(User::new)
+                .collect(Collectors.toList());
+    }
+
+    public User findUserByUserIdAndPlatform(long userId, int platform) {
+        return new User(destiny2Api.destiny2GetProfile(userId, platform, Arrays.asList(100, 200)).getResponse());
     }
 }

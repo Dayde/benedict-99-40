@@ -1,32 +1,44 @@
 const Settings = {
     template: `
-<div class="container-column"">
+<div class="container-column">
     <h2 class="title">Here you can be a little more specific about what requires sweeping.</h2>
-    <h3 class="title">Salect perks you care about</h3>
-    <div>
-        <h3 class="title">Helmet</h3>
-        <perk-category name="First Slot" category="helmetFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-        <perk-category name="Second Slot" category="helmetSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-    </div>
-    <div>
-        <h3 class="title">Gauntlets</h3>
-        <perk-category name="First Slot" category="gauntletsFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-        <perk-category name="Second Slot" category="gauntletsSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-    </div>
-    <div>
-        <h3 class="title">Chest Armor</h3>
-        <perk-category name="First Slot" category="chestArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-        <perk-category name="Second Slot" category="chestArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-    </div>
-    <div>
-        <h3 class="title">Leg Armor</h3>
-        <perk-category name="First Slot" category="legArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-        <perk-category name="Second Slot" category="legArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-    </div>
-    <div>
-        <h3 class="title">Class Armor</h3>
-        <perk-category name="First Slot" category="classArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
-        <perk-category name="Second Slot" category="classArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+    <h3 class="title">Select perks you care about</h3>
+    <div class="container-column">
+        <div>
+            <h3 class="title">Helmet</h3>
+            <div class="container-column">
+                <perk-category name="1st Slot" category="helmetFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+                <perk-category name="2nd Slot" category="helmetSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+            </div>
+        </div>
+        <div>
+            <h3 class="title">Gauntlets</h3>
+            <div class="container-column">
+                <perk-category name="1st Slot" category="gauntletsFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+                <perk-category name="2nd Slot" category="gauntletsSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+            </div>
+        </div>
+        <div>
+            <h3 class="title">Chest Armor</h3>
+            <div class="container-column">
+                <perk-category name="1st Slot" category="chestArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+                <perk-category name="2nd Slot" category="chestArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+            </div>
+        </div>
+        <div>
+            <h3 class="title">Leg Armor</h3>
+            <div class="container-column">
+                <perk-category name="1st Slot" category="legArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+                <perk-category name="2nd Slot" category="legArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+            </div>
+        </div>
+        <div>
+            <h3 class="title">Class Armor</h3>
+            <div class="container-column">
+                <perk-category name="1st Slot" category="classArmorFirstPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+                <perk-category name="2nd Slot" category="classArmorSecondPerks" :perks="perks" @perk-toggled="refresh()"></perk-category>
+            </div>
+        </div>
     </div>
 </div>
 `,

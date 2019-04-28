@@ -6,13 +6,13 @@ const routes = [
         }
     },
     {
-        path: '/sweep/:username/:platform',
+        path: '/sweep/:userId/:platform',
         components: {
             default: ClassType
         }
     },
     {
-        path: '/sweep/:username/:platform/:classType/:itemCategory',
+        path: '/sweep/:userId/:platform/:classType/:itemCategory',
         components: {
             default: Header,
             result: Result

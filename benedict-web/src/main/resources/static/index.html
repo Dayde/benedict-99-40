@@ -8,7 +8,6 @@
     <link href="/home.css" rel="stylesheet">
     <link href="/header.css" rel="stylesheet">
     <link href="/result.css" rel="stylesheet">
-    <link href="/settings.css" rel="stylesheet">
     <link href="/index.css" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
@@ -23,20 +22,20 @@
     <router-view></router-view>
     <router-view name="result"></router-view>
 
-    <router-link to="/" v-if="$route.name==='settings'">
+    <router-link to="/" v-if="$route.name === 'settings'">
         <i class="fa fa-times settings-link"></i>
     </router-link>
     <router-link to="/settings" v-else>
         <i class="fa fa-cog settings-link"></i>
     </router-link>
 </div>
+<script src="/user.js"></script>
 <script src="/perk.js"></script>
 <script src="/perk-choice.js"></script>
 <script src="/perk-category.js"></script>
 <script src="/item.js"></script>
 <script src="/result.js"></script>
 <script src="/home.js"></script>
-<script src="/platform.js"></script>
 <script src="/class-type.js"></script>
 <script src="/item-category.js"></script>
 <script src="/settings.js"></script>

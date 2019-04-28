@@ -4,6 +4,7 @@ import fr.destiny.api.model.DestinyDefinitionsDestinyInventoryItemDefinition;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemInstanceComponent;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemSocketsComponent;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -61,6 +62,10 @@ public class ItemInstance implements Comparable {
                 .collect(Collectors.toList());
     }
 
+    public long getInstanceId() {
+        return instanceId;
+    }
+
     public String getName() {
         return name;
     }
@@ -86,9 +91,9 @@ public class ItemInstance implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(@NotNull Object o) {
         if (o instanceof ItemInstance) {
-            return Integer.compare(this.getPowerLevel(), ((ItemInstance) o).getPowerLevel());
+            return Integer.compare(this.powerLevel, ((ItemInstance) o).powerLevel);
         }
         throw new RuntimeException("Illegal argument");
     }
@@ -100,6 +105,6 @@ public class ItemInstance implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equals(this.instanceId, ((ItemInstance) obj).instanceId);
+        return obj instanceof ItemInstance && Objects.equals(this.instanceId, ((ItemInstance) obj).instanceId);
     }
 }

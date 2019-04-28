@@ -32,30 +32,45 @@ Vue.component('class-type', {
 });
 
 const ClassType = {
-    template: '<class-type v-model="classType" class="choose-class"></class-type>',
+    template: `
+<div v-if="loading" class="loading"></div>
+<class-type v-else v-model="classType" class="choose-class"></class-type>
+`,
     data() {
         return {
-            classType: null
+            classType: null,
+            loading: true
         }
     },
-    created() {
-        let itemCategory = localStorage.getItem('itemCategory');
-        if (itemCategory) {
-            this.$router.push({
-                path: `/sweep` +
-                    `/${localStorage.getItem('username')}` +
-                    `/${localStorage.getItem('platform')}` +
-                    `/${localStorage.getItem('classType')}` +
-                    `/${itemCategory}`
-            });
+    mounted() {
+        let userJSON = localStorage.getItem('user');
+        if (userJSON && JSON.parse(localStorage.getItem('user')).userId === this.$route.params.userId) {
+            let itemCategory = localStorage.getItem('itemCategory');
+            let user = JSON.parse(localStorage.getItem('user'));
+            if (itemCategory && user.userId === this.$route.params.userId) {
+                this.$router.push({
+                    path: `/sweep` +
+                        `/${user.userId}` +
+                        `/${user.platform}` +
+                        `/${localStorage.getItem('classType')}` +
+                        `/${itemCategory}`
+                });
+            }
+        } else {
+            this.loading = true;
+            axios.get(`/api/users/${this.$route.params.userId}/${this.$route.params.platform}`)
+                .then(response => {
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    this.loading = false
+                });
         }
     },
     watch: {
         classType(newVal) {
-            let username = this.$route.params.username;
+            let userId = this.$route.params.userId;
             let platform = this.$route.params.platform;
             this.$router.push({
-                path: `/sweep/${username}/${platform}/${newVal}/ARMOR`
+                path: `/sweep/${userId}/${platform}/${newVal}/ARMOR`
             });
         }
     }

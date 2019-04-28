@@ -1,11 +1,11 @@
 package fr.destiny.benedict.web.controller;
 
 import com.google.common.collect.Lists;
-import fr.destiny.api.model.BungieMembershipType;
 import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.service.ItemService;
 import fr.destiny.benedict.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,35 +17,40 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class BenedictController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
 
-    @RequestMapping("/user")
-    public String userInfo(@RequestParam String username) {
-        return userService.userInfo(username).toString();
+    public BenedictController(@Autowired UserService userService, @Autowired ItemService itemService) {
+        this.userService = userService;
+        this.itemService = itemService;
     }
 
-    @RequestMapping("/player")
-    public List<Player> playerInfo(@RequestParam String username) {
-        return userService.retrievePlayer(username);
+    @RequestMapping("/users")
+    public List<User> users(
+            @RequestParam String username,
+            @RequestParam(required = false, defaultValue = "-1") int platform) {
+        return userService.findUsersByUsernameAndPlatform(username, platform);
+    }
+
+    @RequestMapping("/users/{userId}/{platform}")
+    public User user(
+            @PathVariable long userId,
+            @PathVariable int platform) {
+        return userService.findUserByUserIdAndPlatform(userId, platform);
     }
 
     @RequestMapping("/items")
     public Map<String, Object> items(
-            @RequestParam String username,
-            @RequestParam String platform,
+            @RequestParam long userId,
+            @RequestParam int platform,
             @RequestParam String classType,
             @RequestParam String itemCategory,
             @RequestParam Set<Long> uncommittedPerkHashes) {
-        Integer membershipType = BungieMembershipType.fromValue(platform).getValue();
-        Long membershipId = userService.destinyMembershipid(username, membershipType);
 
         Map<ItemCategory, Set<ItemInstance>> itemInstancesPerCategory = itemService.getItemInstances(
-                membershipId,
-                membershipType,
+                userId,
+                platform,
                 ClassType.valueOf(classType),
                 ItemCategory.valueOf(itemCategory)
         );
@@ -76,11 +81,11 @@ public class BenedictController {
         List<ItemInstance> toSortSorted = new ArrayList<>(itemInstances);
         toSortSorted.removeAll(toKeep);
         toSortSorted.sort(ItemInstance::compareTo);
-        toSortSorted.sort(Comparator.reverseOrder());
+        toSortSorted.sort(Collections.reverseOrder());
 
         List<ItemInstance> toKeepSorted = new ArrayList<>(toKeep);
         toKeepSorted.sort(ItemInstance::compareTo);
-        toKeepSorted.sort(Comparator.reverseOrder());
+        toKeepSorted.sort(Collections.reverseOrder());
 
 
         Map<String, Object> result = new HashMap<>();

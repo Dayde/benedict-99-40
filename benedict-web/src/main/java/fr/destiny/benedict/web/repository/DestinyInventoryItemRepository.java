@@ -15,35 +15,17 @@ import java.util.stream.Collectors;
 @Repository
 public class DestinyInventoryItemRepository {
 
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
-    public DestinyDefinitionsDestinyInventoryItemDefinition findById(long hash) {
-        int id = (int) hash;
-
-        String json = jdbcTemplate.queryForObject(
-                "SELECT json FROM DestinyInventoryItemDefinition WHERE id = :id",
-                Collections.singletonMap("id", id),
-                String.class);
-        return mapJsonToItem(json);
+    public DestinyInventoryItemRepository(
+            @Autowired NamedParameterJdbcTemplate jdbcTemplate,
+            @Autowired ObjectMapper mapper) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.mapper = mapper;
     }
 
-    public Set<DestinyDefinitionsDestinyInventoryItemDefinition> findAllById(Set<Long> hashes) {
-        Set<Integer> ids = hashes.stream()
-                .map(Long::intValue)
-                .collect(Collectors.toSet());
-
-        List<String> jsonRows = jdbcTemplate.queryForList(
-                "SELECT json FROM DestinyInventoryItemDefinition WHERE id in (:ids)",
-                Collections.singletonMap("ids", ids),
-                String.class);
-        return jsonRows.stream()
-                .map(this::mapJsonToItem)
-                .collect(Collectors.toSet());
-    }
 
     private DestinyDefinitionsDestinyInventoryItemDefinition mapJsonToItem(String json) {
         try {

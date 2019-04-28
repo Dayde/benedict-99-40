@@ -18,15 +18,12 @@ import static fr.destiny.benedict.web.utils.Utils.mergeMaps;
 @Service
 public class ItemService {
 
-    Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
-    @Autowired
-    private Destiny2Api destiny2Api;
-    @Autowired
-    private DestinyInventoryItemRepository itemRepository;
+    private Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
 
-    ItemService(Destiny2Api destiny2Api, DestinyInventoryItemRepository itemRepository) {
+    private Destiny2Api destiny2Api;
+
+    ItemService(@Autowired Destiny2Api destiny2Api, @Autowired DestinyInventoryItemRepository itemRepository) {
         this.destiny2Api = destiny2Api;
-        this.itemRepository = itemRepository;
         this.itemDefinitions = ImmutableMap.copyOf(
                 itemRepository.findAll()
                         .stream()
@@ -50,7 +47,7 @@ public class ItemService {
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
     }
 
-    private Map<ItemCategory ,Set<ItemInstance>> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
+    private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
         Map<ItemCategory, Set<ItemInstance>> itemInstances = new HashMap<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
@@ -63,7 +60,7 @@ public class ItemService {
             }
 
             final ItemCategory preciseItemCategory = itemCategory == ItemCategory.ARMOR ?
-                     ItemCategory.fromSubType(itemDefinition.getItemSubType()): itemCategory;
+                    ItemCategory.fromSubType(itemDefinition.getItemSubType()) : itemCategory;
 
             if (!itemDefinition.getItemCategoryHashes().contains(itemCategory.getHash())) {
                 return;
@@ -142,17 +139,6 @@ public class ItemService {
                                 .map(DestinyDestinyComponentType::getValue)
                                 .collect(Collectors.toList())
                 ).getResponse();
-    }
-
-    private Set<DestinyDefinitionsDestinyInventoryItemDefinition> restieveItemsFromManifest(ClassType classType, ItemCategory itemCategory, Set<Long> hashes) {
-        return itemRepository.findAllById(hashes)
-                .stream()
-                .filter(item -> {
-                    ClassType itemClassType = ClassType.fromHash(item.getClassType());
-                    return classType == ClassType.ANY || itemClassType == ClassType.ANY || itemClassType == classType;
-                })
-                .filter(item -> item.getItemCategoryHashes().contains(itemCategory.getHash()))
-                .collect(Collectors.toSet());
     }
 
     private Map<Long, Set<Long>> collectItemHashes(DestinyEntitiesInventoryDestinyInventoryComponent data) {

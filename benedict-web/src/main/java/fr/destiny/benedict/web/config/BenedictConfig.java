@@ -1,6 +1,7 @@
 package fr.destiny.benedict.web.config;
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.destiny.api.ApiClient;
@@ -30,7 +31,7 @@ import java.util.zip.ZipInputStream;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ApiClient.class))
 public class BenedictConfig {
 
-    public static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
+    private static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
 
     @Value("${BUNGIE_API_KEY}")
     private String apiKey;
@@ -47,7 +48,9 @@ public class BenedictConfig {
 
     @Bean
     public ObjectMapper mapper() {
-        return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
     }
 
     @Bean
@@ -71,6 +74,10 @@ public class BenedictConfig {
 
     private void downloadLatestManifest(RestTemplate restTemplate, String path, Path resourcePath) {
         byte[] manifestZippedFile = restTemplate.getForObject(BUNGIE_ROOT_URL + path, byte[].class);
+
+        if (manifestZippedFile == null) {
+            throw new RuntimeException("Manifest couldn't be retrieved.");
+        }
 
         try (
                 ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(manifestZippedFile));

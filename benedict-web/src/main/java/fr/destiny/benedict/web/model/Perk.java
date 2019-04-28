@@ -44,6 +44,6 @@ public class Perk {
 
     @Override
     public boolean equals(Object obj) {
-        return Objects.equals(this.hash, ((Perk) obj).hash);
+        return obj instanceof Perk && Objects.equals(this.hash, ((Perk) obj).hash);
     }
 }
