@@ -6,6 +6,13 @@
     background-size: cover;
     background-position: bottom;
     transition: background 500ms ease;
+    background-image: url(/black.png);
+}
+
+.header > img {
+    position: absolute;
+    width: 0;
+    height: 0;
 }
 
 .form-container {

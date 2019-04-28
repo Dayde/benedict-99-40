@@ -108,7 +108,7 @@ const Result = {
             }
             let uncommittedPerkHashes = [];
             for (let perkHash in committedPerks) {
-                if (committedPerks.hasOwnProperty(perkHash) && !committedPerks[perkHash]) {
+                if (!committedPerks[perkHash]) {
                     uncommittedPerkHashes.push(perkHash);
                 }
             }

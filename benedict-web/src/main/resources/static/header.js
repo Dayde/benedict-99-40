@@ -1,6 +1,7 @@
 const Header = {
     template: `
     <div class="header" :style="style">
+        <img :src="emblemBackgroundUrl">
         <h2 class="title">Benedict 99-40 helps you sweep your vault</h2>
         <div class="form-container">
             <user-select :username="username"></user-select>
@@ -20,7 +21,8 @@ const Header = {
             user: user,
             classType: localStorage.getItem('classType'),
             itemCategory: localStorage.getItem('itemCategory'),
-            style: ''
+            style: '',
+            emblemBackgroundUrl: ''
         };
     },
     created() {
@@ -41,14 +43,18 @@ const Header = {
         currentCharater() {
             let characters = this.user.characters;
             for (let id in characters) {
-                let currentCharacter = characters.hasOwnProperty(id) && characters[id];
+                let currentCharacter = characters[id];
                 if (this.classType === currentCharacter.classType) {
                     return currentCharacter;
                 }
             }
         },
         updateBackgroundImage() {
-            this.style = `background-image: url(https://bungie.net/${this.currentCharater().emblemBackground});`;
+            this.emblemBackgroundUrl = `https://bungie.net/${this.currentCharater().emblemBackground}`;
+            // wait a bit for image to load
+            setTimeout(() => {
+                this.style = `background-image: url(${this.emblemBackgroundUrl});`;
+            }, 200);
         }
     }
 };
