@@ -1,13 +1,11 @@
-
 .result {
     flex: auto;
     overflow-y: auto;
 }
 
-
 .item-containers {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
 }
