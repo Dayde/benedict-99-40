@@ -38,11 +38,11 @@ html, body, #app {
 
 .settings-link {
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 8px;
+    right: 8px;
     color: white;
     text-decoration: none;
-    font-size: 50px;
+    font-size: 30px;
 }
 
 .loading {
