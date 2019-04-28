@@ -2,7 +2,7 @@ const Header = {
     template: `
     <div class="header" :style="style">
         <img :src="emblemBackgroundUrl">
-        <h2 class="title">Benedict 99-40 helps you sweep your vault</h2>
+        <div class="title">Benedict 99-40 helps you sweep your vault</div>
         <div class="form-container">
             <user-select :username="username"></user-select>
             

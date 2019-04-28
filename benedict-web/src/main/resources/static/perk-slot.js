@@ -1,12 +1,11 @@
-Vue.component('perk-category', {
+Vue.component('perk-slot', {
     template: `
-        <div>
-            <span>{{name}}</span>
-            <perk v-for="(perk, index) in perks[category]" :perk="perk" :key="perk.key" 
-            :class="{ 'socket-selected': isCommitted(perk) }" @click.native="toggle(category, index)"></perk>
-        </div>
+<div class="container wrap">
+    <perk v-for="(perk, index) in perks[armor][armorSlot]" :perk="perk" :key="perk.key" 
+    :class="{ 'socket-selected': isCommitted(perk) }" @click.native="toggle(armor, armorSlot, index)"></perk>
+</div>
 `,
-    props: ['name', 'category', 'perks'],
+    props: ['name', 'armor', 'armorSlot', 'perks'],
     methods: {
         setPerkKey(perk, committedPerks) {
             perk.key = (committedPerks[perk.hash] ? 'u' : '') + perk.hash;
@@ -15,8 +14,8 @@ Vue.component('perk-category', {
             let committedPerks = this.getCommittedPerks();
             return !committedPerks.hasOwnProperty(perk.hash) || committedPerks[perk.hash];
         },
-        toggle(category, index) {
-            let perk = this.perks[category][index];
+        toggle(armor, armorSlot, index) {
+            let perk = this.perks[armor][armorSlot][index];
             let committedPerks = this.getCommittedPerks();
             committedPerks[perk.hash] = !this.isCommitted(perk);
             localStorage.setItem('committedPerks', JSON.stringify(committedPerks));

@@ -3,7 +3,7 @@ Vue.component('user-select', {
 <div class="container-column">
     <input type="text" v-model="mutableUsername" placeholder="Username" spellcheck="false">
     <div class="users-dropdown" v-if="users">
-        <div v-if="notFound">
+        <div v-if="notFound" class="no-user">
             No mention of that name was found in the archives
         </div>
         <user v-for="user in users" :user="user"></user>

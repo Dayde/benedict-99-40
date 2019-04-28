@@ -137,7 +137,7 @@ public class BenedictController {
     }
 
     @RequestMapping("/perks")
-    public Map<String, List<Perk>> perks() {
-        return itemService.getAllPerksPerSlot();
+    public Map<ItemCategory, Map<String, List<Perk>>> perks() {
+        return itemService.getAllPerksPerSlotPerArmor();
     }
 }

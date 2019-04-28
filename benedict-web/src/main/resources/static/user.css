@@ -10,3 +10,8 @@
     position: absolute;
     margin-top: 40px;
 }
+
+.no-user {
+    text-align: center;
+    font-variant-caps: small-caps;
+}

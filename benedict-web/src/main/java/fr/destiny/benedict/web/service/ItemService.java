@@ -189,79 +189,93 @@ public class ItemService {
                 );
     }
 
-    public Map<String, List<Perk>> getAllPerksPerSlot() {
-        HashMap<String, List<Perk>> perksPerSlot = new HashMap<>();
+    public Map<ItemCategory, Map<String, List<Perk>>> getAllPerksPerSlotPerArmor() {
+        HashMap<ItemCategory, Map<String, List<Perk>>> perksPerSlotPerArmor = new HashMap<>();
 
-        perksPerSlot.put(
-                "helmetFirstPerks",
+        Map<String, List<Perk>> helmet = new HashMap<>();
+        perksPerSlotPerArmor.put(ItemCategory.HELMET, helmet);
+        helmet.put(
+                "1",
                 PerkUtils.HELMET_FIRST_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "helmetSecondPerks",
+        helmet.put(
+                "2",
                 PerkUtils.HELMET_SECOND_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "gauntletsFirstPerks",
+
+        Map<String, List<Perk>> gauntlets = new HashMap<>();
+        perksPerSlotPerArmor.put(ItemCategory.GAUNTLETS, gauntlets);
+        gauntlets.put(
+                "1",
                 PerkUtils.GAUNTLETS_FIRST_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "gauntletsSecondPerks",
+        gauntlets.put(
+                "2",
                 PerkUtils.GAUNTLETS_SECOND_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "chestArmorFirstPerks",
+
+        Map<String, List<Perk>> chestArmor = new HashMap<>();
+        perksPerSlotPerArmor.put(ItemCategory.CHEST_ARMOR, chestArmor);
+        chestArmor.put(
+                "1",
                 PerkUtils.CHEST_ARMOR_FIRST_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "chestArmorSecondPerks",
+        chestArmor.put(
+                "2",
                 PerkUtils.CHEST_ARMOR_SECOND_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "legArmorFirstPerks",
+
+        Map<String, List<Perk>> legArmor = new HashMap<>();
+        perksPerSlotPerArmor.put(ItemCategory.LEG_ARMOR, legArmor);
+        legArmor.put(
+                "1",
                 PerkUtils.LEG_ARMOR_FIRST_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "legArmorSecondPerks",
+        legArmor.put(
+                "2",
                 PerkUtils.LEG_ARMOR_SECOND_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "classArmorFirstPerks",
+
+        Map<String, List<Perk>> classArmor = new HashMap<>();
+        perksPerSlotPerArmor.put(ItemCategory.CLASS_ARMOR, classArmor);
+        classArmor.put(
+                "1",
                 PerkUtils.CLASS_ARMOR_FIRST_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        perksPerSlot.put(
-                "classArmorSecondPerks",
+        classArmor.put(
+                "2",
                 PerkUtils.CLASS_ARMOR_SECOND_PERKS
                         .stream()
                         .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
                         .collect(Collectors.toList())
         );
-        return perksPerSlot;
+        return perksPerSlotPerArmor;
     }
 }

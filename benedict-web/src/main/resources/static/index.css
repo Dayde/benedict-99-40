@@ -1,5 +1,5 @@
 * {
-    font-family: sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 body {
@@ -12,6 +12,11 @@ html, body, #app {
     display: flex;
     margin: 0;
     flex-direction: column;
+}
+
+img {
+    width: auto;
+    height: 100%;
 }
 
 /* Scrollbar width */
@@ -58,11 +63,27 @@ html, body, #app {
 }
 
 .title {
+    font-size: 2vw;
+    font-variant: all-small-caps oldstyle-nums;
+    letter-spacing: 8px;
     text-align: center;
+    padding: 5px;
 }
 
 .container-column {
     display: flex;
     flex-direction: column;
     position: relative;
+    justify-content: center;
+}
+
+.container {
+    margin: 4px;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.wrap {
+    flex-wrap: wrap;
 }

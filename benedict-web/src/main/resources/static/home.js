@@ -1,7 +1,7 @@
 const Home = {
     template: `
 <div class="home">
-    <h1>Welcome guardian, may I ask your name ?</h1>
+    <div class="title">Welcome guardian, may I ask your name ?</div>
     <user-select></user-select>
 </div>
 `,

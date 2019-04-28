@@ -7,6 +7,7 @@
     background-position: bottom;
     transition: background 500ms ease;
     background-image: url(/black.png);
+    padding-bottom: 15px;
 }
 
 .header > img {
@@ -18,7 +19,7 @@
 .form-container {
     display: flex;
     justify-content: space-evenly;
-
+    align-items: center;
 }
 
 .form-container > div {

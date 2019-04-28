@@ -7,11 +7,11 @@ const Result = {
   <img src="/benedict.gif" alt="Sweep sweep sweep...">
 </div>
 <div v-else class="result">
-    <h1>Sort</h1>
+    <div class="title">Sort</div>
     <div class="item-containers">
         <item :item="item" v-for="item in sort"></item>
     </div>
-    <h1>Keep</h1>
+    <div class="title">Keep</div>
     <div class="item-containers">
         <item :item="item" v-for="item in keep"></item>
     </div>
