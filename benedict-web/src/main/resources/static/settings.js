@@ -8,7 +8,7 @@ let sortedArmors = [
 
 const Settings = {
     template: `
-<div class="container-column">
+<div class="container-column overflow">
     <div class="title">Here you can be a little more specific about what requires sweeping.</div>
     <div class="title">Select perks you care about</div>
     <div class="container-column">

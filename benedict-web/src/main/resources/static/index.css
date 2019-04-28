@@ -74,11 +74,10 @@ img {
     display: flex;
     flex-direction: column;
     position: relative;
-    justify-content: center;
 }
 
 .container {
-    margin: 4px;
+    margin: 6px;
     display: flex;
     position: relative;
     align-items: center;
@@ -86,4 +85,8 @@ img {
 
 .wrap {
     flex-wrap: wrap;
+}
+
+.overflow {
+    overflow-y: auto;
 }
