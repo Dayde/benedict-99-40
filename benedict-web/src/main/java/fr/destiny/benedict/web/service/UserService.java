@@ -19,9 +19,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class UserService {
 
     private final Destiny2Api destiny2Api;
+    private final ItemService itemService;
 
-    public UserService(@Autowired Destiny2Api destiny2Api) {
+    public UserService(@Autowired Destiny2Api destiny2Api, @Autowired ItemService itemService) {
         this.destiny2Api = destiny2Api;
+        this.itemService = itemService;
     }
 
     public List<User> findUsersByUsernameAndPlatform(String username, int membershipType) {
@@ -39,6 +41,6 @@ public class UserService {
     }
 
     public User findUserByUserIdAndPlatform(long userId, int platform) {
-        return new User(destiny2Api.destiny2GetProfile(userId, platform, Arrays.asList(100, 200)).getResponse());
+        return new User(destiny2Api.destiny2GetProfile(userId, platform, Arrays.asList(100, 200)).getResponse(), itemService.getItemDefinitions());
     }
 }

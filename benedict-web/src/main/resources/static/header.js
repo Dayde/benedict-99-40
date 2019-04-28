@@ -1,19 +1,9 @@
 const Header = {
     template: `
-    <div class="header">
+    <div class="header" :style="style">
         <h2 class="title">Benedict 99-40 helps you sweep your vault</h2>
         <div class="form-container">
-            <div>
-                <input id="username" name="username" placeholder="Username" required
-                       type="text" v-model="username"  spellcheck="false">
-            </div>
-            
-            <div v-if="users" class="users">
-                <div v-if="notFound">
-                    No mention of that name was found in the archives
-                </div>
-                <user v-for="user in users" :user="user"></user>
-            </div>
+            <user-select :username="username"></user-select>
             
             <class-type v-model="classType"></class-type>
 
@@ -27,23 +17,20 @@ const Header = {
         localStorage.setItem('itemCategory', this.$route.params.itemCategory);
         return {
             username: user.username,
-            userId: user.userId,
-            platform: user.platform,
+            user: user,
             classType: localStorage.getItem('classType'),
             itemCategory: localStorage.getItem('itemCategory'),
-            users: null
+            style: ''
         };
     },
     created() {
-        this.debouncedFetchUsers = _.debounce(this.fetchUsers, 500)
+        this.updateBackgroundImage()
     },
     watch: {
-        username(newVal) {
-            this.debouncedFetchUsers(newVal)
-        },
         classType(newVal) {
             localStorage.setItem('classType', newVal);
             this.$router.push({params: {...this.$route.params, classType: newVal}});
+            this.updateBackgroundImage();
         },
         itemCategory(newVal) {
             localStorage.setItem('itemCategory', newVal);
@@ -51,21 +38,17 @@ const Header = {
         }
     },
     methods: {
-        fetchUsers(username) {
-            this.notFound = false;
-            if (this.call) {
-                this.call.cancel();
+        currentCharater() {
+            let characters = this.user.characters;
+            for (let id in characters) {
+                let currentCharacter = characters.hasOwnProperty(id) && characters[id];
+                if (this.classType === currentCharacter.classType) {
+                    return currentCharacter;
+                }
             }
-            this.call = axios.CancelToken.source();
-            axios
-                .get('/api/users', {
-                    params: {username},
-                    cancelToken: this.call.token
-                })
-                .then(response => {
-                    this.users = response.data;
-                    this.notFound = this.users.length === 0;
-                });
+        },
+        updateBackgroundImage() {
+            this.style = `background-image: url(https://bungie.net/${this.currentCharater().emblemBackground});`;
         }
     }
 };

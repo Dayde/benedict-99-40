@@ -64,4 +64,5 @@ html, body, #app {
 .container-column {
     display: flex;
     flex-direction: column;
+    position: relative;
 }

@@ -1,0 +1,12 @@
+.user {
+    color: white;
+    text-decoration: none;
+    margin-top: 2px;
+}
+
+.users-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 40px;
+}

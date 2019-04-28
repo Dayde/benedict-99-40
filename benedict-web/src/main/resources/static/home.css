@@ -7,16 +7,6 @@
     flex-direction: column;
 }
 
-.user {
-    color: white;
-    text-decoration: none;
-    font-size: 25px;
-}
-
-.users {
-    height: 100px;
-}
-
 .choose-class {
     flex: auto;
     display: flex;

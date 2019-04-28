@@ -3,6 +3,9 @@
     flex-flow: column nowrap;
     justify-content: center;
     flex-direction: column;
+    background-size: cover;
+    background-position: bottom;
+    transition: background 500ms ease;
 }
 
 .form-container {
@@ -15,9 +18,9 @@
     display: flex;
 }
 
-input[type=text] {
+input[type=text], .user {
     font-size: 20px;
-    width: 170px;
+    width: 250px;
     background-color: rgba(100, 100, 100, 0.5);
     border: none;
     padding: 6px;
@@ -25,8 +28,8 @@ input[type=text] {
     outline-color: white;
 }
 
-input[type=text]:focus {
-    background-color: rgba(100, 100, 100, 0.4);
+input[type=text]:focus, input[type=text]:hover, .user:hover {
+    background-color: rgba(100, 100, 100, 0.8);
 }
 
 [type=radio] {
@@ -43,7 +46,7 @@ input[type=text]:focus {
 
 [type=radio]:checked + img, [type=radio]:checked + i {
     background-color: rgba(100, 100, 100, 0.4);
-    border: darkgray solid 2px;
+    border: white solid 2px;
     margin: 0;
     filter: brightness(100%);
 }

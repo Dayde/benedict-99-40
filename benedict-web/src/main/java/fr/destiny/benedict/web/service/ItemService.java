@@ -32,6 +32,10 @@ public class ItemService {
         );
     }
 
+    public Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> getItemDefinitions() {
+        return itemDefinitions;
+    }
+
     public Map<ItemCategory, Set<ItemInstance>> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
         DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
@@ -42,12 +46,22 @@ public class ItemService {
         instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getVaultItems(profile));
 
         Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances = profile.getItemComponents().getInstances().getData();
+        if (instances == null) {
+            instances = Collections.emptyMap();
+        }
         Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets = profile.getItemComponents().getSockets().getData();
+        if (sockets == null) {
+            sockets = Collections.emptyMap();
+        }
 
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
     }
 
-    private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(Map<Long, Set<Long>> instanceIdsByItemHash, Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances, Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets, ClassType classType, ItemCategory itemCategory) {
+    private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(
+            Map<Long, Set<Long>> instanceIdsByItemHash,
+            Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances,
+            Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets,
+            ClassType classType, ItemCategory itemCategory) {
         Map<ItemCategory, Set<ItemInstance>> itemInstances = new HashMap<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
@@ -67,13 +81,28 @@ public class ItemService {
             }
 
             instanceIds.forEach(instanceId ->
-                    itemInstances.computeIfAbsent(preciseItemCategory, set -> new HashSet<>()).add(new ItemInstance(
-                            instanceId,
-                            instances.get(Long.toString(instanceId)),
-                            sockets.get(Long.toString(instanceId)),
-                            itemDefinition,
-                            itemDefinitions
-                    )));
+                    {
+                        DestinyEntitiesItemsDestinyItemSocketsComponent socketsComponent = sockets.get(Long.toString(instanceId));
+                        if (socketsComponent == null) {
+                            socketsComponent =
+                                    new DestinyEntitiesItemsDestinyItemSocketsComponent();
+                            socketsComponent.setSockets(Collections.emptyList());
+                        }
+
+                        itemInstances.computeIfAbsent(
+                                preciseItemCategory,
+                                set -> new HashSet<>())
+                                .add(
+                                        new ItemInstance(
+                                                instanceId,
+                                                instances.get(Long.toString(instanceId)),
+                                                socketsComponent,
+                                                itemDefinition,
+                                                itemDefinitions
+                                        )
+                                );
+                    }
+            );
         });
 
         return itemInstances;
