@@ -28,15 +28,10 @@ let armors = {
 
 Vue.component('armor', {
     template: '<img :src="imageUrl">',
-    props: {
-        armor: String,
-        classType: {
-            default: localStorage.classType
-        }
-    },
+    props: ['armor', 'classType'],
     computed: {
         imageUrl() {
-            return armors[this.armor][this.classType];
+            return armors[this.armor][this.classType || localStorage.classType || 'TITAN'];
         }
     }
 });
