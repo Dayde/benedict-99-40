@@ -34,6 +34,9 @@ const Home = {
         if (userJSON) {
             let user = JSON.parse(userJSON);
             this.$router.push({path: `/sweep/${user.userId}/${user.platform}`});
+        } else {
+            localStorage.clear();
+            this.$router.push({path: '/'});
         }
         this.debouncedFetchUsers = _.debounce(this.fetchUsers, 500)
     },
