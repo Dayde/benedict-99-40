@@ -40,10 +40,10 @@ public class BenedictController {
         return userService.findUserByUserIdAndPlatform(userId, platform);
     }
 
-    @RequestMapping("/items")
+    @RequestMapping("/users/{userId}/{platform}/items")
     public Map<String, Object> items(
-            @RequestParam long userId,
-            @RequestParam int platform,
+            @PathVariable long userId,
+            @PathVariable int platform,
             @RequestParam String classType,
             @RequestParam String itemCategory,
             @RequestParam Set<Long> uncommittedPerkHashes) {

@@ -79,10 +79,8 @@ const Result = {
             }
             this.call = axios.CancelToken.source();
             axios
-                .get('/api/items', {
+                .get(`/api/users/${this.$route.params.userId}/${this.$route.params.platform}/items`, {
                     params: {
-                        userId,
-                        platform,
                         classType,
                         itemCategory,
                         uncommittedPerkHashes: this.uncommittedPerkHashes()
@@ -110,7 +108,7 @@ const Result = {
             }
             let uncommittedPerkHashes = [];
             for (let perkHash in committedPerks) {
-                if (!committedPerks[perkHash]) {
+                if (committedPerks.hasOwnProperty(perkHash) && !committedPerks[perkHash]) {
                     uncommittedPerkHashes.push(perkHash);
                 }
             }
