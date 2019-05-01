@@ -9,11 +9,11 @@ const Result = {
 <div v-else class="result">
     <div class="title">Sort</div>
     <div class="item-containers">
-        <item :item="item" v-for="item in sort"></item>
+        <item :item="item" v-for="item in sort" :key="item.instanceId"></item>
     </div>
     <div class="title">Keep</div>
     <div class="item-containers">
-        <item :item="item" v-for="item in keep"></item>
+        <item :item="item" v-for="item in keep" :key="item.instanceId"></item>
     </div>
 </div>
 `,
