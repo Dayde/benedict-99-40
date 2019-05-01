@@ -31,7 +31,7 @@ public class SecurityController {
     @RequestMapping("/login")
     public String login() {
         return String.format(
-                "redirect:%s/en/oauth/authorize?client_id=%s&response_type=code",
+                "redirect:%s/en/oauth/authorize?client_id=%s&response_type=code&reauth=true",
                 BUNGIE_ROOT_URL,
                 CLIENT_ID
         );
