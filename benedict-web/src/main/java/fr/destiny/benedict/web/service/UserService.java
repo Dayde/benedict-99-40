@@ -1,8 +1,10 @@
 package fr.destiny.benedict.web.service;
 
 import fr.destiny.api.client.Destiny2Api;
+import fr.destiny.api.client.UserApi;
 import fr.destiny.benedict.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -20,10 +22,15 @@ public class UserService {
 
     private final Destiny2Api destiny2Api;
     private final ItemService itemService;
+    private final UserApi userApi;
 
-    public UserService(@Autowired Destiny2Api destiny2Api, @Autowired ItemService itemService) {
+    public UserService(
+            @Autowired Destiny2Api destiny2Api,
+            @Autowired ItemService itemService,
+            @Autowired @Qualifier("userApiScoped") UserApi userApi) {
         this.destiny2Api = destiny2Api;
         this.itemService = itemService;
+        this.userApi = userApi;
     }
 
     public List<User> findUsersByUsernameAndPlatform(String username, int membershipType) {
@@ -42,5 +49,10 @@ public class UserService {
 
     public User findUserByUserIdAndPlatform(long userId, int platform) {
         return new User(destiny2Api.destiny2GetProfile(userId, platform, Arrays.asList(100, 200)).getResponse(), itemService.getItemDefinitions());
+    }
+
+    public User currentUser(String token) {
+        userApi.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
+        return new User(userApi.userGetMembershipDataForCurrentUser().getResponse().getDestinyMemberships().get(0));
     }
 }

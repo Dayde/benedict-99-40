@@ -6,15 +6,15 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.destiny.api.ApiClient;
 import fr.destiny.api.client.Destiny2Api;
+import fr.destiny.api.client.UserApi;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
@@ -27,18 +27,54 @@ import java.util.zip.ZipInputStream;
 
 @Configuration
 @ConfigurationProperties("fr.destiny.api")
-@ComponentScan(basePackageClasses = ApiClient.class,
-        excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ApiClient.class))
+@ComponentScan(
+        basePackageClasses = ApiClient.class,
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.ASSIGNABLE_TYPE,
+                value = {
+                        ApiClient.class,
+                        Destiny2Api.class,
+                        UserApi.class
+                }
+        )
+)
 public class BenedictConfig {
 
-    private static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
+    public static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
 
     @Value("${BUNGIE_API_KEY}")
-    private String apiKey;
+    private String API_KEY;
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Qualifier("destiny2ApiScoped")
+    public Destiny2Api destiny2ApiScoped() {
+        return new Destiny2Api(apiClientScoped());
+    }
+
+    @Bean
+    @Qualifier("destiny2Api")
+    public Destiny2Api destiny2Api() {
+        return new Destiny2Api(apiClient());
+    }
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Qualifier("userApiScoped")
+    public UserApi userApiScoped() {
+        return new UserApi(apiClientScoped());
+    }
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Qualifier("apiClientScoped")
+    public ApiClient apiClientScoped() {
+        return new ApiClient().addDefaultHeader("X-API-Key", API_KEY);
+    }
 
     @Bean
     public ApiClient apiClient() {
-        return new ApiClient().addDefaultHeader("X-API-Key", apiKey);
+        return new ApiClient().addDefaultHeader("X-API-Key", API_KEY);
     }
 
     @Bean
@@ -54,8 +90,8 @@ public class BenedictConfig {
     }
 
     @Bean
-    public DataSource dataSource(RestTemplate restTemplate, Destiny2Api api) {
-        String path = api.destiny2GetDestinyManifest()
+    public DataSource dataSource(RestTemplate restTemplate, Destiny2Api destiny2Api) {
+        String path = destiny2Api.destiny2GetDestinyManifest()
                 .getResponse()
                 .getMobileWorldContentPaths()
                 .get("en");

@@ -40,19 +40,26 @@ public class BenedictController {
         return userService.findUserByUserIdAndPlatform(userId, platform);
     }
 
+    @RequestMapping("/user")
+    public User currentUser(@RequestParam String token) {
+        return userService.currentUser(token);
+    }
+
     @RequestMapping("/users/{userId}/{platform}/items")
     public Map<String, Object> items(
             @PathVariable long userId,
             @PathVariable int platform,
             @RequestParam String classType,
             @RequestParam String itemCategory,
-            @RequestParam Set<Long> uncommittedPerkHashes) {
+            @RequestParam Set<Long> uncommittedPerkHashes,
+            @RequestParam(required = false, defaultValue = "") String token) {
 
         Map<ItemCategory, Set<ItemInstance>> itemInstancesPerCategory = itemService.getItemInstances(
                 userId,
                 platform,
                 ClassType.valueOf(classType),
-                ItemCategory.valueOf(itemCategory)
+                ItemCategory.valueOf(itemCategory),
+                token
         );
 
 

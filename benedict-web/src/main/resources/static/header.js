@@ -1,16 +1,16 @@
 const Header = {
     template: `
-    <div class="header" :style="style">
-        <img :src="emblemBackgroundUrl">
-        <div class="title">Benedict 99-40 helps you sweep your vault</div>
-        <div class="form-container">
-            <user-select :username="username"></user-select>
-            
-            <class-type v-model="classType"></class-type>
+<div class="header" :style="style">
+    <img :src="emblemBackgroundUrl">
+    <div class="title">Benedict 99-40 helps you sweep your vault</div>
+    <div class="form-container">
+        <class-type v-model="classType"></class-type>
 
-            <item-category v-model="itemCategory" :classType="classType"></item-category>
-        </div>
+        <item-category v-model="itemCategory" :classType="classType"></item-category>
+        
+        <auth></auth>
     </div>
+</div>
 `,
     data() {
         let user = JSON.parse(localStorage.getItem('user'));

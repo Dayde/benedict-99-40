@@ -11,9 +11,6 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
-        System.out.println(request.getPathInfo());
-        System.out.println(request.getRequestURL());
-        System.out.println(request.getRequestURI());
         if ("http".equals(request.getHeader("x-forwarded-proto"))) {
             response.sendRedirect(request.getRequestURL().toString().replace("http://", "https://"));
             return false;

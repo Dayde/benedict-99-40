@@ -7,7 +7,9 @@ import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.repository.DestinyInventoryItemRepository;
 import fr.destiny.benedict.web.utils.PerkUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,7 +24,7 @@ public class ItemService {
 
     private Destiny2Api destiny2Api;
 
-    ItemService(@Autowired Destiny2Api destiny2Api, @Autowired DestinyInventoryItemRepository itemRepository) {
+    ItemService(@Autowired @Qualifier("destiny2ApiScoped") Destiny2Api destiny2Api, @Autowired DestinyInventoryItemRepository itemRepository) {
         this.destiny2Api = destiny2Api;
         this.itemDefinitions = ImmutableMap.copyOf(
                 itemRepository.findAll()
@@ -36,7 +38,17 @@ public class ItemService {
         return itemDefinitions;
     }
 
-    public Map<ItemCategory, Set<ItemInstance>> getItemInstances(Long membershipId, Integer membershipType, ClassType classType, ItemCategory itemCategory) {
+    public Map<ItemCategory, Set<ItemInstance>> getItemInstances(
+            Long membershipId,
+            Integer membershipType,
+            ClassType classType,
+            ItemCategory itemCategory,
+            String token) {
+
+        if (!StringUtils.isEmpty(token)) {
+            destiny2Api.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
+        }
+
         DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
         Map<Long, Set<Long>> instanceIdsByItemHash = new HashMap<>();

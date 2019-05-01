@@ -16,7 +16,7 @@ html, body, #app {
 
 img {
     width: auto;
-    height: 100%;
+    height: auto;
 }
 
 /* Scrollbar width */
@@ -68,6 +68,18 @@ img {
     letter-spacing: 8px;
     text-align: center;
     padding: 5px;
+}
+
+.username {
+    font-size: 2vw;
+    letter-spacing: 4px;
+    text-align: center;
+    padding: 5px;
+}
+
+.username > i {
+    margin: 3px;
+    cursor: pointer;
 }
 
 .container-column {
