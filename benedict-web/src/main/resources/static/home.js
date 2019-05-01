@@ -11,6 +11,7 @@ const Home = {
             axios.get('/token', {params: {code: this.$route.query.code}})
                 .then(response => {
                     let token = response.data;
+                    token.timestamp = new Date().getTime();
                     localStorage.token = JSON.stringify(token);
                     axios.defaults.params = {};
                     axios.defaults.params['token'] = token.access_token;

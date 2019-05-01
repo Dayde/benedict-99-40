@@ -12,14 +12,29 @@ Vue.component('auth', {
     },
     mounted() {
         if (localStorage.token) {
-            axios.defaults.params = {};
-            axios.defaults.params['token'] = JSON.parse(localStorage.token).access_token;
+            let token = JSON.parse(localStorage.token);
+            if (token.timestamp + token.expires_in > new Date().getTime()) {
+                refreshToken(token.refresh_token);
+            } else {
+                axios.defaults.params = {};
+                axios.defaults.params['token'] = token.access_token;
+            }
         }
     },
     methods: {
         logout() {
             localStorage.clear();
             this.$router.push({path: '/'});
+        },
+        refreshToken(refreshToken) {
+            axios.get('/token/refresh', {params: {refreshToken}})
+                .then(response => {
+                    let token = response.data;
+                    token.timestamp = new Date().getTime();
+                    localStorage.token = JSON.stringify(token);
+                    axios.defaults.params = {};
+                    axios.defaults.params['token'] = token.access_token;
+                });
         }
     }
 });

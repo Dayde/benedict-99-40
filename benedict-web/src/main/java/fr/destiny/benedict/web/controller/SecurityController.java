@@ -37,7 +37,7 @@ public class SecurityController {
         );
     }
 
-    @RequestMapping(value = "/token")
+    @RequestMapping("/token")
     @ResponseBody
     public TokenResponse token(@RequestParam String code) {
         HttpHeaders headers = new HttpHeaders();
@@ -47,6 +47,26 @@ public class SecurityController {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("code", code);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
+
+        return restTemplate.postForEntity(
+                BUNGIE_ROOT_URL + "/platform/app/oauth/token/",
+                request,
+                TokenResponse.class
+        ).getBody();
+    }
+
+    @RequestMapping("/token/refresh")
+    @ResponseBody
+    public TokenResponse refreshToken(@RequestParam String refreshToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth(CLIENT_ID, CLIENT_SECRET);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "refresh_token");
+        body.add("refresh_token", refreshToken);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
