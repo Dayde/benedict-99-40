@@ -14,7 +14,7 @@ Vue.component('auth', {
         if (localStorage.token) {
             let token = JSON.parse(localStorage.token);
             if (token.timestamp + token.expires_in > new Date().getTime()) {
-                refreshToken(token.refresh_token);
+                this.refreshToken(token.refresh_token);
             } else {
                 axios.defaults.params = {};
                 axios.defaults.params['token'] = token.access_token;
