@@ -76,10 +76,10 @@ Vue.component('armor', {
     props: ['armor', 'classType'],
     computed: {
         imageUrl() {
-            return armors[this.armor][this.classType || localStorage.classType || 'TITAN'].icon;
+            return armors[this.armor][this.classType || localStorage.getItem('classType') || 'TITAN'].icon;
         },
         armorName() {
-            return armors[this.armor][this.classType || localStorage.classType || 'TITAN'].name;
+            return armors[this.armor][this.classType || localStorage.getItem('classType') || 'TITAN'].name;
         }
     }
 });

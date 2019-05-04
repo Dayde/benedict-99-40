@@ -7,12 +7,12 @@ Vue.component('auth', {
     data() {
         return {
             authenticated: false,
-            username: JSON.parse(localStorage.user).username
+            username: JSON.parse(localStorage.getItem('user')).username
         }
     },
     mounted() {
-        if (localStorage.token) {
-            let token = JSON.parse(localStorage.token);
+        if (localStorage.getItem('token')) {
+            let token = JSON.parse(localStorage.getItem('token'));
             axios.get('/api/user', {params: {token: token.access_token}})
                 .then(response => {
                     axios.defaults.params = {};
@@ -33,7 +33,7 @@ Vue.component('auth', {
                 .then(response => {
                     let token = response.data;
                     token.timestamp = new Date().getTime();
-                    localStorage.token = JSON.stringify(token);
+                    localStorage.setItem('token', JSON.stringify(token));
                     axios.defaults.params = {};
                     axios.defaults.params['token'] = token.access_token;
                     this.$router.push('/');

@@ -12,7 +12,7 @@ const Home = {
                 .then(response => {
                     let token = response.data;
                     token.timestamp = new Date().getTime();
-                    localStorage.token = JSON.stringify(token);
+                    localStorage.setItem('token', JSON.stringify(token));
                     axios.defaults.params = {};
                     axios.defaults.params['token'] = token.access_token;
 
@@ -26,16 +26,16 @@ const Home = {
                             });
                         });
                 })
-        } else if (localStorage.token && localStorage.user) {
+        } else if (localStorage.getItem('token') && localStorage.getItem('user')) {
             axios.defaults.params = {};
-            axios.defaults.params['token'] = JSON.parse(localStorage.token).access_token;
-            let user = JSON.parse(localStorage.user);
+            axios.defaults.params['token'] = JSON.parse(localStorage.getItem('token')).access_token;
+            let user = JSON.parse(localStorage.getItem('user'));
             this.$router.push({
                 path: `/sweep` +
                     `/${user.userId}` +
                     `/${user.platform}` +
-                    `/${localStorage.classType}` +
-                    `/${localStorage.itemCategory}`
+                    `/${localStorage.getItem('classType')}` +
+                    `/${localStorage.getItem('itemCategory')}`
             });
         }
     }
