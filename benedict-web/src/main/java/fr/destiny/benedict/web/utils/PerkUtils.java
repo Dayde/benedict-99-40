@@ -24,9 +24,9 @@ public class PerkUtils {
     // Targeting
     private static final long PRECISION_WEAPON_TARGETING = 2414923993L;
     private static final long HAND_CANNON_TARGETING = 304186389L;
+    private static final long BOW_TARGETING = 3069341742L;
     private static final long SCOUT_RIFLE_TARGETING = 3494979213L;
     private static final long SNIPER_RIFLE_TARGETING = 395489854L;
-    private static final long BOW_TARGETING = 3069341742L;
     private static final long LINEAR_FUSION_TARGETING = 3621792645L;
 
     private static final long SCATTER_PROJECTILE_TARGETING = 3813989326L;
@@ -40,8 +40,8 @@ public class PerkUtils {
     private static final long MACHINE_GUN_TARGETING = 942541111L;
 
     private static final long ENHANCED_HAND_CANNON_TARGETING = 1356474366L;
-    private static final long ENHANCED_SNIPER_RIFLE_TARGETING = 1983861079L;
     private static final long ENHANCED_BOW_TARGETING = 1576700957L;
+    private static final long ENHANCED_SNIPER_RIFLE_TARGETING = 1983861079L;
     private static final long ENHANCED_LINEAR_FUSION_TARGETING = 2073167962L;
 
     private static final long KINETIC_WEAPON_TARGETING = 2839066781L;
@@ -49,9 +49,9 @@ public class PerkUtils {
     private static final long POWER_WEAPON_TARGETING = 3201772785L;
 
     // Super
-    private static final long PUMP_ACTION = 1608112177L;
     private static final long LIGHT_REACTOR = 514613051L;
     private static final long REMOTE_CONNECTION = 2196878528L;
+    private static final long PUMP_ACTION = 1608112177L;
     private static final long ASHES_TO_ASSETS = 1107740237L;
     private static final long HEAVY_LIFTING = 2042848612L;
     private static final long HANDS_ON = 1567314459L;
@@ -119,9 +119,9 @@ public class PerkUtils {
     private static final long UNFLINCHING_MACHINE_GUN = 1772682177L;
     private static final long UNFLINCHING_GRENADE_LAUNCHER_AIM = 430361065L;
 
+    private static final long ENHANCED_UNFLINCHING_BOW_AIM = 1084281489L;
     private static final long ENHANCED_UNFLINCHING_SCOUT_RIFLE_AIM = 2788953856L;
     private static final long ENHANCED_UNFLINCHING_SNIPER_AIM = 854794537L;
-    private static final long ENHANCED_UNFLINCHING_BOW_AIM = 1084281489L;
     private static final long ENHANCED_UNFLINCHING_LINEAR_FUSION_AIM = 1325595568L;
 
     private static final long UNFLINCHING_KINETIC_AIM = 527286589L;
@@ -134,8 +134,8 @@ public class PerkUtils {
     // First Perks
     // Dexterity
     private static final long OVERSIZE_WEAPON_DEXTERITY = 3515212050L;
-    private static final long SHOTGUN_DEXTERITY = 1036754881L;
     private static final long BOW_DEXTERITY = 3591739443L;
+    private static final long SHOTGUN_DEXTERITY = 1036754881L;
     private static final long GRENADE_LAUNCHER_DEXTERITY = 1749896152L;
     private static final long ROCKET_LAUNCHER_DEXTERITY = 1334592906L;
 
@@ -155,8 +155,8 @@ public class PerkUtils {
     private static final long MACHINE_GUN_DEXTERITY = 1371918942L;
 
     private static final long ENHANCED_HAND_CANNON_DEXTERITY = 4140705235L;
-    private static final long ENHANCED_SHOTGUN_DEXTERITY = 1183779334L;
     private static final long ENHANCED_SNIPER_RIFLE_DEXTERITY = 1227994396L;
+    private static final long ENHANCED_SHOTGUN_DEXTERITY = 1183779334L;
     private static final long ENHANCED_ROCKET_LAUNCHER_DEXTERITY = 4282096169L;
 
     private static final long KINETIC_DEXTERITY = 2326218464L;
@@ -185,9 +185,9 @@ public class PerkUtils {
 
     // Reserves
     // Helmet Second Perk
-    private static final long SHOTGUN_RESERVES = 1068909436L;
     private static final long FUSION_RIFLE_RESERVES = 4034210761L;
     private static final long SNIPER_RIFLE_RESERVES = 1180144002L;
+    private static final long SHOTGUN_RESERVES = 1068909436L;
     private static final long MACHINE_GUN_RESERVES = 901125364L;
     private static final long LINEAR_FUSION_RIFLE_RESERVES = 4007230256L;
     private static final long GRENADE_LAUNCHER_RESERVES = 330650351L;
@@ -198,16 +198,16 @@ public class PerkUtils {
     private static final long SIDEARM_RESERVES = 2433223313L;
     private static final long HAND_CANNON_RESERVES = 833036833L;
     private static final long SUBMACHINE_GUN_RESERVES = 3975312523L;
+    private static final long BOW_RESERVES = 1879053658L;
     private static final long AUTO_RIFLE_RESERVES = 2928640162L;
     private static final long PULSE_RIFLE_RESERVES = 1659799750L;
     private static final long SCOUT_RIFLE_RESERVES = 3910640537L;
-    private static final long BOW_RESERVES = 1879053658L;
 
     // Scavengers
     // Gauntlets Second Perk
-    private static final long SHOTGUN_SCAVENGER = 1066067378L;
     private static final long FUSION_RIFLE_SCAVENGER = 127731051L;
     private static final long SNIPER_RIFLE_SCAVENGER = 2600330634L;
+    private static final long SHOTGUN_SCAVENGER = 1066067378L;
     private static final long MACHINE_GUN_SCAVENGER = 790090923L;
     private static final long LINEAR_FUSION_RIFLE_SCAVENGER = 3054567270L;
     private static final long GRENADE_LAUNCHER_SCAVENGER = 866518141L;
@@ -233,9 +233,9 @@ public class PerkUtils {
         List<Long> helmetFirstPerks = Arrays.asList(
                 PRECISION_WEAPON_TARGETING,
                 HAND_CANNON_TARGETING,
+                BOW_TARGETING,
                 SCOUT_RIFLE_TARGETING,
                 SNIPER_RIFLE_TARGETING,
-                BOW_TARGETING,
                 LINEAR_FUSION_TARGETING,
                 SCATTER_PROJECTILE_TARGETING,
                 SIDEARM_TARGETING,
@@ -246,15 +246,15 @@ public class PerkUtils {
                 SHOTGUN_TARGETING,
                 MACHINE_GUN_TARGETING,
                 ENHANCED_HAND_CANNON_TARGETING,
-                ENHANCED_SNIPER_RIFLE_TARGETING,
                 ENHANCED_BOW_TARGETING,
+                ENHANCED_SNIPER_RIFLE_TARGETING,
                 ENHANCED_LINEAR_FUSION_TARGETING,
                 KINETIC_WEAPON_TARGETING,
                 ENERGY_WEAPON_TARGETING,
                 POWER_WEAPON_TARGETING,
-                PUMP_ACTION,
                 LIGHT_REACTOR,
                 REMOTE_CONNECTION,
+                PUMP_ACTION,
                 ASHES_TO_ASSETS,
                 ENHANCED_ASHES_TO_ASSETS,
                 HANDS_ON,
@@ -264,9 +264,9 @@ public class PerkUtils {
         HELMET_FIRST_PERKS = Collections.unmodifiableList(helmetFirstPerks);
 
         List<Long> helmetSecondPerks = Arrays.asList(
-                SHOTGUN_RESERVES,
                 FUSION_RIFLE_RESERVES,
                 SNIPER_RIFLE_RESERVES,
+                SHOTGUN_RESERVES,
                 MACHINE_GUN_RESERVES,
                 LINEAR_FUSION_RIFLE_RESERVES,
                 GRENADE_LAUNCHER_RESERVES,
@@ -311,9 +311,9 @@ public class PerkUtils {
         GAUNTLETS_FIRST_PERKS = Collections.unmodifiableList(gauntletsFirstPerks);
 
         List<Long> gauntletsSecondPerks = Arrays.asList(
-                SHOTGUN_SCAVENGER,
                 FUSION_RIFLE_SCAVENGER,
                 SNIPER_RIFLE_SCAVENGER,
+                SHOTGUN_SCAVENGER,
                 MACHINE_GUN_SCAVENGER,
                 LINEAR_FUSION_RIFLE_SCAVENGER,
                 GRENADE_LAUNCHER_SCAVENGER,
@@ -340,9 +340,9 @@ public class PerkUtils {
                 UNFLINCHING_SHOTGUN_AIM,
                 UNFLINCHING_MACHINE_GUN,
                 UNFLINCHING_GRENADE_LAUNCHER_AIM,
+                ENHANCED_UNFLINCHING_BOW_AIM,
                 ENHANCED_UNFLINCHING_SCOUT_RIFLE_AIM,
                 ENHANCED_UNFLINCHING_SNIPER_AIM,
-                ENHANCED_UNFLINCHING_BOW_AIM,
                 ENHANCED_UNFLINCHING_LINEAR_FUSION_AIM,
                 UNFLINCHING_KINETIC_AIM,
                 UNFLINCHING_ENERGY_AIM,
@@ -355,10 +355,10 @@ public class PerkUtils {
                 SIDEARM_RESERVES,
                 HAND_CANNON_RESERVES,
                 SUBMACHINE_GUN_RESERVES,
+                BOW_RESERVES,
                 AUTO_RIFLE_RESERVES,
                 PULSE_RIFLE_RESERVES,
                 SCOUT_RIFLE_RESERVES,
-                BOW_RESERVES,
                 PRIMARY_AMMO_FINDER,
                 SPECIAL_AMMO_FINDER
         );
@@ -366,8 +366,8 @@ public class PerkUtils {
 
         List<Long> legarmorFirstPerks = Arrays.asList(
                 OVERSIZE_WEAPON_DEXTERITY,
-                SHOTGUN_DEXTERITY,
                 BOW_DEXTERITY,
+                SHOTGUN_DEXTERITY,
                 GRENADE_LAUNCHER_DEXTERITY,
                 ROCKET_LAUNCHER_DEXTERITY,
                 RIFLE_DEXTERITY,
@@ -383,8 +383,8 @@ public class PerkUtils {
                 SUBMACHINE_GUN_DEXTERITY,
                 MACHINE_GUN_DEXTERITY,
                 ENHANCED_HAND_CANNON_DEXTERITY,
-                ENHANCED_SHOTGUN_DEXTERITY,
                 ENHANCED_SNIPER_RIFLE_DEXTERITY,
+                ENHANCED_SHOTGUN_DEXTERITY,
                 ENHANCED_ROCKET_LAUNCHER_DEXTERITY,
                 KINETIC_DEXTERITY,
                 ENERGY_DEXTERITY,
@@ -426,13 +426,13 @@ public class PerkUtils {
                 SIDEARM_RESERVES,
                 HAND_CANNON_RESERVES,
                 SUBMACHINE_GUN_RESERVES,
-                SHOTGUN_RESERVES,
+                BOW_RESERVES,
                 AUTO_RIFLE_RESERVES,
                 PULSE_RIFLE_RESERVES,
                 SCOUT_RIFLE_RESERVES,
                 FUSION_RIFLE_RESERVES,
                 SNIPER_RIFLE_RESERVES,
-                BOW_RESERVES,
+                SHOTGUN_RESERVES,
                 MACHINE_GUN_RESERVES,
                 LINEAR_FUSION_RIFLE_RESERVES,
                 GRENADE_LAUNCHER_RESERVES,
@@ -441,13 +441,13 @@ public class PerkUtils {
                 SIDEARM_SCAVENGER,
                 HAND_CANNON_SCAVENGER,
                 SUBMACHINE_GUN_SCAVENGER,
-                SHOTGUN_SCAVENGER,
+                ARROW_SCAVENGER,
                 AUTO_RIFLE_SCAVENGER,
                 PULSE_RIFLE_SCAVENGER,
                 SCOUT_RIFLE_SCAVENGER,
                 FUSION_RIFLE_SCAVENGER,
                 SNIPER_RIFLE_SCAVENGER,
-                ARROW_SCAVENGER,
+                SHOTGUN_SCAVENGER,
                 MACHINE_GUN_SCAVENGER,
                 LINEAR_FUSION_RIFLE_SCAVENGER,
                 GRENADE_LAUNCHER_SCAVENGER,
@@ -464,9 +464,9 @@ public class PerkUtils {
                         PRECISION_WEAPON_TARGETING,
                         Arrays.asList(
                                 HAND_CANNON_TARGETING,
+                                BOW_TARGETING,
                                 SCOUT_RIFLE_TARGETING,
                                 SNIPER_RIFLE_TARGETING,
-                                BOW_TARGETING,
                                 LINEAR_FUSION_TARGETING
                         )
                 ),
@@ -531,8 +531,8 @@ public class PerkUtils {
                 Map.entry(
                         OVERSIZE_WEAPON_DEXTERITY,
                         Arrays.asList(
-                                SHOTGUN_DEXTERITY,
                                 BOW_DEXTERITY,
+                                SHOTGUN_DEXTERITY,
                                 GRENADE_LAUNCHER_DEXTERITY,
                                 ROCKET_LAUNCHER_DEXTERITY
                         )
