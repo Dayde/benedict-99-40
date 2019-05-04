@@ -21,8 +21,7 @@ Vue.component('class-type', {
 <div>
     <label v-for="clazz in classes" :title="clazz.name" v-tippy="{ followCursor: true }">
         <input name="classType" type="radio" v-model="mutableClassType" :value="clazz.value">
-        <img class="form-img"
-             :src="clazz.icon">
+        <img class="form-img" :src="clazz.icon" :alt="clazz.name">
     </label>
 </div>
 `,

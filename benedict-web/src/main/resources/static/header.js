@@ -2,7 +2,7 @@ Vue.component('sweep-header', {
     template: `
 <header>
     <div class="header" :style="style">
-        <img :src="emblemBackgroundUrl">
+        <img :src="emblemBackgroundUrl" alt="hidden emblem">
         <div class="title">Benedict 99-40 helps you sweep your vault</div>
         <div class="form-container">
             <class-type v-model="classType"></class-type>
