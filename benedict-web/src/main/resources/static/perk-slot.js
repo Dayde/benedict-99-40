@@ -1,8 +1,12 @@
 Vue.component('perk-slot', {
     template: `
-<div class="container wrap">
-    <perk v-for="(perk, index) in perks[armor][armorSlot]" :perk="perk" :key="perk.key" 
-    :class="{ 'socket-selected': isCommitted(perk) }" @click.native="toggle(armor, armorSlot, index)"></perk>
+<div class="container perk-slot">
+    <i class="fas fa-check-circle clickable" @click="setAll(armor, armorSlot, true)"></i>
+    <i class="fas fa-times-circle clickable" @click="setAll(armor, armorSlot, false)"></i>
+    <div class="wrap">
+        <perk v-for="(perk, index) in perks[armor][armorSlot]" :perk="perk" :key="perk.key" class="clickable"
+        :class="{ 'socket-selected': isCommitted(perk) }" @click.native="toggle(armor, armorSlot, index)"></perk>
+    </div>
 </div>
 `,
     props: ['name', 'armor', 'armorSlot', 'perks'],
@@ -20,6 +24,16 @@ Vue.component('perk-slot', {
             committedPerks[perk.hash] = !this.isCommitted(perk);
             localStorage.setItem('committedPerks', JSON.stringify(committedPerks));
             this.setPerkKey(perk, committedPerks);
+            this.$emit('perk-toggled');
+        },
+        setAll(armor, armorSlot, committed) {
+            let perks = this.perks[armor][armorSlot];
+            let committedPerks = this.getCommittedPerks();
+            for (let perk of perks) {
+                committedPerks[perk.hash] = committed;
+                this.setPerkKey(perk, committedPerks);
+            }
+            localStorage.setItem('committedPerks', JSON.stringify(committedPerks));
             this.$emit('perk-toggled');
         },
         getCommittedPerks() {

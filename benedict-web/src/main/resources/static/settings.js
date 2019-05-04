@@ -15,7 +15,7 @@ const Settings = {
         <div class="container" v-for="armor in sortedArmors">
             <armor :armor="armor"></armor>
             <div class="container-column">
-                <perk-slot v-for="(slotPerks, armorSlot) in perks[armor]"
+                <perk-slot v-for="(slotPerks, armorSlot) in perks[armor]" :key="armorSlot"
                   :armor="armor"
                   :armorSlot="armorSlot"
                   :perks="perks"

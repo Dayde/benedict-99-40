@@ -33,3 +33,9 @@ img[alt="Heavy Ammo Finder"] {
     height: 30px;
     padding: 5px;
 }
+
+.perk-slot i {
+    color: rgba(150, 150, 150, 1);
+    font-size: 22px;
+    padding: 1px;
+}
