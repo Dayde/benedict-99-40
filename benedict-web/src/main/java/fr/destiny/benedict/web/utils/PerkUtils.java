@@ -67,11 +67,6 @@ public class PerkUtils {
     private static final long SUBMACHINE_GUN_LOADER = 3520605595L;
     private static final long BOW_RELOADER = 2493794080L;
 
-    private static final long LARGE_WEAPON_LOADER = 1068982181L;
-    private static final long SHOTGUN_LOADER = 1023341166L;
-    private static final long GRENADE_LAUNCHER_LOADER = 1809014285L;
-    private static final long ROCKET_LAUNCHER_LOADER = 2052426051L;
-
     private static final long RIFLE_LOADER = 2111651017L;
     private static final long AUTO_RIFLE_LOADER = 3489008282L;
     private static final long PULSE_RIFLE_LOADER = 2625406776L;
@@ -79,6 +74,11 @@ public class PerkUtils {
     private static final long FUSION_RIFLE_LOADER = 546936951L;
     private static final long SNIPER_RIFLE_LOADER = 2607559478L;
     private static final long LINEAR_FUSION_RIFLE_LOADER = 1808134965L;
+
+    private static final long LARGE_WEAPON_LOADER = 1068982181L;
+    private static final long SHOTGUN_LOADER = 1023341166L;
+    private static final long GRENADE_LAUNCHER_LOADER = 1809014285L;
+    private static final long ROCKET_LAUNCHER_LOADER = 2052426051L;
 
     private static final long MACHINE_GUN_LOADER = 4070193907L;
 
@@ -133,11 +133,10 @@ public class PerkUtils {
     // Leg Armor
     // First Perks
     // Dexterity
-    private static final long OVERSIZE_WEAPON_DEXTERITY = 3515212050L;
-    private static final long BOW_DEXTERITY = 3591739443L;
-    private static final long SHOTGUN_DEXTERITY = 1036754881L;
-    private static final long GRENADE_LAUNCHER_DEXTERITY = 1749896152L;
-    private static final long ROCKET_LAUNCHER_DEXTERITY = 1334592906L;
+    private static final long LIGHT_ARMS_DEXTERITY = 301115145L;
+    private static final long SIDEARM_DEXTERITY = 2002130360L;
+    private static final long HAND_CANNON_DEXTERITY = 2163383276L;
+    private static final long SUBMACHINE_GUN_DEXTERITY = 7471106L;
 
     private static final long RIFLE_DEXTERITY = 877194565L;
     private static final long AUTO_RIFLE_DEXTERITY = 3177615969L;
@@ -147,10 +146,11 @@ public class PerkUtils {
     private static final long SNIPER_RIFLE_DEXTERITY = 3189772341L;
     private static final long LINEAR_FUSION_DEXTERITY = 3803462520L;
 
-    private static final long LIGHT_ARMS_DEXTERITY = 301115145L;
-    private static final long SIDEARM_DEXTERITY = 2002130360L;
-    private static final long HAND_CANNON_DEXTERITY = 2163383276L;
-    private static final long SUBMACHINE_GUN_DEXTERITY = 7471106L;
+    private static final long OVERSIZE_WEAPON_DEXTERITY = 3515212050L;
+    private static final long BOW_DEXTERITY = 3591739443L;
+    private static final long SHOTGUN_DEXTERITY = 1036754881L;
+    private static final long GRENADE_LAUNCHER_DEXTERITY = 1749896152L;
+    private static final long ROCKET_LAUNCHER_DEXTERITY = 1334592906L;
 
     private static final long MACHINE_GUN_DEXTERITY = 1371918942L;
 
@@ -283,10 +283,6 @@ public class PerkUtils {
                 HAND_CANNON_LOADER,
                 SUBMACHINE_GUN_LOADER,
                 BOW_RELOADER,
-                LARGE_WEAPON_LOADER,
-                SHOTGUN_LOADER,
-                GRENADE_LAUNCHER_LOADER,
-                ROCKET_LAUNCHER_LOADER,
                 RIFLE_LOADER,
                 AUTO_RIFLE_LOADER,
                 PULSE_RIFLE_LOADER,
@@ -294,6 +290,10 @@ public class PerkUtils {
                 FUSION_RIFLE_LOADER,
                 SNIPER_RIFLE_LOADER,
                 LINEAR_FUSION_RIFLE_LOADER,
+                LARGE_WEAPON_LOADER,
+                SHOTGUN_LOADER,
+                GRENADE_LAUNCHER_LOADER,
+                ROCKET_LAUNCHER_LOADER,
                 MACHINE_GUN_LOADER,
                 ENHANCED_HAND_CANNON_LOADER,
                 ENHANCED_SHOTGUN_LOADER,
@@ -365,11 +365,10 @@ public class PerkUtils {
         CHEST_ARMOR_SECOND_PERKS = Collections.unmodifiableList(chestArmorSecondPerks);
 
         List<Long> legarmorFirstPerks = Arrays.asList(
-                OVERSIZE_WEAPON_DEXTERITY,
-                BOW_DEXTERITY,
-                SHOTGUN_DEXTERITY,
-                GRENADE_LAUNCHER_DEXTERITY,
-                ROCKET_LAUNCHER_DEXTERITY,
+                LIGHT_ARMS_DEXTERITY,
+                SIDEARM_DEXTERITY,
+                HAND_CANNON_DEXTERITY,
+                SUBMACHINE_GUN_DEXTERITY,
                 RIFLE_DEXTERITY,
                 AUTO_RIFLE_DEXTERITY,
                 PULSE_RIFLE_DEXTERITY,
@@ -377,10 +376,11 @@ public class PerkUtils {
                 FUSION_RIFLE_DEXTERITY,
                 SNIPER_RIFLE_DEXTERITY,
                 LINEAR_FUSION_DEXTERITY,
-                LIGHT_ARMS_DEXTERITY,
-                SIDEARM_DEXTERITY,
-                HAND_CANNON_DEXTERITY,
-                SUBMACHINE_GUN_DEXTERITY,
+                OVERSIZE_WEAPON_DEXTERITY,
+                BOW_DEXTERITY,
+                SHOTGUN_DEXTERITY,
+                GRENADE_LAUNCHER_DEXTERITY,
+                ROCKET_LAUNCHER_DEXTERITY,
                 MACHINE_GUN_DEXTERITY,
                 ENHANCED_HAND_CANNON_DEXTERITY,
                 ENHANCED_SNIPER_RIFLE_DEXTERITY,
@@ -490,14 +490,6 @@ public class PerkUtils {
                         )
                 ),
                 Map.entry(
-                        LARGE_WEAPON_LOADER,
-                        Arrays.asList(
-                                SHOTGUN_LOADER,
-                                GRENADE_LAUNCHER_LOADER,
-                                ROCKET_LAUNCHER_LOADER
-                        )
-                ),
-                Map.entry(
                         RIFLE_LOADER,
                         Arrays.asList(
                                 AUTO_RIFLE_LOADER,
@@ -506,6 +498,14 @@ public class PerkUtils {
                                 FUSION_RIFLE_LOADER,
                                 SNIPER_RIFLE_LOADER,
                                 LINEAR_FUSION_RIFLE_LOADER
+                        )
+                ),
+                Map.entry(
+                        LARGE_WEAPON_LOADER,
+                        Arrays.asList(
+                                SHOTGUN_LOADER,
+                                GRENADE_LAUNCHER_LOADER,
+                                ROCKET_LAUNCHER_LOADER
                         )
                 ),
                 Map.entry(
@@ -529,12 +529,11 @@ public class PerkUtils {
                         )
                 ),
                 Map.entry(
-                        OVERSIZE_WEAPON_DEXTERITY,
+                        LIGHT_ARMS_DEXTERITY,
                         Arrays.asList(
-                                BOW_DEXTERITY,
-                                SHOTGUN_DEXTERITY,
-                                GRENADE_LAUNCHER_DEXTERITY,
-                                ROCKET_LAUNCHER_DEXTERITY
+                                SIDEARM_DEXTERITY,
+                                HAND_CANNON_DEXTERITY,
+                                SUBMACHINE_GUN_DEXTERITY
                         )
                 ),
                 Map.entry(
@@ -549,11 +548,12 @@ public class PerkUtils {
                         )
                 ),
                 Map.entry(
-                        LIGHT_ARMS_DEXTERITY,
+                        OVERSIZE_WEAPON_DEXTERITY,
                         Arrays.asList(
-                                SIDEARM_DEXTERITY,
-                                HAND_CANNON_DEXTERITY,
-                                SUBMACHINE_GUN_DEXTERITY
+                                BOW_DEXTERITY,
+                                SHOTGUN_DEXTERITY,
+                                GRENADE_LAUNCHER_DEXTERITY,
+                                ROCKET_LAUNCHER_DEXTERITY
                         )
                 ),
                 Map.entry(
