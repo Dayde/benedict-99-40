@@ -7,12 +7,19 @@ const Result = {
   <img src="/benedict.gif" alt="Sweep sweep sweep...">
 </div>
 <div v-else class="result">
-    <div class="title">Sort</div>
-    <div class="item-containers">
+    <div v-if="sort.length" class="title clickable" @click="toggleSort()">
+        <i class="fas" :class="{'fa-eye':showSort, 'fa-eye-slash':!showSort}"></i>
+        Sort
+    </div>
+    <div v-else class="title">Nothing left to sort, Tess would be proud !</div>
+    <div v-if="showSort" class="item-containers">
         <item :item="item" v-for="item in sort" :key="item.instanceId"></item>
     </div>
-    <div class="title">Keep</div>
-    <div class="item-containers">
+    <div class="title clickable" @click="toggleKeep()">
+        <i class="fas" :class="{'fa-eye':showKeep, 'fa-eye-slash':!showKeep}"></i>
+        Keep
+    </div>
+    <div v-if="showKeep" class="item-containers">
         <item :item="item" v-for="item in keep" :key="item.instanceId"></item>
     </div>
 </div>
@@ -22,7 +29,9 @@ const Result = {
             error: false,
             loading: true,
             sort: null,
-            keep: null
+            keep: null,
+            showSort: true,
+            showKeep: false
         }
     },
     mounted() {
@@ -113,6 +122,12 @@ const Result = {
                 }
             }
             return uncommittedPerkHashes.join(',');
+        },
+        toggleSort() {
+            this.showSort = !this.showSort;
+        },
+        toggleKeep() {
+            this.showKeep = !this.showKeep;
         }
     }
 };

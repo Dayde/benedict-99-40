@@ -70,6 +70,10 @@ img {
     padding: 5px;
 }
 
+.title > i {
+    font-size: 1.3vw;
+}
+
 .username {
     font-size: 2vw;
     letter-spacing: 4px;
@@ -101,4 +105,13 @@ img {
 
 .overflow {
     overflow-y: auto;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    border-color: white;
+    color: white;
 }
