@@ -1,3 +1,11 @@
+// For mobile, prevents context menu event propagation
+// on touchHold to allow tooltips to show
+window.oncontextmenu = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+};
+
 Vue.use(VueTippy, {
     theme: 'dark'
 });

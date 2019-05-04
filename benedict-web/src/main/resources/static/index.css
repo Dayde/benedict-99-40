@@ -50,16 +50,17 @@ img {
     font-size: 30px;
 }
 
-.loading {
+.message {
     display: flex;
     flex: auto;
-    height: 100%;
     align-items: center;
     justify-content: center;
 }
 
-.loading > img {
-    height: 100%;
+.loading {
+    flex: auto;
+    background: url("/benedict.gif") no-repeat center;
+    background-size: contain;
     image-rendering: pixelated;
 }
 

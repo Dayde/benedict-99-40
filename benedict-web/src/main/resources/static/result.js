@@ -1,12 +1,9 @@
 Vue.component('sweep-result', {
     template: `
-<main v-if="error" class="loading">
+<main v-if="error" class="message">
     Please check if everything's right up there. 
 </main>
 <main v-else-if="loading" class="loading">
-    <div  class="loading">
-        <img src="/benedict.gif" alt="Sweep sweep sweep...">
-    </div>
 </main>
 <main v-else class="result">
     <div v-if="sort.length" class="title clickable" @click="toggleSort()">
