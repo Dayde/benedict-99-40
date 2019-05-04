@@ -218,10 +218,10 @@ public class PerkUtils {
     private static final long SIDEARM_SCAVENGER = 3670792765L;
     private static final long HAND_CANNON_SCAVENGER = 4047893141L;
     private static final long SUBMACHINE_GUN_SCAVENGER = 699706967L;
+    private static final long ARROW_SCAVENGER = 735778136L;
     private static final long AUTO_RIFLE_SCAVENGER = 3784207446L;
     private static final long PULSE_RIFLE_SCAVENGER = 3081361536L;
     private static final long SCOUT_RIFLE_SCAVENGER = 1507173193L;
-    private static final long ARROW_SCAVENGER = 735778136L;
 
     // Ammo Finder
     private static final long PRIMARY_AMMO_FINDER = 143442373L;
@@ -403,10 +403,10 @@ public class PerkUtils {
                 SIDEARM_SCAVENGER,
                 HAND_CANNON_SCAVENGER,
                 SUBMACHINE_GUN_SCAVENGER,
+                ARROW_SCAVENGER,
                 AUTO_RIFLE_SCAVENGER,
                 PULSE_RIFLE_SCAVENGER,
                 SCOUT_RIFLE_SCAVENGER,
-                ARROW_SCAVENGER,
                 PRIMARY_AMMO_FINDER,
                 SPECIAL_AMMO_FINDER
         );
