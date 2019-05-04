@@ -115,3 +115,15 @@ img {
     border-color: white;
     color: white;
 }
+
+.tippy-tooltip.dark-theme {
+    background-color: black;
+}
+
+.tippy-tooltip.dark-theme[data-animatefill] {
+    background-color: transparent;
+}
+
+.tippy-tooltip.dark-theme .tippy-backdrop {
+    background-color: black;
+}

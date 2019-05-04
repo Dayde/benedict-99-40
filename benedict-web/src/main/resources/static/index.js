@@ -1,3 +1,7 @@
+Vue.use(VueTippy, {
+    theme: 'dark'
+});
+
 const routes = [
     {
         path: '/',
