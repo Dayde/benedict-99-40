@@ -1,3 +1,7 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+}
+
 // For mobile, prevents context menu event propagation
 // on touchHold to allow tooltips to show
 window.oncontextmenu = function (event) {
