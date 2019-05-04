@@ -1,10 +1,7 @@
 
 .home {
-    flex: auto;
-    display: flex;
     align-items: center;
     justify-content: space-evenly;
-    flex-direction: column;
 }
 
 .home > a {

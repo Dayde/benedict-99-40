@@ -25,14 +25,15 @@
 
 <div id="app">
     <router-view></router-view>
-    <router-view name="result"></router-view>
 
-    <router-link to="/" v-if="$route.name === 'settings'">
-        <i class="fa fa-times settings-link"></i>
-    </router-link>
-    <router-link to="/settings" v-else>
-        <i class="fa fa-cog settings-link"></i>
-    </router-link>
+    <aside>
+        <router-link to="/" v-if="$route.name === 'settings'">
+            <i class="fa fa-times settings-link"></i>
+        </router-link>
+        <router-link to="/settings" v-else>
+            <i class="fa fa-cog settings-link"></i>
+        </router-link>
+    </aside>
 </div>
 <script src="/auth.js"></script>
 <script src="/perk.js"></script>
@@ -45,6 +46,7 @@
 <script src="/item-category.js"></script>
 <script src="/settings.js"></script>
 <script src="/header.js"></script>
+<script src="/sweep.js"></script>
 <script src="/index.js"></script>
 </body>
 </html>

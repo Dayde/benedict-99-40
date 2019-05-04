@@ -1,12 +1,14 @@
-const Result = {
+Vue.component('sweep-result', {
     template: `
-<div v-if="error" class="loading">
+<main v-if="error" class="loading">
     Please check if everything's right up there. 
-</div>
-<div v-else-if="loading" class="loading">
-  <img src="/benedict.gif" alt="Sweep sweep sweep...">
-</div>
-<div v-else class="result">
+</main>
+<main v-else-if="loading" class="loading">
+    <div  class="loading">
+        <img src="/benedict.gif" alt="Sweep sweep sweep...">
+    </div>
+</main>
+<main v-else class="result">
     <div v-if="sort.length" class="title clickable" @click="toggleSort()">
         <i class="fas" :class="{'fa-eye':showSort, 'fa-eye-slash':!showSort}"></i>
         Sort
@@ -22,7 +24,7 @@ const Result = {
     <div v-if="showKeep" class="item-containers">
         <item :item="item" v-for="item in keep" :key="item.instanceId"></item>
     </div>
-</div>
+</main>
 `,
     data() {
         return {
@@ -130,4 +132,4 @@ const Result = {
             this.showKeep = !this.showKeep;
         }
     }
-};
+});

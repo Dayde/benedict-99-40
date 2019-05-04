@@ -5,29 +5,20 @@ Vue.use(VueTippy, {
 const routes = [
     {
         path: '/',
-        components: {
-            default: Home
-        }
+        component: Home
     },
     {
         path: '/sweep/:userId/:platform',
-        components: {
-            default: ClassType
-        }
+        component: ClassType
     },
     {
         path: '/sweep/:userId/:platform/:classType/:itemCategory',
-        components: {
-            default: Header,
-            result: Result
-        }
+        component: Sweep
     },
     {
         path: '/settings',
         name: 'settings',
-        components: {
-            default: Settings
-        }
+        component: Settings
     },
     {
         path: '*',

@@ -1,16 +1,18 @@
-const Header = {
+Vue.component('sweep-header', {
     template: `
-<div class="header" :style="style">
-    <img :src="emblemBackgroundUrl">
-    <div class="title">Benedict 99-40 helps you sweep your vault</div>
-    <div class="form-container">
-        <class-type v-model="classType"></class-type>
-
-        <item-category v-model="itemCategory" :classType="classType"></item-category>
-        
-        <auth></auth>
+<header>
+    <div class="header" :style="style">
+        <img :src="emblemBackgroundUrl">
+        <div class="title">Benedict 99-40 helps you sweep your vault</div>
+        <div class="form-container">
+            <class-type v-model="classType"></class-type>
+    
+            <item-category v-model="itemCategory" :classType="classType"></item-category>
+            
+            <auth></auth>
+        </div>
     </div>
-</div>
+</header>
 `,
     data() {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -57,4 +59,4 @@ const Header = {
             }, 200);
         }
     }
-};
+});

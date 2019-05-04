@@ -9,20 +9,24 @@ let sortedArmors = [
 const Settings = {
     template: `
 <div class="container-column overflow">
-    <div class="title">Here you can be a little more specific about what requires sweeping.</div>
-    <div class="title">Select perks you care about</div>
-    <div class="container-column">
-        <div class="container" v-for="armor in sortedArmors">
-            <armor :armor="armor"></armor>
-            <div class="container-column">
-                <perk-slot v-for="(slotPerks, armorSlot) in perks[armor]" :key="armorSlot"
-                  :armor="armor"
-                  :armorSlot="armorSlot"
-                  :perks="perks"
-                  @perk-toggled="refresh()"></perk-slot>
+    <header>
+        <div class="title">Here you can be a little more specific about what requires sweeping.</div>
+        <div class="title">Select perks you care about</div>
+    </header>
+    <main>
+        <div class="container-column">
+            <div class="container" v-for="armor in sortedArmors">
+                <armor :armor="armor"></armor>
+                <div class="container-column">
+                    <perk-slot v-for="(slotPerks, armorSlot) in perks[armor]" :key="armorSlot"
+                      :armor="armor"
+                      :armorSlot="armorSlot"
+                      :perks="perks"
+                      @perk-toggled="refresh()"></perk-slot>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </div>
 `,
     data() {

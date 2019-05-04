@@ -6,12 +6,12 @@ body {
     background: linear-gradient(to bottom, rgba(25, 25, 25, 1), rgba(75, 75, 75, 1)) fixed;
 }
 
-html, body, #app {
+html, body, #app, #app > div {
     color: white;
     height: 100%;
     display: flex;
     margin: 0;
-    flex-direction: column;
+    flex: auto;
 }
 
 img {
@@ -53,6 +53,7 @@ img {
 .loading {
     display: flex;
     flex: auto;
+    height: 100%;
     align-items: center;
     justify-content: center;
 }

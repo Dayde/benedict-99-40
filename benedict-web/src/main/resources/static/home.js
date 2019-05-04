@@ -1,6 +1,6 @@
 const Home = {
     template: `
-<div class="home">
+<div class="home container-column">
     <div class="title">Welcome guardian, I'd be glad to help you sweep your vault.</div>
     <div class="title">Will you let me in ?</div>
     <a href="/login"><i class="fas fa-sign-in-alt"></i></a>
