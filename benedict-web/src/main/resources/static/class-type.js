@@ -1,27 +1,36 @@
+const classes = [
+    {
+        name: 'Titan',
+        value: 'TITAN',
+        icon: 'https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png'
+    },
+    {
+        name: 'Hunter',
+        value: 'HUNTER',
+        icon: 'https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png'
+    },
+    {
+        name: 'Warlock',
+        value: 'WARLOCK',
+        icon: 'https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png'
+    }
+];
+
 Vue.component('class-type', {
     template: `
 <div>
-    <label>
-        <input id="titan" name="classType" type="radio" v-model="mutableClassType" value="TITAN">
+    <label v-for="clazz in classes" :title="clazz.name" v-tippy="{ followCursor: true }">
+        <input name="classType" type="radio" v-model="mutableClassType" :value="clazz.value">
         <img class="form-img"
-             src="https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png">
-    </label>
-    <label>
-        <input id="hunter" name="classType" type="radio" v-model="mutableClassType" value="HUNTER">
-        <img class="form-img"
-             src="https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png">
-    </label>
-    <label>
-        <input id="warlock" name="classType" type="radio" v-model="mutableClassType" value="WARLOCK">
-        <img class="form-img"
-             src="https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png">
+             :src="clazz.icon">
     </label>
 </div>
 `,
     props: ['value'],
     data() {
         return {
-            mutableClassType: this.value
+            mutableClassType: this.value,
+            classes: classes
         }
     },
     watch: {
