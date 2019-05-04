@@ -34,12 +34,14 @@ Vue.component('sweep-result', {
         }
     },
     mounted() {
-        this.fetchData(
-            this.$route.params.userId,
-            this.$route.params.platform,
-            this.$route.params.classType,
-            this.$route.params.itemCategory
-        )
+        this.$root.$on('auth', () =>
+            this.fetchData(
+                this.$route.params.userId,
+                this.$route.params.platform,
+                this.$route.params.classType,
+                this.$route.params.itemCategory
+            )
+        );
     },
     watch: {
         '$route.params.userId'(newVal) {

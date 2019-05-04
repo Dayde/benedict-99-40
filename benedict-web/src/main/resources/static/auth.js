@@ -17,6 +17,7 @@ Vue.component('auth', {
                 .then(response => {
                     axios.defaults.params = {};
                     axios.defaults.params['token'] = token.access_token;
+                    this.$root.$emit('auth');
                 })
                 .catch(error => {
                     this.refreshToken(token.refresh_token)
