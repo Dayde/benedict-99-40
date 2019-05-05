@@ -1,5 +1,4 @@
 const PRECACHE = 'precache-v1';
-const RUNTIME = 'runtime';
 
 const PRECACHE_URLS = [
     'index.html',
@@ -17,7 +16,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-    const currentCaches = [PRECACHE, RUNTIME];
+    const currentCaches = [PRECACHE];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
@@ -38,14 +37,7 @@ self.addEventListener('fetch', event => {
                     return cachedResponse;
                 }
 
-                return caches.open(RUNTIME).then(cache => {
-                    return fetch(event.request).then(response => {
-                        // Put a copy of the response in the runtime cache.
-                        return cache.put(event.request, response.clone()).then(() => {
-                            return response;
-                        });
-                    });
-                });
+                return fetch(event.request);
             })
         );
     }
