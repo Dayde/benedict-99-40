@@ -5,11 +5,9 @@ import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.service.ItemService;
 import fr.destiny.benedict.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -141,6 +139,23 @@ public class BenedictController {
                     }
                 });
         return toKeep;
+    }
+
+    @RequestMapping(value = "/users/{userId}/{platform}/items/{itemHash}/{instanceId}", method = RequestMethod.PUT)
+    public String transferItem(
+            @PathVariable long userId,
+            @PathVariable int platform,
+            @PathVariable long itemHash,
+            @PathVariable long instanceId,
+            @RequestParam String token,
+            @RequestParam String currentLocation,
+            @RequestParam String targetLocation,
+            HttpServletResponse response) {
+        String status = itemService.transferItem(token, platform, itemHash, instanceId, currentLocation, targetLocation);
+        if (!"Ok".equals(status)) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+        return status;
     }
 
     @RequestMapping("/perks")

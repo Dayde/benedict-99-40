@@ -14,6 +14,7 @@ import static java.util.Collections.singletonList;
 
 public class ItemInstance implements Comparable {
 
+    private long itemHash;
     private long instanceId;
     private String name;
     private String icon;
@@ -21,13 +22,16 @@ public class ItemInstance implements Comparable {
     private int powerLevel;
     private boolean masterwork;
     private List<PerkChoice> perks;
+    private String location;
 
 
     public ItemInstance(long instanceId,
                         DestinyEntitiesItemsDestinyItemInstanceComponent instance,
                         DestinyEntitiesItemsDestinyItemSocketsComponent socketsComponent,
                         DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition,
-                        Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions) {
+                        Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions,
+                        String location) {
+        this.itemHash = itemDefinition.getHash();
         this.instanceId = instanceId;
         this.name = itemDefinition.getDisplayProperties().getName();
         this.icon = itemDefinition.getDisplayProperties().getIcon();
@@ -60,6 +64,11 @@ public class ItemInstance implements Comparable {
                     return new PerkChoice(socket.getPlugHash(), plugHashes, itemDefinitions);
                 })
                 .collect(Collectors.toList());
+        this.location = location;
+    }
+
+    public long getItemHash() {
+        return itemHash;
     }
 
     public long getInstanceId() {
@@ -88,6 +97,10 @@ public class ItemInstance implements Comparable {
 
     public List<PerkChoice> getPerks() {
         return perks;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     @Override

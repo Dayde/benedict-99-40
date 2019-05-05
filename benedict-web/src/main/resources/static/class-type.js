@@ -1,20 +1,20 @@
-const classes = [
-    {
+const classes = {
+    TITAN: {
         name: 'Titan',
         value: 'TITAN',
         icon: 'https://bungie.net/common/destiny2_content/icons/8956751663b4394cd41076f93d2dd0d6.png'
     },
-    {
+    HUNTER: {
         name: 'Hunter',
         value: 'HUNTER',
         icon: 'https://bungie.net/common/destiny2_content/icons/e7324e8c29c5314b8bce166ff167859d.png'
     },
-    {
+    WARLOCK: {
         name: 'Warlock',
         value: 'WARLOCK',
         icon: 'https://bungie.net/common/destiny2_content/icons/bf7b2848d2f5fbebbf350d418b8ec148.png'
     }
-];
+};
 
 Vue.component('class-type', {
     template: `
@@ -68,8 +68,20 @@ const ClassType = {
             this.loading = true;
             axios.get(`/api/users/${this.$route.params.userId}/${this.$route.params.platform}`)
                 .then(response => {
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                    this.loading = false
+                    let user = response.data;
+                    let sortedCharaters = [];
+                    for (let clazz in classes) {
+                        for (let characterId in user.characters) {
+                            let character = user.characters[characterId];
+                            if (character.classType === clazz) {
+                                sortedCharaters.push(character);
+                                break;
+                            }
+                        }
+                    }
+                    user.characters = sortedCharaters;
+                    localStorage.setItem('user', JSON.stringify(user));
+                    this.loading = false;
                 });
         }
     },

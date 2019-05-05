@@ -6,6 +6,7 @@ import fr.destiny.api.model.*;
 import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.repository.DestinyInventoryItemRepository;
 import fr.destiny.benedict.web.utils.PerkUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import static fr.destiny.benedict.web.utils.Utils.mergeMaps;
 
 @Service
 public class ItemService {
+
+    private static final String VAULT = "";
 
     private Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
 
@@ -51,7 +54,7 @@ public class ItemService {
 
         DestinyResponsesDestinyProfileResponse profile = getProfile(membershipId, membershipType);
 
-        Map<Long, Set<Long>> instanceIdsByItemHash = new HashMap<>();
+        Map<Long, Set<Pair<String, Long>>> instanceIdsByItemHash = new HashMap<>();
 
         instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getEquippedItems(profile));
         instanceIdsByItemHash = mergeMaps(instanceIdsByItemHash, getCharacterInventoryItems(profile));
@@ -70,7 +73,7 @@ public class ItemService {
     }
 
     private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(
-            Map<Long, Set<Long>> instanceIdsByItemHash,
+            Map<Long, Set<Pair<String, Long>>> instanceIdsByItemHash,
             Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances,
             Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets,
             ClassType classType, ItemCategory itemCategory) {
@@ -92,8 +95,10 @@ public class ItemService {
                 return;
             }
 
-            instanceIds.forEach(instanceId ->
+            instanceIds.forEach(locationInstanceIdPair ->
                     {
+                        String location = locationInstanceIdPair.getLeft();
+                        long instanceId = locationInstanceIdPair.getRight();
                         DestinyEntitiesItemsDestinyItemSocketsComponent socketsComponent = sockets.get(Long.toString(instanceId));
                         if (socketsComponent == null) {
                             socketsComponent =
@@ -110,7 +115,8 @@ public class ItemService {
                                                 instances.get(Long.toString(instanceId)),
                                                 socketsComponent,
                                                 itemDefinition,
-                                                itemDefinitions
+                                                itemDefinitions,
+                                                location
                                         )
                                 );
                     }
@@ -120,37 +126,37 @@ public class ItemService {
         return itemInstances;
     }
 
-    private Map<Long, Set<Long>> getVaultItems(DestinyResponsesDestinyProfileResponse profile) {
-        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
+    private Map<Long, Set<Pair<String, Long>>> getVaultItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Pair<String, Long>>> itemInstanceIds = new HashMap<>();
 
         DestinyEntitiesInventoryDestinyInventoryComponent data = profile.getProfileInventory().getData();
         if (data != null) {
-            itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(data));
+            itemInstanceIds = mergeMaps(itemInstanceIds, collectInstanceIdsByItemHash(VAULT, data));
         }
 
         return itemInstanceIds;
     }
 
-    private Map<Long, Set<Long>> getCharacterInventoryItems(DestinyResponsesDestinyProfileResponse profile) {
-        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
+    private Map<Long, Set<Pair<String, Long>>> getCharacterInventoryItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Pair<String, Long>>> itemInstanceIds = new HashMap<>();
 
         Map<String, DestinyEntitiesInventoryDestinyInventoryComponent> datas = profile.getCharacterInventories().getData();
         if (datas != null) {
-            for (DestinyEntitiesInventoryDestinyInventoryComponent characterInvetory : datas.values()) {
-                itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(characterInvetory));
+            for (Map.Entry<String, DestinyEntitiesInventoryDestinyInventoryComponent> entry : datas.entrySet()) {
+                itemInstanceIds = mergeMaps(itemInstanceIds, collectInstanceIdsByItemHash(entry.getKey(), entry.getValue()));
             }
         }
 
         return itemInstanceIds;
     }
 
-    private Map<Long, Set<Long>> getEquippedItems(DestinyResponsesDestinyProfileResponse profile) {
-        Map<Long, Set<Long>> itemInstanceIds = new HashMap<>();
+    private Map<Long, Set<Pair<String, Long>>> getEquippedItems(DestinyResponsesDestinyProfileResponse profile) {
+        Map<Long, Set<Pair<String, Long>>> itemInstanceIds = new HashMap<>();
 
         Map<String, DestinyEntitiesInventoryDestinyInventoryComponent> datas = profile.getCharacterEquipment().getData();
         if (datas != null) {
-            for (DestinyEntitiesInventoryDestinyInventoryComponent characterEquipment : datas.values()) {
-                itemInstanceIds = mergeMaps(itemInstanceIds, collectItemHashes(characterEquipment));
+            for (Map.Entry<String, DestinyEntitiesInventoryDestinyInventoryComponent> entry : datas.entrySet()) {
+                itemInstanceIds = mergeMaps(itemInstanceIds, collectInstanceIdsByItemHash(entry.getKey(), entry.getValue()));
 
             }
         }
@@ -182,7 +188,7 @@ public class ItemService {
                 ).getResponse();
     }
 
-    private Map<Long, Set<Long>> collectItemHashes(DestinyEntitiesInventoryDestinyInventoryComponent data) {
+    private Map<Long, Set<Pair<String, Long>>> collectInstanceIdsByItemHash(String location, DestinyEntitiesInventoryDestinyInventoryComponent data) {
         return data
                 .getItems()
                 .stream()
@@ -195,7 +201,7 @@ public class ItemService {
                                 Map.Entry::getKey,
                                 entry -> entry.getValue()
                                         .stream()
-                                        .map(DestinyEntitiesItemsDestinyItemComponent::getItemInstanceId)
+                                        .map(instance -> Pair.of(location, instance.getItemInstanceId()))
                                         .collect(Collectors.toSet())
                         )
                 );
@@ -289,5 +295,31 @@ public class ItemService {
                         .collect(Collectors.toList())
         );
         return perksPerSlotPerArmor;
+    }
+
+    public String transferItem(String token, int platform, long itemHash, long instanceId, String from, String to) {
+        if (from.equals(to)) {
+            return "Ok";
+        }
+
+        destiny2Api.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
+
+
+        if (VAULT.equals(from) || VAULT.equals(to)) {
+            return transfertItemFromTo(platform, itemHash, instanceId, from, to);
+        } else {
+            transfertItemFromTo(platform, itemHash, instanceId, from, VAULT);
+            return transfertItemFromTo(platform, itemHash, instanceId, VAULT, to);
+        }
+    }
+
+    private String transfertItemFromTo(int platform, long itemHash, long instanceId, String from, String to) {
+        DestinyRequestsDestinyItemTransferRequest transferRequest = new DestinyRequestsDestinyItemTransferRequest();
+        transferRequest.setTransferToVault(VAULT.equals(to));
+        transferRequest.setMembershipType(platform);
+        transferRequest.setItemReferenceHash(itemHash);
+        transferRequest.setItemId(instanceId);
+        transferRequest.setCharacterId(VAULT.equals(to) ? Long.parseLong(from) : Long.parseLong(to));
+        return destiny2Api.destiny2TransferItem(transferRequest).getMessage();
     }
 }
