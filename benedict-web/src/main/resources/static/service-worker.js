@@ -1,11 +1,6 @@
 const PRECACHE = 'precache-v1';
 
-const PRECACHE_URLS = [
-    'index.html',
-    'index.css',
-    'index.js'
-];
-
+const PRECACHE_URLS = [];
 
 self.addEventListener('install', event => {
     event.waitUntil(
