@@ -29,10 +29,10 @@
     <router-view></router-view>
 
     <aside>
-        <router-link to="/" v-if="$route.name === 'settings'">
+        <router-link class="clickable" to="/" v-if="$route.name === 'settings'">
             <i class="fa fa-times settings-link"></i>
         </router-link>
-        <router-link to="/settings" v-else>
+        <router-link class="clickable" to="/settings" v-else>
             <i class="fa fa-cog settings-link"></i>
         </router-link>
     </aside>

@@ -19,8 +19,8 @@ const classes = [
 Vue.component('class-type', {
     template: `
 <div>
-    <label v-for="clazz in classes" :title="clazz.name" v-tippy="{ followCursor: true, touchHold: true }">
-        <input name="classType" type="radio" v-model="mutableClassType" :value="clazz.value">
+    <label v-for="clazz in classes" :title="clazz.name" v-tippy="{ followCursor: true, touchHold: true }" :for="clazz.name">
+        <input :id="clazz.name" :name="clazz.name" type="radio" v-model="mutableClassType" :value="clazz.value">
         <img class="form-img" :src="clazz.icon" :alt="clazz.name">
     </label>
 </div>

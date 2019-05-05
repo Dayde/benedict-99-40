@@ -48,12 +48,17 @@ input[type=text]:focus, input[type=text]:hover, .user:hover {
     height: 0;
 }
 
-[type=radio] + img, [type=radio] + i {
+[type=radio] + img {
     cursor: pointer;
     filter: brightness(65%);
 }
 
-[type=radio]:checked + img, [type=radio]:checked + i {
+[type=radio] + img:hover, [type=radio]:focus + img {
+    background-color: rgba(100, 100, 100, 0.4);
+    filter: brightness(95%);
+}
+
+[type=radio]:checked + img {
     background-color: rgba(100, 100, 100, 0.4);
     border: white solid 2px;
     margin: 0;

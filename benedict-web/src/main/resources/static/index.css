@@ -45,7 +45,6 @@ img {
     position: fixed;
     top: 8px;
     right: 8px;
-    color: white;
     text-decoration: none;
     font-size: 30px;
 }
@@ -111,11 +110,14 @@ img {
 
 .clickable {
     cursor: pointer;
+    color: rgba(150, 150, 150, 1);
+    border-color: rgba(150, 150, 150, 1);
 }
 
-.clickable:hover {
+.clickable:hover, .clickable:focus {
     border-color: white;
     color: white;
+    outline-color: transparent;
 }
 
 .tippy-tooltip.dark-theme {

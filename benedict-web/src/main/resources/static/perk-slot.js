@@ -1,11 +1,14 @@
 Vue.component('perk-slot', {
     template: `
 <div class="container perk-slot">
-    <i class="fas fa-check-circle clickable" @click="setAll(armor, armorSlot, true)"></i>
-    <i class="fas fa-times-circle clickable" @click="setAll(armor, armorSlot, false)"></i>
+    <i class="fas fa-check-circle clickable" tabindex="0" @click="setAll(armor, armorSlot, true)"
+       @keyup.space="setAll(armor, armorSlot, true)" @keyup.enter="setAll(armor, armorSlot, true)"></i>
+    <i class="fas fa-times-circle clickable" tabindex="0" @click="setAll(armor, armorSlot, false)"
+       @keyup.space="setAll(armor, armorSlot, false)" @keyup.enter="setAll(armor, armorSlot, false)"></i>
     <div class="wrap">
         <perk v-for="(perk, index) in perks[armor][armorSlot]" :perk="perk" :key="perk.key" class="clickable"
-        :class="{ 'socket-selected': isCommitted(perk) }" @click.native="toggle(armor, armorSlot, index)"></perk>
+        :class="{ 'socket-selected': isCommitted(perk) }" tabindex="0" @click.native="toggle(armor, armorSlot, index)"
+        @keyup.space.native="toggle(armor, armorSlot, index)" @keyup.enter.native="toggle(armor, armorSlot, index)"></perk>
     </div>
 </div>
 `,

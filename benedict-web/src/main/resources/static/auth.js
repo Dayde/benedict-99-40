@@ -1,7 +1,9 @@
 Vue.component('auth', {
     template: `
 <div class="username">
-    {{username}}  <i class="fa fa-sign-out-alt" @click="logout()"></i>
+    {{username}}
+    <i class="fa fa-sign-out-alt clickable" tabindex="0" @click="logout"
+       @keyup.space="logout" @keyup.enter="logout"></i>
 </div>
 `,
     data() {
