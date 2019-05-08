@@ -1,13 +1,8 @@
 .header {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    flex-direction: column;
     background-size: cover;
     background-position: bottom;
     transition: background 500ms ease;
     background-image: url(/black.png);
-    padding-bottom: 15px;
 }
 
 .header > img {
