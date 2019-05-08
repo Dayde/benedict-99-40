@@ -22,20 +22,6 @@
     display: flex;
 }
 
-input[type=text], .user {
-    font-size: 20px;
-    width: 250px;
-    background-color: rgba(100, 100, 100, 0.5);
-    border: none;
-    padding: 6px;
-    color: white;
-    outline-color: white;
-}
-
-input[type=text]:focus, input[type=text]:hover, .user:hover {
-    background-color: rgba(100, 100, 100, 0.8);
-}
-
 [type=radio] {
     position: absolute;
     opacity: 0;
@@ -61,17 +47,7 @@ input[type=text]:focus, input[type=text]:hover, .user:hover {
 }
 
 .form-img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     margin: 2px;
-}
-
-.platform-icon {
-    font-size: 30px;
-    padding: 10px;
-    margin: 2px;
-}
-
-#username {
-    margin: auto;
 }

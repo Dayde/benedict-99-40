@@ -50,7 +50,7 @@ img {
     top: 8px;
     right: 8px;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .message {
@@ -80,7 +80,7 @@ img {
 }
 
 .username {
-    font-size: 2vw;
+    font-size: 1.5vw;
     letter-spacing: 4px;
     text-align: center;
     padding: 5px;
