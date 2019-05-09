@@ -91,6 +91,10 @@ public class ItemService {
             final ItemCategory preciseItemCategory = itemCategory == ItemCategory.ARMOR ?
                     ItemCategory.fromSubType(itemDefinition.getItemSubType()) : itemCategory;
 
+            if (itemDefinition.getItemCategoryHashes() == null) {
+                return;
+            }
+
             if (!itemDefinition.getItemCategoryHashes().contains(itemCategory.getHash())) {
                 return;
             }
