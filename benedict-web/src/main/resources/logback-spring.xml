@@ -4,6 +4,7 @@
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
             <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter"/>
+            <appendLineSeparator>true</appendLineSeparator>
         </layout>
     </appender>
 
