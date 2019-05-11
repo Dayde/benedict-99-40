@@ -48,3 +48,14 @@
     display: flex;
     flex-direction: column;
 }
+
+.location {
+    height: 48px;
+    margin: 2px;
+}
+
+.location.current {
+    background-color: rgba(100, 100, 100, 0.4);
+    border: white solid 2px;
+    margin: 0;
+}

@@ -11,11 +11,13 @@ Vue.component('item', {
         <perk-choice :perkChoice="perkChoice" v-for="(perkChoice, index) in item.perks" :key="index"></perk-choice>
     </div>
     <div :id="'item' + item.instanceId">
-        <img  v-for="character in characters" class="clickable" 
+        <div>{{ item.name }}</div>
+        <img  v-for="character in characters" class="location clickable"
+              :class="{current: item.location === character.characterId}" 
               :src="classType(character.classType).icon" :alt="classType(character.classType).name"
               @click="transferItem(character.characterId)"/>
         <img src="https://bungie.net/common/destiny2_content/icons/42284fb3e73118f37cc7563c6ae70097.png" alt="Vault"
-             class="clickable" @click="transferItem('')"/>
+             class="location clickable" :class="{current: item.location === ''}" @click="transferItem('')"/>
     </div>
 </div>
 `,

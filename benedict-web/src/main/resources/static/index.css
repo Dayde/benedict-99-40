@@ -19,10 +19,6 @@ img {
     height: auto;
 }
 
-.tippy-content img {
-    height: 48px;
-}
-
 /* Scrollbar width */
 ::-webkit-scrollbar {
     width: 10px;
