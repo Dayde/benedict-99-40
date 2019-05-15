@@ -6,17 +6,21 @@ Vue.component('sweep-result', {
 <main v-else-if="loading" class="loading">
 </main>
 <main v-else class="result">
-    <div v-if="sort.length" class="title clickable" tabindex="0" @click="toggleSort" @keyup.space="toggleSort" @keyup.enter="toggleSort">
-        <i class="fas" :class="{'fa-eye':showSort, 'fa-eye-slash':!showSort}"></i>
-        Sort
+    <div v-if="sort.length" class="title">
+        <span class="clickable" tabindex="0" @click="toggleSort" @keyup.space="toggleSort" @keyup.enter="toggleSort">
+            <i class="fas" :class="{'fa-eye':showSort, 'fa-eye-slash':!showSort}"></i>
+            Sort
+        </span>
     </div>
     <div v-else class="title">Nothing left to sort, Tess would be proud !</div>
     <div v-if="showSort" class="item-containers">
         <item :item="item" v-for="item in sort" :key="item.instanceId"></item>
     </div>
-    <div class="title clickable" tabindex="0" @click="toggleKeep" @keyup.space="toggleKeep" @keyup.enter="toggleKeep">
-        <i class="fas" :class="{'fa-eye':showKeep, 'fa-eye-slash':!showKeep}"></i>
-        Keep
+    <div class="title">
+        <span class="clickable" tabindex="0" @click="toggleKeep" @keyup.space="toggleKeep" @keyup.enter="toggleKeep">
+            <i class="fas" :class="{'fa-eye':showKeep, 'fa-eye-slash':!showKeep}"></i>
+            Keep
+        </span>
     </div>
     <div v-if="showKeep" class="item-containers">
         <item :item="item" v-for="item in keep" :key="item.instanceId"></item>

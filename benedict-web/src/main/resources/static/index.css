@@ -71,7 +71,7 @@ img {
     padding: 5px;
 }
 
-.title > i {
+.title i {
     font-size: 1.3vw;
 }
 
@@ -118,6 +118,8 @@ img {
     border-color: white;
     color: white;
     outline-color: transparent;
+    filter: brightness(95%);
+    background-color: rgba(100, 100, 100, 0.4);
 }
 
 .tippy-tooltip.dark-theme {
