@@ -108,6 +108,8 @@ Vue.component('sweep-result', {
                 }, error => {
                     if (axios.isCancel(error)) {
                         // another request was made no worry
+                    } else if (error.response.status === 401) {
+                        this.$root.$emit('reauth');
                     } else {
                         this.error = true;
                         this.loading = false;

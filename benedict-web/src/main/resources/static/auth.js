@@ -16,14 +16,17 @@ Vue.component('auth', {
         if (localStorage.getItem('token')) {
             let token = JSON.parse(localStorage.getItem('token'));
             axios.get('/api/user', {params: {token: token.access_token}})
-                .then(response => {
+                .then(() => {
                     axios.defaults.params = {};
                     axios.defaults.params['token'] = token.access_token;
                     this.$root.$emit('auth');
                 })
-                .catch(error => {
+                .catch(() => {
                     this.refreshToken(token.refresh_token)
                 });
+            this.$root.$on('reauth', () =>
+                this.refreshToken(token.refresh_token)
+            );
         }
     },
     methods: {

@@ -8,7 +8,10 @@ import fr.destiny.benedict.web.service.ItemService;
 import fr.destiny.benedict.web.service.SweepService;
 import fr.destiny.benedict.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -69,6 +72,11 @@ public class BenedictController {
                 uncommittedPerkHashes,
                 token
         );
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<String> httpExceptionHandler(HttpClientErrorException httpError) {
+        return new ResponseEntity<>(httpError.getMessage(), HttpStatus.valueOf(httpError.getRawStatusCode()));
     }
 
     @RequestMapping(value = "/users/{userId}/{platform}/items/{itemHash}/{instanceId}", method = RequestMethod.PUT)
