@@ -481,6 +481,30 @@ public class PerkUtils {
                         )
                 ),
                 Map.entry(
+                        ENHANCED_HAND_CANNON_TARGETING,
+                        Collections.singletonList(HAND_CANNON_TARGETING)
+                ),
+                Map.entry(
+                        ENHANCED_BOW_TARGETING,
+                        Collections.singletonList(BOW_TARGETING)
+                ),
+                Map.entry(
+                        ENHANCED_SNIPER_RIFLE_TARGETING,
+                        Collections.singletonList(SNIPER_RIFLE_TARGETING)
+                ),
+                Map.entry(
+                        ENHANCED_LINEAR_FUSION_TARGETING,
+                        Collections.singletonList(LINEAR_FUSION_TARGETING)
+                ),
+                Map.entry(
+                        ENHANCED_ASHES_TO_ASSETS,
+                        Collections.singletonList(ASHES_TO_ASSETS)
+                ),
+                Map.entry(
+                        ENHANCED_HEAVY_LIFTING,
+                        Collections.singletonList(HEAVY_LIFTING)
+                ),
+                Map.entry(
                         LIGHT_ARMS_LOADER,
                         Arrays.asList(
                                 SIDEARM_LOADER,
@@ -509,6 +533,30 @@ public class PerkUtils {
                         )
                 ),
                 Map.entry(
+                        ENHANCED_HAND_CANNON_LOADER,
+                        Collections.singletonList(HAND_CANNON_LOADER)
+                ),
+                Map.entry(
+                        ENHANCED_SHOTGUN_LOADER,
+                        Collections.singletonList(SHOTGUN_LOADER)
+                ),
+                Map.entry(
+                        ENHANCED_GRENADE_LAUNCHER_LOADER,
+                        Collections.singletonList(GRENADE_LAUNCHER_LOADER)
+                ),
+                Map.entry(
+                        ENHANCED_ROCKET_LAUNCHER_LOADER,
+                        Collections.singletonList(ROCKET_LAUNCHER_LOADER)
+                ),
+                Map.entry(
+                        ENHANCED_MOMENTUM_TRANSFER,
+                        Collections.singletonList(MOMENTUM_TRANSFER)
+                ),
+                Map.entry(
+                        ENHANCED_IMPACT_INDUCTION,
+                        Collections.singletonList(IMPACT_INDUCTION)
+                ),
+                Map.entry(
                         UNFLINCHING_LIGHT_ARMS_AIM,
                         Arrays.asList(
                                 UNFLINCHING_SIDEARM_AIM,
@@ -527,6 +575,22 @@ public class PerkUtils {
                                 UNFLINCHING_SNIPER_AIM,
                                 UNFLINCHING_LINEAR_FUSION_AIM
                         )
+                ),
+                Map.entry(
+                        ENHANCED_UNFLINCHING_BOW_AIM,
+                        Collections.singletonList(UNFLINCHING_BOW_AIM)
+                ),
+                Map.entry(
+                        ENHANCED_UNFLINCHING_SCOUT_RIFLE_AIM,
+                        Collections.singletonList(UNFLINCHING_SCOUT_RIFLE_AIM)
+                ),
+                Map.entry(
+                        ENHANCED_UNFLINCHING_SNIPER_AIM,
+                        Collections.singletonList(UNFLINCHING_SNIPER_AIM)
+                ),
+                Map.entry(
+                        ENHANCED_UNFLINCHING_LINEAR_FUSION_AIM,
+                        Collections.singletonList(UNFLINCHING_LINEAR_FUSION_AIM)
                 ),
                 Map.entry(
                         LIGHT_ARMS_DEXTERITY,
@@ -555,6 +619,26 @@ public class PerkUtils {
                                 GRENADE_LAUNCHER_DEXTERITY,
                                 ROCKET_LAUNCHER_DEXTERITY
                         )
+                ),
+                Map.entry(
+                        ENHANCED_HAND_CANNON_DEXTERITY,
+                        Collections.singletonList(HAND_CANNON_DEXTERITY)
+                ),
+                Map.entry(
+                        ENHANCED_SNIPER_RIFLE_DEXTERITY,
+                        Collections.singletonList(SNIPER_RIFLE_DEXTERITY)
+                ),
+                Map.entry(
+                        ENHANCED_SHOTGUN_DEXTERITY,
+                        Collections.singletonList(SHOTGUN_DEXTERITY)
+                ),
+                Map.entry(
+                        ENHANCED_ROCKET_LAUNCHER_DEXTERITY,
+                        Collections.singletonList(ROCKET_LAUNCHER_DEXTERITY)
+                ),
+                Map.entry(
+                        ENHANCED_BOMBER,
+                        Collections.singletonList(BOMBER)
                 ),
                 Map.entry(
                         ABSOLUTION,
