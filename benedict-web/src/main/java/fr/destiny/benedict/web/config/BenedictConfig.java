@@ -8,11 +8,14 @@ import fr.destiny.api.ApiClient;
 import fr.destiny.api.client.Destiny2Api;
 import fr.destiny.api.client.UserApi;
 import org.apache.commons.io.IOUtils;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -38,9 +41,12 @@ import java.util.zip.ZipInputStream;
                 }
         )
 )
+@EnableScheduling
 public class BenedictConfig {
 
     public static final String BUNGIE_ROOT_URL = "https://www.bungie.net";
+    private static final long KEEP_ALIVE_RATE = 25 * 60 * 1000;
+    private Logger logger = Logger.getLogger(BenedictConfig.class);
 
     @Value("${BUNGIE_API_KEY}")
     private String API_KEY;
@@ -123,6 +129,16 @@ public class BenedictConfig {
             IOUtils.copy(zipInputStream, outputStream);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Scheduled(fixedRate = KEEP_ALIVE_RATE)
+    public void keepAlive() {
+        String response = new RestTemplate()
+                .getForEntity("https://benedict-99-40.herokuapp.com/actuator/health", String.class)
+                .getBody();
+        if (!"{\"status\":\"UP\"}".equals(response)) {
+            logger.warn("Actuator health response : " + response);
         }
     }
 }
