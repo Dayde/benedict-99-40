@@ -2,6 +2,7 @@ package fr.destiny.benedict.web.model;
 
 import fr.destiny.api.model.DestinyDefinitionsDestinyInventoryItemDefinition;
 import fr.destiny.api.model.DestinyResponsesDestinyProfileResponse;
+import fr.destiny.api.model.GroupsV2GroupUserInfoCard;
 import fr.destiny.api.model.UserUserInfoCard;
 
 import java.util.HashMap;
@@ -15,6 +16,13 @@ public class User {
     private Map<Long, DestinyCharacter> characters;
 
     public User(UserUserInfoCard player) {
+        this.username = player.getDisplayName();
+        this.userId = player.getMembershipId();
+        this.platform = player.getMembershipType();
+        this.characters = new HashMap<>();
+    }
+
+    public User(GroupsV2GroupUserInfoCard player) {
         this.username = player.getDisplayName();
         this.userId = player.getMembershipId();
         this.platform = player.getMembershipType();

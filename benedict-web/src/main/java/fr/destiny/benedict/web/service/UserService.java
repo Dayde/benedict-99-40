@@ -40,7 +40,7 @@ public class UserService {
         } catch (UnsupportedEncodingException e) {
             return Collections.emptyList();
         }
-        return destiny2Api.destiny2SearchDestinyPlayer(urlEncodedUsername, membershipType)
+        return destiny2Api.destiny2SearchDestinyPlayer(urlEncodedUsername, membershipType, false)
                 .getResponse()
                 .stream()
                 .map(User::new)
