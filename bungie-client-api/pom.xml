@@ -37,6 +37,7 @@
                         <configuration>
                             <url>https://raw.githubusercontent.com/Bungie-net/api/master/openapi.json</url>
                             <overwrite>true</overwrite>
+                            <skipCache>true</skipCache>
                             <outputFileName>openapi.json</outputFileName>
                             <outputDirectory>${project.basedir}/src/api</outputDirectory>
                         </configuration>
