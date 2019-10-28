@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <meta content="#191919" name="theme-color">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
     <title>Benedict 99-40</title>
     <link href="/manifest.json" rel="manifest">
-    <link rel="apple-touch-icon" href="/benedict-192.png">
-    <link rel="apple-touch-startup-image" href="/benedict-512.png">
-    <meta name="apple-mobile-web-app-title" content="Benedict 99-40">
-    <link href="/perk.css" rel="stylesheet">
+    <link href="/benedict-192.png" rel="apple-touch-icon">
+    <link href="/benedict-512.png" rel="apple-touch-startup-image">
+    <meta content="Benedict 99-40" name="apple-mobile-web-app-title">
     <link href="/item.css" rel="stylesheet">
     <link href="/home.css" rel="stylesheet">
     <link href="/header.css" rel="stylesheet">
@@ -32,26 +31,13 @@
 
 <div id="app">
     <router-view></router-view>
-
-    <aside>
-        <router-link class="clickable" to="/" v-if="$route.name === 'settings'">
-            <i class="fa fa-times settings-link"></i>
-        </router-link>
-        <router-link class="clickable" to="/settings" v-else>
-            <i class="fa fa-cog settings-link"></i>
-        </router-link>
-    </aside>
 </div>
 <script src="/auth.js"></script>
-<script src="/perk.js"></script>
-<script src="/perk-choice.js"></script>
-<script src="/perk-slot.js"></script>
 <script src="/class-type.js"></script>
 <script src="/item.js"></script>
 <script src="/result.js"></script>
 <script src="/home.js"></script>
 <script src="/item-category.js"></script>
-<script src="/settings.js"></script>
 <script src="/header.js"></script>
 <script src="/sweep.js"></script>
 <script src="/index.js"></script>

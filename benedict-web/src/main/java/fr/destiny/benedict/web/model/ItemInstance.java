@@ -3,14 +3,11 @@ package fr.destiny.benedict.web.model;
 import fr.destiny.api.model.DestinyDefinitionsDestinyInventoryItemDefinition;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemInstanceComponent;
 import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemSocketsComponent;
+import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemStatsComponent;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.singletonList;
 
 public class ItemInstance implements Comparable {
 
@@ -21,14 +18,22 @@ public class ItemInstance implements Comparable {
     private String tierType;
     private int powerLevel;
     private boolean masterwork;
-    private List<PerkChoice> perks;
     private String location;
+
+    private int mobility;
+    private int resilience;
+    private int recovery;
+    private int discilpline;
+    private int intellect;
+    private int strength;
+
+    private int totalStats;
 
 
     public ItemInstance(long instanceId,
                         DestinyEntitiesItemsDestinyItemInstanceComponent instance,
                         DestinyEntitiesItemsDestinyItemSocketsComponent socketsComponent,
-                        DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition,
+                        DestinyEntitiesItemsDestinyItemStatsComponent statsComponent, DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition,
                         Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions,
                         String location) {
         this.itemHash = itemDefinition.getHash();
@@ -47,23 +52,13 @@ public class ItemInstance implements Comparable {
                                 .getName()
                                 .equals("Masterwork")
                 );
-        this.perks = socketsComponent.getSockets()
-                .stream()
-                .filter(plug -> {
-                    if (plug == null || plug.getPlugHash() == null) {
-                        return false;
-                    }
-                    DestinyDefinitionsDestinyInventoryItemDefinition plugDefinition = itemDefinitions.get(plug.getPlugHash());
-                    return plugDefinition != null && "Armor Perk".equals(plugDefinition.getItemTypeDisplayName());
-                })
-                .map(socket -> {
-                    List<Long> plugHashes = socket.getReusablePlugHashes();
-                    if (plugHashes == null) {
-                        plugHashes = singletonList(socket.getPlugHash());
-                    }
-                    return new PerkChoice(socket.getPlugHash(), plugHashes, itemDefinitions);
-                })
-                .collect(Collectors.toList());
+        mobility = statsComponent.getStats().get(StatEnum.MOBILITY.getHash()).getValue();
+        resilience = statsComponent.getStats().get(StatEnum.RESILIENCE.getHash()).getValue();
+        recovery = statsComponent.getStats().get(StatEnum.RECOVERY.getHash()).getValue();
+        discilpline = statsComponent.getStats().get(StatEnum.DISCILPLINE.getHash()).getValue();
+        intellect = statsComponent.getStats().get(StatEnum.INTELLECT.getHash()).getValue();
+        strength = statsComponent.getStats().get(StatEnum.STRENGTH.getHash()).getValue();
+        totalStats = mobility + resilience + recovery + discilpline + intellect + strength;
         this.location = location;
     }
 
@@ -95,12 +90,36 @@ public class ItemInstance implements Comparable {
         return masterwork;
     }
 
-    public List<PerkChoice> getPerks() {
-        return perks;
-    }
-
     public String getLocation() {
         return location;
+    }
+
+    public int getMobility() {
+        return mobility;
+    }
+
+    public int getResilience() {
+        return resilience;
+    }
+
+    public int getRecovery() {
+        return recovery;
+    }
+
+    public int getDiscilpline() {
+        return discilpline;
+    }
+
+    public int getIntellect() {
+        return intellect;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getTotalStats() {
+        return totalStats;
     }
 
     @Override

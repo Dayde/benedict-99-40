@@ -51,11 +51,6 @@ const routes = [
         component: Sweep
     },
     {
-        path: '/settings',
-        name: 'settings',
-        component: Settings
-    },
-    {
         path: '*',
         redirect: '/'
     }

@@ -7,8 +7,15 @@ Vue.component('item', {
         <img v-if="item.masterwork" src="/masterwork.png" alt="masterwork" :class="{ masterwork: item.masterwork }" />
         <span class="top-right">{{item.powerLevel}}</span>
     </div>
-    <div class="item-sockets">
-        <perk-choice :perkChoice="perkChoice" v-for="(perkChoice, index) in item.perks" :key="index"></perk-choice>
+    <div class="item-stats">
+       <div>{{ item.mobility }}</div>
+       <div>{{ item.resilience }}</div>
+       <div>{{ item.recovery }}</div>
+       <div>{{ item.discilpline }}</div>
+       <div>{{ item.intellect }}</div>
+       <div>{{ item.strength }}</div>
+       <div>---</div>
+       <div>{{ item.totalStats }}</div>
     </div>
     <div :id="'item' + item.instanceId">
         <div>{{ item.name }}</div>

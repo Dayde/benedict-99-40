@@ -1,7 +1,8 @@
 package fr.destiny.benedict.web.service;
 
-import com.google.common.collect.Lists;
-import fr.destiny.benedict.web.model.*;
+import fr.destiny.benedict.web.model.ClassType;
+import fr.destiny.benedict.web.model.ItemCategory;
+import fr.destiny.benedict.web.model.ItemInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,31 +88,6 @@ public class SweepService {
             }
         });
 
-        // Generate permutation
-        Map<Set<Perk>, Set<ItemInstance>> itemsByPerkPermutation = new HashMap<>();
-        itemInstances.forEach(instance -> {
-            List<List<Perk>> product = Lists.cartesianProduct(instance.getPerks().stream()
-                    .map(PerkChoice::getChoices)
-                    .collect(Collectors.toList()));
-            product.forEach(permutation -> {
-                Set<Perk> finalPermutation = new HashSet<>();
-                for (Perk perk : permutation) {
-                    if (!uncommittedPerkHashes.contains(perk.getHash())) {
-                        finalPermutation.add(perk);
-                    }
-                }
-                Set<ItemInstance> instances = itemsByPerkPermutation.computeIfAbsent(finalPermutation, set -> new HashSet<>());
-                instances.add(instance);
-            });
-        });
-
-        // Keep all unique permutations
-        itemsByPerkPermutation.values()
-                .forEach(instances -> {
-                    if (instances.size() == 1) {
-                        toKeep.add(instances.iterator().next());
-                    }
-                });
         return toKeep;
     }
 }

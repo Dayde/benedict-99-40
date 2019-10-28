@@ -68,14 +68,19 @@ public class ItemService {
         if (sockets == null) {
             sockets = Collections.emptyMap();
         }
+        Map<String, DestinyEntitiesItemsDestinyItemStatsComponent> stats = profile.getItemComponents().getStats().getData();
+        if (stats == null) {
+            stats = Collections.emptyMap();
+        }
 
-        return generateItemInstances(instanceIdsByItemHash, instances, sockets, classType, itemCategory);
+        return generateItemInstances(instanceIdsByItemHash, instances, sockets, stats, classType, itemCategory);
     }
 
     private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(
             Map<Long, Set<Pair<String, Long>>> instanceIdsByItemHash,
             Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances,
             Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets,
+            Map<String, DestinyEntitiesItemsDestinyItemStatsComponent> stats,
             ClassType classType, ItemCategory itemCategory) {
         Map<ItemCategory, Set<ItemInstance>> itemInstances = new HashMap<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
@@ -109,6 +114,12 @@ public class ItemService {
                                     new DestinyEntitiesItemsDestinyItemSocketsComponent();
                             socketsComponent.setSockets(Collections.emptyList());
                         }
+                        DestinyEntitiesItemsDestinyItemStatsComponent statsComponent = stats.get(Long.toString(instanceId));
+                        if (statsComponent == null) {
+                            statsComponent =
+                                    new DestinyEntitiesItemsDestinyItemStatsComponent();
+                            statsComponent.setStats(Collections.emptyMap());
+                        }
 
                         itemInstances.computeIfAbsent(
                                 preciseItemCategory,
@@ -118,6 +129,7 @@ public class ItemService {
                                                 instanceId,
                                                 instances.get(Long.toString(instanceId)),
                                                 socketsComponent,
+                                                statsComponent,
                                                 itemDefinition,
                                                 itemDefinitions,
                                                 location
@@ -179,6 +191,8 @@ public class ItemService {
                 DestinyDestinyComponentType.NUMBER_205,
                 // Item Instances
                 DestinyDestinyComponentType.NUMBER_300,
+                // Item stats
+                DestinyDestinyComponentType.NUMBER_304,
                 // Item Sockets
                 DestinyDestinyComponentType.NUMBER_305
         );
