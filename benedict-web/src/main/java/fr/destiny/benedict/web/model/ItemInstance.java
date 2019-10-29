@@ -1,9 +1,7 @@
 package fr.destiny.benedict.web.model;
 
-import fr.destiny.api.model.DestinyDefinitionsDestinyInventoryItemDefinition;
-import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemInstanceComponent;
-import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemSocketsComponent;
-import fr.destiny.api.model.DestinyEntitiesItemsDestinyItemStatsComponent;
+import fr.destiny.api.model.*;
+import fr.destiny.benedict.web.utils.ModUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.Map;
@@ -42,6 +40,7 @@ public class ItemInstance implements Comparable {
         this.icon = itemDefinition.getDisplayProperties().getIcon();
         this.tierType = itemDefinition.getInventory().getTierTypeName();
         this.powerLevel = instance.getPrimaryStat().getValue();
+
         this.masterwork = socketsComponent.getSockets()
                 .stream()
                 .anyMatch(
@@ -58,7 +57,48 @@ public class ItemInstance implements Comparable {
         discilpline = statsComponent.getStats().get(StatEnum.DISCILPLINE.getHash()).getValue();
         intellect = statsComponent.getStats().get(StatEnum.INTELLECT.getHash()).getValue();
         strength = statsComponent.getStats().get(StatEnum.STRENGTH.getHash()).getValue();
+
+        for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
+            if (socket == null || socket.getPlugHash() == null) {
+                continue;
+            }
+
+            if (itemDefinitions.get(socket.getPlugHash())
+                    .getDisplayProperties()
+                    .getName()
+                    .equals("Masterwork")) {
+                this.masterwork = true;
+                continue;
+            }
+
+            if (socket.getPlugHash().equals(ModUtils.MOBILITY_MOD)) {
+                mobility -= 10;
+                continue;
+            }
+            if (socket.getPlugHash().equals(ModUtils.RESILIENCE_MOD)) {
+                resilience -= 10;
+                continue;
+            }
+            if (socket.getPlugHash().equals(ModUtils.RECOVERY_MOD)) {
+                recovery -= 10;
+                continue;
+            }
+            if (socket.getPlugHash().equals(ModUtils.DISCILPLINE_MOD)) {
+                discilpline -= 10;
+                continue;
+            }
+            if (socket.getPlugHash().equals(ModUtils.INTELLECT_MOD)) {
+                intellect -= 10;
+                continue;
+            }
+            if (socket.getPlugHash().equals(ModUtils.STRENGTH_MOD)) {
+                strength -= 10;
+                continue;
+            }
+        }
+
         totalStats = mobility + resilience + recovery + discilpline + intellect + strength;
+
         this.location = location;
     }
 
@@ -125,7 +165,7 @@ public class ItemInstance implements Comparable {
     @Override
     public int compareTo(@NotNull Object o) {
         if (o instanceof ItemInstance) {
-            return Integer.compare(this.powerLevel, ((ItemInstance) o).powerLevel);
+            return Integer.compare(this.totalStats, ((ItemInstance) o).totalStats);
         }
         throw new RuntimeException("Illegal argument");
     }

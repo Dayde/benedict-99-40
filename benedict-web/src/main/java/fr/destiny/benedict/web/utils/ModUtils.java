@@ -6,12 +6,12 @@ public class ModUtils {
 
     public static Set<Long> STAT_MODS;
 
-    private static Long MOBILITY_MOD = 3961599962L;
-    private static Long RESILIENCE_MOD = 2850583378L;
-    private static Long RECOVERY_MOD = 2645858828L;
-    private static Long DISCILPLINE_MOD = 4048838440L;
-    private static Long INTELLECT_MOD = 3355995799L;
-    private static Long STRENGTH_MOD = 3253038666L;
+    public static Long MOBILITY_MOD = 3961599962L;
+    public static Long RESILIENCE_MOD = 2850583378L;
+    public static Long RECOVERY_MOD = 2645858828L;
+    public static Long DISCILPLINE_MOD = 4048838440L;
+    public static Long INTELLECT_MOD = 3355995799L;
+    public static Long STRENGTH_MOD = 3253038666L;
 
     static {
         STAT_MODS = Set.of(
