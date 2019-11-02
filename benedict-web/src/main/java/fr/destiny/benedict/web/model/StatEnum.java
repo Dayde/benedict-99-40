@@ -1,20 +1,52 @@
 package fr.destiny.benedict.web.model;
 
 public enum StatEnum {
-    MOBILITY("2996146975"),
-    RESILIENCE("392767087"),
-    RECOVERY("1943323491"),
-    DISCILPLINE("1735777505"),
-    INTELLECT("144602215"),
-    STRENGTH("4244567218");
+    MOBILITY(
+            2996146975L,
+            3961599962L
+    ),
+    RESILIENCE(
+            392767087L,
+            2850583378L
+    ),
+    RECOVERY(
+            1943323491L,
+            2645858828L
+    ),
+    DISCILPLINE(
+            1735777505L,
+            4048838440L
+    ),
+    INTELLECT(
+            144602215L,
+            3355995799L
+    ),
+    STRENGTH(
+            4244567218L,
+            3253038666L
+    );
+    private final long hash;
+    private final long modHash;
 
-    private final String hash;
-
-    StatEnum(String hash) {
+    StatEnum(long hash, long modHash) {
         this.hash = hash;
+        this.modHash = modHash;
     }
 
-    public String getHash() {
+    public static StatEnum modOf(long modHash) {
+        for (StatEnum stat : StatEnum.values()) {
+            if (stat.modHash == modHash) {
+                return stat;
+            }
+        }
+        return null;
+    }
+
+    public long getHash() {
         return hash;
+    }
+
+    public String getHashString() {
+        return Long.toString(hash);
     }
 }

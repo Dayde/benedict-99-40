@@ -1,9 +1,6 @@
 package fr.destiny.benedict.web.controller;
 
-import fr.destiny.benedict.web.model.ClassType;
-import fr.destiny.benedict.web.model.ItemCategory;
-import fr.destiny.benedict.web.model.Perk;
-import fr.destiny.benedict.web.model.User;
+import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.service.ItemService;
 import fr.destiny.benedict.web.service.SweepService;
 import fr.destiny.benedict.web.service.UserService;
@@ -16,7 +13,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -57,19 +53,17 @@ public class BenedictController {
     }
 
     @RequestMapping("/users/{userId}/{platform}/items")
-    public Map<String, Object> items(
+    public Map<ExtraModEnum, List<ItemInstance>> items(
             @PathVariable long userId,
             @PathVariable int platform,
             @RequestParam String classType,
             @RequestParam String itemCategory,
-            @RequestParam Set<Long> uncommittedPerkHashes,
             @RequestParam(required = false, defaultValue = "") String token) {
         return sweepService.sweep(
                 userId,
                 platform,
                 ClassType.valueOf(classType),
                 ItemCategory.valueOf(itemCategory),
-                uncommittedPerkHashes,
                 token
         );
     }

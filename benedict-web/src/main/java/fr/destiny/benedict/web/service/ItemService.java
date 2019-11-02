@@ -41,7 +41,7 @@ public class ItemService {
         return itemDefinitions;
     }
 
-    public Map<ItemCategory, Set<ItemInstance>> getItemInstances(
+    public Set<ItemInstance> getItemInstances(
             Long membershipId,
             Integer membershipType,
             ClassType classType,
@@ -76,13 +76,13 @@ public class ItemService {
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, stats, classType, itemCategory);
     }
 
-    private Map<ItemCategory, Set<ItemInstance>> generateItemInstances(
+    private Set<ItemInstance> generateItemInstances(
             Map<Long, Set<Pair<String, Long>>> instanceIdsByItemHash,
             Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances,
             Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets,
             Map<String, DestinyEntitiesItemsDestinyItemStatsComponent> stats,
             ClassType classType, ItemCategory itemCategory) {
-        Map<ItemCategory, Set<ItemInstance>> itemInstances = new HashMap<>();
+        Set<ItemInstance> itemInstances = new HashSet<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
             ClassType itemClassType = ClassType.fromHash(itemDefinition.getClassType());
@@ -92,9 +92,6 @@ public class ItemService {
                     && classType != itemClassType) {
                 return;
             }
-
-            final ItemCategory preciseItemCategory = itemCategory == ItemCategory.ARMOR ?
-                    ItemCategory.fromSubType(itemDefinition.getItemSubType()) : itemCategory;
 
             if (itemDefinition.getItemCategoryHashes() == null) {
                 return;
@@ -121,20 +118,17 @@ public class ItemService {
                             statsComponent.setStats(Collections.emptyMap());
                         }
 
-                        itemInstances.computeIfAbsent(
-                                preciseItemCategory,
-                                set -> new HashSet<>())
-                                .add(
-                                        new ItemInstance(
-                                                instanceId,
-                                                instances.get(Long.toString(instanceId)),
-                                                socketsComponent,
-                                                statsComponent,
-                                                itemDefinition,
-                                                itemDefinitions,
-                                                location
-                                        )
-                                );
+                        itemInstances.add(
+                                new ItemInstance(
+                                        instanceId,
+                                        instances.get(Long.toString(instanceId)),
+                                        socketsComponent,
+                                        statsComponent,
+                                        itemDefinition,
+                                        itemDefinitions,
+                                        location
+                                )
+                        );
                     }
             );
         });

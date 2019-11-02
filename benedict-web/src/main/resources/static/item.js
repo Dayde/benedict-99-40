@@ -8,14 +8,16 @@ Vue.component('item', {
         <span class="top-right">{{item.powerLevel}}</span>
     </div>
     <div class="item-stats">
-       <div>{{ item.mobility }}</div>
-       <div>{{ item.resilience }}</div>
-       <div>{{ item.recovery }}</div>
-       <div>{{ item.discilpline }}</div>
-       <div>{{ item.intellect }}</div>
-       <div>{{ item.strength }}</div>
+       <div>{{ item.stats.MOBILITY }}</div>
+       <div>{{ item.stats.RESILIENCE }}</div>
+       <div>{{ item.stats.RECOVERY }}</div>
+       <div>{{ item.stats.DISCILPLINE }}</div>
+       <div>{{ item.stats.INTELLECT }}</div>
+       <div>{{ item.stats.STRENGTH }}</div>
        <div>---</div>
        <div>{{ item.totalStats }}</div>
+       <div>{{ item.energy}}</div>
+       <div>{{ item.extraMod}}</div>
     </div>
     <div :id="'item' + item.instanceId">
         <div>{{ item.name }}</div>

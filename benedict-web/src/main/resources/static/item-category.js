@@ -88,12 +88,6 @@ Vue.component('armor', {
 Vue.component('item-category', {
     template: `
 <div>
-    <label title="All Armors" v-tippy="{ followCursor: true, touchHold: true }">
-        <input id="armor" name="ARMOR" type="radio" v-model="mutableItemCategory"
-               value="ARMOR">
-        <img class="form-img" alt="All armors"
-             src="https://bungie.net/common/destiny2_content/icons/ba288981fc651ad3dc23f3c211e8b209.jpg">
-    </label>
     <label v-for="(value, armor) in armors" :title="value[classType].name" v-tippy="{ followCursor: true, touchHold: true }">
         <input :id="armor" :name="armor" type="radio" v-model="mutableItemCategory"
                :value="armor">

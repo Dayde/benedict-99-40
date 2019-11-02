@@ -6,24 +6,16 @@ Vue.component('sweep-result', {
 <main v-else-if="loading" class="loading">
 </main>
 <main v-else class="result">
-    <div v-if="sort.length" class="title">
-        <span class="clickable" tabindex="0" @click="toggleSort" @keyup.space="toggleSort" @keyup.enter="toggleSort">
-            <i class="fas" :class="{'fa-eye':showSort, 'fa-eye-slash':!showSort}"></i>
-            Sort
-        </span>
-    </div>
-    <div v-else class="title">Nothing left to sort, Tess would be proud !</div>
-    <div v-if="showSort" class="item-containers">
-        <item :item="item" v-for="item in sort" :key="item.instanceId"></item>
-    </div>
-    <div class="title">
-        <span class="clickable" tabindex="0" @click="toggleKeep" @keyup.space="toggleKeep" @keyup.enter="toggleKeep">
-            <i class="fas" :class="{'fa-eye':showKeep, 'fa-eye-slash':!showKeep}"></i>
-            Keep
-        </span>
-    </div>
-    <div v-if="showKeep" class="item-containers">
-        <item :item="item" v-for="item in keep" :key="item.instanceId"></item>
+    <div v-for="(items, extraMod) in result">
+        <div class="title">
+            <span class="clickable" tabindex="0" @click="toggle(extraMod)" @keyup.space="toggle(extraMod)" @keyup.enter="toggle(extraMod)">
+                <i class="fas" :class="{'fa-eye':display[extraMod], 'fa-eye-slash':!display[extraMod]}"></i>
+                {{ extraMod }}
+            </span>
+        </div>
+        <div v-if="display[extraMod]" class="item-containers">
+            <item :item="item" v-for="item in items" :key="item.instanceId"></item>
+        </div>
     </div>
 </main>
 `,
@@ -31,10 +23,8 @@ Vue.component('sweep-result', {
         return {
             error: false,
             loading: true,
-            sort: null,
-            keep: null,
-            showSort: true,
-            showKeep: false
+            result: null,
+            display: {}
         }
     },
     mounted() {
@@ -96,15 +86,13 @@ Vue.component('sweep-result', {
                 .get(`/api/users/${this.$route.params.userId}/${this.$route.params.platform}/items`, {
                     params: {
                         classType,
-                        itemCategory,
-                        uncommittedPerkHashes: this.uncommittedPerkHashes()
+                        itemCategory
                     },
                     cancelToken: this.call.token
                 })
                 .then(response => {
                     this.loading = false;
-                    this.sort = response.data.sort;
-                    this.keep = response.data.keep;
+                    this.result = response.data;
                 }, error => {
                     if (axios.isCancel(error)) {
                         // another request was made no worry
@@ -116,25 +104,8 @@ Vue.component('sweep-result', {
                     }
                 });
         },
-        uncommittedPerkHashes() {
-            let committedPerksJSON = localStorage.getItem('committedPerks');
-            let committedPerks = {};
-            if (committedPerksJSON) {
-                committedPerks = JSON.parse(committedPerksJSON);
-            }
-            let uncommittedPerkHashes = [];
-            for (let perkHash in committedPerks) {
-                if (!committedPerks[perkHash]) {
-                    uncommittedPerkHashes.push(perkHash);
-                }
-            }
-            return uncommittedPerkHashes.join(',');
-        },
-        toggleSort() {
-            this.showSort = !this.showSort;
-        },
-        toggleKeep() {
-            this.showKeep = !this.showKeep;
+        toggle(extraMod) {
+            Vue.set(this.display, extraMod, !this.display[extraMod])
         }
     }
 });
