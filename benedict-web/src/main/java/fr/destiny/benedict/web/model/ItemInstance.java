@@ -18,7 +18,7 @@ public class ItemInstance implements Comparable {
 
     private int powerLevel;
     private boolean masterwork;
-    private EnergyEnum energy;
+    private EnergyEnum energyType;
     private ExtraModEnum extraMod;
 
     private Map<StatEnum, Integer> stats;
@@ -39,9 +39,9 @@ public class ItemInstance implements Comparable {
 
         this.powerLevel = instance.getPrimaryStat().getValue();
 
-        DestinyEntitiesItemsDestinyItemInstanceEnergy energy = instance.getEnergy();
-        if (energy != null) {
-            this.energy = EnergyEnum.valueOf(energy.getEnergyTypeHash());
+        DestinyEntitiesItemsDestinyItemInstanceEnergy energyType = instance.getEnergy();
+        if (energyType != null) {
+            this.energyType = EnergyEnum.valueOf(energyType.getEnergyTypeHash());
         }
 
         this.stats = new HashMap<>();
@@ -121,8 +121,8 @@ public class ItemInstance implements Comparable {
         return totalStats;
     }
 
-    public EnergyEnum getEnergy() {
-        return energy;
+    public EnergyEnum getEnergyType() {
+        return energyType;
     }
 
     public ExtraModEnum getExtraMod() {

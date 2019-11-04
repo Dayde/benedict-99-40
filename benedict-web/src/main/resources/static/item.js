@@ -1,3 +1,21 @@
+const energies = {
+    SOLAR: {
+        name: 'Solar',
+        value: 'SOLAR',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/DestinyEnergyTypeDefinition_2a1773e10968f2d088b97c22b22bba9e.png'
+    },
+    VOID: {
+        name: 'Void',
+        value: 'VOID',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/DestinyEnergyTypeDefinition_ceb2f6197dccf3958bb31cc783eb97a0.png'
+    },
+    ARC: {
+        name: 'Arc',
+        value: 'ARC',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/DestinyEnergyTypeDefinition_9fbcfcef99f4e8a40d8762ccb556fcd4.png'
+    }
+};
+
 Vue.component('item', {
     template: `
 <div class="item-container">
@@ -5,7 +23,11 @@ Vue.component('item', {
          v-tippy="{ html: '#item' + item.instanceId, trigger: 'click', interactive: true, reactive: true, hideOnClick: true }">
         <img :src="'https://www.bungie.net' + item.icon" :alt="item.name"/>
         <img v-if="item.masterwork" src="/masterwork.png" alt="masterwork" :class="{ masterwork: item.masterwork }" />
-        <span class="top-right">{{item.powerLevel}}</span>
+        <span class="top-right">
+            <img :src="energyType(item.energyType).icon"
+                 class="energy-type"/>
+            {{item.powerLevel}}
+        </span>
     </div>
     <div class="item-stats">
        <div>{{ item.stats.MOBILITY }}</div>
@@ -16,8 +38,6 @@ Vue.component('item', {
        <div>{{ item.stats.STRENGTH }}</div>
        <div>---</div>
        <div>{{ item.totalStats }}</div>
-       <div>{{ item.energy}}</div>
-       <div>{{ item.extraMod}}</div>
     </div>
     <div :id="'item' + item.instanceId">
         <div>{{ item.name }}</div>
@@ -37,12 +57,16 @@ Vue.component('item', {
         let user = JSON.parse(localStorage.getItem('user'));
         return {
             characters: user.characters,
-            classes: classes
+            classes: classes,
+            energies: energies
         };
     },
     methods: {
         classType(classType) {
             return this.classes[classType];
+        },
+        energyType(energyType) {
+            return this.energies[energyType];
         },
         transferItem(characterId) {
             let user = JSON.parse(localStorage.getItem('user'));
