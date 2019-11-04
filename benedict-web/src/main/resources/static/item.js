@@ -16,6 +16,39 @@ const energies = {
     }
 };
 
+const stats = {
+    MOBILITY: {
+        name: 'Mobility',
+        value: 'MOBILITY',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/c9aa8439fc71c9ee336ba713535569ad.png'
+    },
+    RESILIENCE: {
+        name: 'Resilience',
+        value: 'RESILIENCE',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/9f5f65d08b24defb660cebdfd7bae727.png'
+    },
+    RECOVERY: {
+        name: 'Recovery',
+        value: 'RECOVERY',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/47e16a27c8387243dcf9b5d94e26ccc4.png'
+    },
+    DISCIPLINE: {
+        name: 'Discipline',
+        value: 'DISCIPLINE',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/ca62128071dc254fe75891211b98b237.png'
+    },
+    INTELLECT: {
+        name: 'Intellect',
+        value: 'INTELLECT',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/59732534ce7060dba681d1ba84c055a6.png'
+    },
+    STRENGTH: {
+        name: 'Strength',
+        value: 'STRENGTH',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/c7eefc8abbaa586eeab79e962a79d6ad.png'
+    },
+};
+
 Vue.component('item', {
     template: `
 <div class="item-container">
@@ -24,20 +57,23 @@ Vue.component('item', {
         <img :src="'https://www.bungie.net' + item.icon" :alt="item.name"/>
         <img v-if="item.masterwork" src="/masterwork.png" alt="masterwork" :class="{ masterwork: item.masterwork }" />
         <span class="top-right">
-            <img :src="energyType(item.energyType).icon"
-                 class="energy-type"/>
             {{item.powerLevel}}
         </span>
     </div>
-    <div class="item-stats">
-       <div>{{ item.stats.MOBILITY }}</div>
-       <div>{{ item.stats.RESILIENCE }}</div>
-       <div>{{ item.stats.RECOVERY }}</div>
-       <div>{{ item.stats.DISCILPLINE }}</div>
-       <div>{{ item.stats.INTELLECT }}</div>
-       <div>{{ item.stats.STRENGTH }}</div>
-       <div>---</div>
-       <div>{{ item.totalStats }}</div>
+    <div class="item-details">
+        <span class="item-energy">
+            <img :src="energyType(item.energyType).icon"
+                 class="stat-icon"/>
+            &nbsp;&nbsp;{{ item.energy }}
+        </span>
+        <div class="item-stats" v-if="item.totalStats != 0">
+            <span v-for="(stat, statName) in stats">
+                <img :src="stats[statName].icon"
+                     class="stat-icon"/>
+                {{ ( item.stats[statName] < 10 ? '&nbsp;&nbsp;' : '' ) + item.stats[statName] }}
+            </span>
+            <span>{{ item.totalStats }}</span>
+        </div>
     </div>
     <div :id="'item' + item.instanceId">
         <div>{{ item.name }}</div>
@@ -58,7 +94,8 @@ Vue.component('item', {
         return {
             characters: user.characters,
             classes: classes,
-            energies: energies
+            energies: energies,
+            stats: stats
         };
     },
     methods: {

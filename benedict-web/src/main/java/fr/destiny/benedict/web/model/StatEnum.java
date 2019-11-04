@@ -13,7 +13,7 @@ public enum StatEnum {
             1943323491L,
             2645858828L
     ),
-    DISCILPLINE(
+    DISCIPLINE(
             1735777505L,
             4048838440L
     ),

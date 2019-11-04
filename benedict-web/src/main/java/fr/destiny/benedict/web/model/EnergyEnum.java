@@ -3,15 +3,16 @@ package fr.destiny.benedict.web.model;
 public enum EnergyEnum {
     ARC(728351493L),
     SOLAR(591714140L),
-    VOID(4069572561L);
+    VOID(4069572561L),
+    NONE(null);
 
-    private final long hash;
+    private final Long hash;
 
-    EnergyEnum(long hash) {
+    EnergyEnum(Long hash) {
         this.hash = hash;
     }
 
-    public static EnergyEnum valueOf(long hash) {
+    public static EnergyEnum valueOf(Long hash) {
         for (EnergyEnum energy : EnergyEnum.values()) {
             if (energy.getHash() == hash) {
                 return energy;

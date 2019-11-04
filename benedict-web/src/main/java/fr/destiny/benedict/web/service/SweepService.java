@@ -43,7 +43,7 @@ public class SweepService {
                 .filter(item -> "Legendary".equals(item.getTierType()))
                 .collect(Collectors.toSet());
 
-        return itemInstances.stream().collect(Collectors.groupingBy(ItemInstance::getExtraMod));
+        return itemInstances.stream().sorted().collect(Collectors.groupingBy(ItemInstance::getExtraMod));
     }
 
     private Set<ItemInstance> computeWhatToKeep(Set<ItemInstance> itemInstances, Set<Long> uncommittedPerkHashes) {

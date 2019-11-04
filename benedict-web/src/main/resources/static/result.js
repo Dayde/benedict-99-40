@@ -9,11 +9,11 @@ Vue.component('sweep-result', {
     <div v-for="(items, extraMod) in result">
         <div class="title">
             <span class="clickable" tabindex="0" @click="toggle(extraMod)" @keyup.space="toggle(extraMod)" @keyup.enter="toggle(extraMod)">
-                <i class="fas" :class="{'fa-eye':display[extraMod], 'fa-eye-slash':!display[extraMod]}"></i>
+                <i class="fas" :class="{'fa-eye':!hide[extraMod], 'fa-eye-slash':hide[extraMod]}"></i>
                 {{ extraMod }}
             </span>
         </div>
-        <div v-if="display[extraMod]" class="item-containers">
+        <div v-if="!hide[extraMod]" class="item-containers">
             <item :item="item" v-for="item in items" :key="item.instanceId"></item>
         </div>
     </div>
@@ -24,7 +24,7 @@ Vue.component('sweep-result', {
             error: false,
             loading: true,
             result: null,
-            display: {}
+            hide: {}
         }
     },
     mounted() {
@@ -105,7 +105,7 @@ Vue.component('sweep-result', {
                 });
         },
         toggle(extraMod) {
-            Vue.set(this.display, extraMod, !this.display[extraMod])
+            Vue.set(this.hide, extraMod, !this.hide[extraMod])
         }
     }
 });

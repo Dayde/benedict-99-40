@@ -18,6 +18,7 @@ public class ItemInstance implements Comparable {
 
     private int powerLevel;
     private boolean masterwork;
+    private int energy;
     private EnergyEnum energyType;
     private ExtraModEnum extraMod;
 
@@ -42,6 +43,9 @@ public class ItemInstance implements Comparable {
         DestinyEntitiesItemsDestinyItemInstanceEnergy energyType = instance.getEnergy();
         if (energyType != null) {
             this.energyType = EnergyEnum.valueOf(energyType.getEnergyTypeHash());
+            this.energy = energyType.getEnergyCapacity();
+        } else {
+            this.energyType = EnergyEnum.NONE;
         }
 
         this.stats = new HashMap<>();
@@ -125,6 +129,10 @@ public class ItemInstance implements Comparable {
         return energyType;
     }
 
+    public int getEnergy() {
+        return energy;
+    }
+
     public ExtraModEnum getExtraMod() {
         return extraMod;
     }
@@ -136,7 +144,15 @@ public class ItemInstance implements Comparable {
     @Override
     public int compareTo(@NotNull Object o) {
         if (o instanceof ItemInstance) {
-            return Integer.compare(this.totalStats, ((ItemInstance) o).totalStats);
+            ItemInstance other = (ItemInstance) o;
+            int result = this.energyType.compareTo(other.energyType);
+            if (result != 0) {
+                return result;
+            }
+            if (totalStats == 0) {
+                return -Integer.compare(this.energy, other.energy);
+            }
+            return -Integer.compare(this.totalStats, other.totalStats);
         }
         throw new RuntimeException("Illegal argument");
     }

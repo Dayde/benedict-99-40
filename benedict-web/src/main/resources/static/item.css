@@ -39,20 +39,25 @@
     font-size: 14px;
 }
 
-.energy-type {
-    height: 10px;
-    width: auto;
-}
-
-.item-sockets {
-    display: flex;
-    flex-direction: row;
-    background-image: linear-gradient(to top, rgba(100, 100, 100, 0.3), rgba(100, 100, 100, 1));
-}
-
-.item-socket {
+.item-details {
     display: flex;
     flex-direction: column;
+    background-color: black;
+    width: -webkit-fill-available;
+}
+
+.item-details span {
+    text-align: center;
+}
+
+.item-stats {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-icon {
+    height: 16px;
+    width: auto;
 }
 
 .location {
