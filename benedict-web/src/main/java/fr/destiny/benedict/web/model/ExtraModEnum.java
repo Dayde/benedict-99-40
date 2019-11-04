@@ -84,10 +84,10 @@ public enum ExtraModEnum {
             // Hive Barrier
             3967424085L
     )),
-    INTRUDER(0, Collections.emptyList()),
-    REAPER(0, Collections.emptyList()),
-    COLLECTOR(0, Collections.emptyList()),
-    SENTINEL(0, Collections.emptyList());
+    INVADER(1233336930L, Collections.emptyList()),
+    REAPER(149961592L, Collections.emptyList()),
+    COLLECTOR(3047801520L, Collections.emptyList()),
+    SENTRY(2684355120L, Collections.emptyList());
 
     private final long hash;
     private final List<Long> applicableMods;
