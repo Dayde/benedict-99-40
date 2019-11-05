@@ -76,6 +76,7 @@ public class ItemInstance implements Comparable {
                 StatEnum stat = StatEnum.modOf(socket.getPlugHash());
                 if (stat != null && this.stats.containsKey(stat)) {
                     this.stats.put(stat, this.stats.get(stat) - 10);
+                    this.totalStats -= 10;
                     continue;
                 }
             }
