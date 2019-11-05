@@ -7,10 +7,7 @@ import fr.destiny.benedict.web.model.ItemInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +20,7 @@ public class SweepService {
         this.itemService = itemService;
     }
 
-    public Map<ExtraModEnum, List<ItemInstance>> sweep(
+    public SortedMap<ExtraModEnum, List<ItemInstance>> sweep(
             long userId,
             int platform,
             ClassType classType,
@@ -43,7 +40,9 @@ public class SweepService {
                 .filter(item -> "Legendary".equals(item.getTierType()))
                 .collect(Collectors.toSet());
 
-        return itemInstances.stream().sorted().collect(Collectors.groupingBy(ItemInstance::getExtraMod));
+        return itemInstances.stream()
+                .sorted()
+                .collect(Collectors.groupingBy(ItemInstance::getExtraMod, TreeMap::new, Collectors.toList()));
     }
 
     private Set<ItemInstance> computeWhatToKeep(Set<ItemInstance> itemInstances, Set<Long> uncommittedPerkHashes) {

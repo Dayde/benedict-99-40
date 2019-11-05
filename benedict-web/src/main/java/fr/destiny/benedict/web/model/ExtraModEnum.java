@@ -5,7 +5,50 @@ import java.util.Collections;
 import java.util.List;
 
 public enum ExtraModEnum {
-    NONE(0, Collections.emptyList()),
+    OUTLAW(3625698764L, Arrays.asList(
+            // Taken Invigoration
+            399528760L,
+            // Taken Repurposing
+            2589105944L,
+            // Taken Armaments
+            2859541905L,
+            // Taken Barrier
+            3570105787L
+    )),
+    FORGE(720857L, Arrays.asList(
+            // Fallen Invigoration
+            3395883122L,
+            // Fallen Repurposing
+            2276366746L,
+            // Fallen Armaments
+            2503471403L,
+            // Fallen Barrier
+            3099724909L
+    )),
+    COLLECTOR(3047801520L, Collections.emptyList()),
+    SENTRY(2684355120L, Collections.emptyList()),
+    INVADER(1233336930L, Collections.emptyList()),
+    REAPER(149961592L, Collections.emptyList()),
+    OPULENCE(4106547009L, Arrays.asList(
+            // Shielding Hand
+            499567183L,
+            // Giving Hand
+            2280136185L,
+            // Striking Hand
+            2816649701L,
+            // Power Overwhelming
+            1489470244L,
+            // Energized
+            4130296084L,
+            // Hive Invigoration
+            2146600970L,
+            // Hive Repurposing
+            3302924434L,
+            // Hive Armaments
+            927348227L,
+            // Hive Barrier
+            3967424085L
+    )),
     UNDYING(2620967748L, Arrays.asList(
             // Dreambane Mod
             3895804619L,
@@ -44,50 +87,7 @@ public enum ExtraModEnum {
             // Enhanced Resistant Tether
             2037533514L
     )),
-    OUTLAW(3625698764L, Arrays.asList(
-            // Taken Invigoration
-            399528760L,
-            // Taken Repurposing
-            2589105944L,
-            // Taken Armaments
-            2859541905L,
-            // Taken Barrier
-            3570105787L
-    )),
-    FORGE(720857L, Arrays.asList(
-            // Fallen Invigoration
-            3395883122L,
-            // Fallen Repurposing
-            2276366746L,
-            // Fallen Armaments
-            2503471403L,
-            // Fallen Barrier
-            3099724909L
-    )),
-    OPULENCE(4106547009L, Arrays.asList(
-            // Shielding Hand
-            499567183L,
-            // Giving Hand
-            2280136185L,
-            // Striking Hand
-            2816649701L,
-            // Power Overwhelming
-            1489470244L,
-            // Energized
-            4130296084L,
-            // Hive Invigoration
-            2146600970L,
-            // Hive Repurposing
-            3302924434L,
-            // Hive Armaments
-            927348227L,
-            // Hive Barrier
-            3967424085L
-    )),
-    INVADER(1233336930L, Collections.emptyList()),
-    REAPER(149961592L, Collections.emptyList()),
-    COLLECTOR(3047801520L, Collections.emptyList()),
-    SENTRY(2684355120L, Collections.emptyList());
+    NONE(0, Collections.emptyList());
 
     private final long hash;
     private final List<Long> applicableMods;

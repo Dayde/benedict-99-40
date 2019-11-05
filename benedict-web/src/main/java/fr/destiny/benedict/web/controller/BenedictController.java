@@ -13,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 @RestController
 @RequestMapping("/api")
@@ -53,7 +54,7 @@ public class BenedictController {
     }
 
     @RequestMapping("/users/{userId}/{platform}/items")
-    public Map<ExtraModEnum, List<ItemInstance>> items(
+    public SortedMap<ExtraModEnum, List<ItemInstance>> items(
             @PathVariable long userId,
             @PathVariable int platform,
             @RequestParam String classType,
