@@ -1,6 +1,9 @@
 package fr.destiny.benedict.web.controller;
 
-import fr.destiny.benedict.web.model.*;
+import fr.destiny.benedict.web.model.ClassType;
+import fr.destiny.benedict.web.model.ItemCategory;
+import fr.destiny.benedict.web.model.ItemInstance;
+import fr.destiny.benedict.web.model.User;
 import fr.destiny.benedict.web.service.ItemService;
 import fr.destiny.benedict.web.service.SweepService;
 import fr.destiny.benedict.web.service.UserService;
@@ -12,8 +15,6 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
 
 @RestController
 @RequestMapping("/api")
@@ -54,7 +55,7 @@ public class BenedictController {
     }
 
     @RequestMapping("/users/{userId}/{platform}/items")
-    public SortedMap<ExtraModEnum, List<ItemInstance>> items(
+    public List<ItemInstance> items(
             @PathVariable long userId,
             @PathVariable int platform,
             @RequestParam String classType,
@@ -89,10 +90,5 @@ public class BenedictController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
         return status;
-    }
-
-    @RequestMapping("/perks")
-    public Map<ItemCategory, Map<String, List<Perk>>> perks() {
-        return itemService.getAllPerksPerSlotPerArmor();
     }
 }

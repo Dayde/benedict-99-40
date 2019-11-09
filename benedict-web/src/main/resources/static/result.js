@@ -6,16 +6,8 @@ Vue.component('sweep-result', {
 <main v-else-if="loading" class="loading">
 </main>
 <main v-else class="result">
-    <div v-for="(items, extraMod) in result">
-        <div class="title">
-            <span class="clickable" tabindex="0" @click="toggle(extraMod)" @keyup.space="toggle(extraMod)" @keyup.enter="toggle(extraMod)">
-                <i class="fas" :class="{'fa-eye':!hide[extraMod], 'fa-eye-slash':hide[extraMod]}"></i>
-                {{ extraMod }}
-            </span>
-        </div>
-        <div v-if="!hide[extraMod]" class="item-containers">
-            <item :item="item" v-for="item in items" :key="item.instanceId"></item>
-        </div>
+    <div class="item-containers">
+        <item :item="item" :key="item.instanceId" v-for="item in result" ></item>
     </div>
 </main>
 `,
@@ -23,8 +15,7 @@ Vue.component('sweep-result', {
         return {
             error: false,
             loading: true,
-            result: null,
-            hide: {}
+            result: null
         }
     },
     mounted() {
@@ -92,7 +83,9 @@ Vue.component('sweep-result', {
                 })
                 .then(response => {
                     this.loading = false;
-                    this.result = response.data;
+                    this.result = _.sortBy(response.data, 'totalStats');
+                    this.result = this.result.reverse();
+                    this.result = _.sortBy(this.result, 'energyType');
                 }, error => {
                     if (axios.isCancel(error)) {
                         // another request was made no worry
@@ -103,9 +96,6 @@ Vue.component('sweep-result', {
                         this.loading = false;
                     }
                 });
-        },
-        toggle(extraMod) {
-            Vue.set(this.hide, extraMod, !this.hide[extraMod])
         }
     }
 });

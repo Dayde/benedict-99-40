@@ -5,7 +5,6 @@ import fr.destiny.api.client.Destiny2Api;
 import fr.destiny.api.model.*;
 import fr.destiny.benedict.web.model.*;
 import fr.destiny.benedict.web.repository.DestinyInventoryItemRepository;
-import fr.destiny.benedict.web.utils.PerkUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -118,17 +117,18 @@ public class ItemService {
                             statsComponent.setStats(Collections.emptyMap());
                         }
 
-                        itemInstances.add(
-                                new ItemInstance(
-                                        instanceId,
-                                        instances.get(Long.toString(instanceId)),
-                                        socketsComponent,
-                                        statsComponent,
-                                        itemDefinition,
-                                        itemDefinitions,
-                                        location
-                                )
+                        ItemInstance item = new ItemInstance(
+                                instanceId,
+                                instances.get(Long.toString(instanceId)),
+                                socketsComponent,
+                                statsComponent,
+                                itemDefinition,
+                                itemDefinitions,
+                                location
                         );
+                        if (item.getEnergyType() != EnergyEnum.NONE) {
+                            itemInstances.add(item);
+                        }
                     }
             );
         });
@@ -217,96 +217,6 @@ public class ItemService {
                                         .collect(Collectors.toSet())
                         )
                 );
-    }
-
-    public Map<ItemCategory, Map<String, List<Perk>>> getAllPerksPerSlotPerArmor() {
-        HashMap<ItemCategory, Map<String, List<Perk>>> perksPerSlotPerArmor = new HashMap<>();
-
-        Map<String, List<Perk>> helmet = new HashMap<>();
-        perksPerSlotPerArmor.put(ItemCategory.HELMET, helmet);
-        helmet.put(
-                "1",
-                PerkUtils.HELMET_FIRST_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        helmet.put(
-                "2",
-                PerkUtils.HELMET_SECOND_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-
-        Map<String, List<Perk>> gauntlets = new HashMap<>();
-        perksPerSlotPerArmor.put(ItemCategory.GAUNTLETS, gauntlets);
-        gauntlets.put(
-                "1",
-                PerkUtils.GAUNTLETS_FIRST_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        gauntlets.put(
-                "2",
-                PerkUtils.GAUNTLETS_SECOND_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-
-        Map<String, List<Perk>> chestArmor = new HashMap<>();
-        perksPerSlotPerArmor.put(ItemCategory.CHEST_ARMOR, chestArmor);
-        chestArmor.put(
-                "1",
-                PerkUtils.CHEST_ARMOR_FIRST_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        chestArmor.put(
-                "2",
-                PerkUtils.CHEST_ARMOR_SECOND_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-
-        Map<String, List<Perk>> legArmor = new HashMap<>();
-        perksPerSlotPerArmor.put(ItemCategory.LEG_ARMOR, legArmor);
-        legArmor.put(
-                "1",
-                PerkUtils.LEG_ARMOR_FIRST_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        legArmor.put(
-                "2",
-                PerkUtils.LEG_ARMOR_SECOND_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-
-        Map<String, List<Perk>> classArmor = new HashMap<>();
-        perksPerSlotPerArmor.put(ItemCategory.CLASS_ARMOR, classArmor);
-        classArmor.put(
-                "1",
-                PerkUtils.CLASS_ARMOR_FIRST_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        classArmor.put(
-                "2",
-                PerkUtils.CLASS_ARMOR_SECOND_PERKS
-                        .stream()
-                        .map(perkHash -> new Perk(itemDefinitions.get(perkHash)))
-                        .collect(Collectors.toList())
-        );
-        return perksPerSlotPerArmor;
     }
 
     public String transferItem(String token, int platform, long itemHash, long instanceId, String from, String to) {

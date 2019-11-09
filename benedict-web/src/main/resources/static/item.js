@@ -1,3 +1,51 @@
+const extraMods = {
+    'OUTLAW': {
+        name: 'Outlaw',
+        value: 'OUTLAW',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/2310924191f6e42e632ed2f2a22cfe58.png'
+    },
+    'FORGE': {
+        name: 'Forge',
+        value: 'FORGE',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/cece37b0f41504fdb634484c88883676.png'
+    },
+    'COLLECTOR': {
+        name: 'Collector',
+        value: 'COLLECTOR',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/a476d6aa4d42f3f4df05a3298da5ca23.png'
+    },
+    'SENTRY': {
+        name: 'Sentry',
+        value: 'SENTRY',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/dddf7d646bb7765abed73f0602e5a01b.png'
+    },
+    'INVADER': {
+        name: 'Invader',
+        value: 'INVADER',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/ffaddf1976ccd56af63d68aead7bcd39.png'
+    },
+    'REAPER': {
+        name: 'Reaper',
+        value: 'REAPER',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/cc1d90765bb304c4a744b4e9651ede9e.png'
+    },
+    'OPULENCE': {
+        name: 'Opulence',
+        value: 'OPULENCE',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/30756d23efef734db35fd58abdde81cb.png'
+    },
+    'UNDYING': {
+        name: 'Undying',
+        value: 'UNDYING',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/ab1ac861002da83d3c29186a0b685132.png'
+    },
+    'NONE': {
+        name: 'None',
+        value: 'NONE',
+        icon: ''
+    },
+};
+
 const energies = {
     SOLAR: {
         name: 'Solar',
@@ -61,17 +109,22 @@ Vue.component('item', {
         </span>
     </div>
     <div class="item-details">
+        <span class="item-mod">
+            <img :src="extraMod(item.extraMod).icon"
+                 class="extra-mod-icon"/>
+        </span>
         <span class="item-energy">
             <img :src="energyType(item.energyType).icon"
                  class="stat-icon"/>
             &nbsp;&nbsp;{{ item.energy }}
         </span>
         <div class="item-stats" v-if="item.totalStats != 0">
-            <span v-for="(stat, statName) in stats">
+            <span v-for="(stat, statName) in stats" :class="statClass(item.stats[statName])">
                 <img :src="stats[statName].icon"
                      class="stat-icon"/>
                 {{ ( item.stats[statName] < 10 ? '&nbsp;&nbsp;' : '' ) + item.stats[statName] }}
             </span>
+            <span>------</span>
             <span>{{ item.totalStats }}</span>
         </div>
     </div>
@@ -95,7 +148,8 @@ Vue.component('item', {
             characters: user.characters,
             classes: classes,
             energies: energies,
-            stats: stats
+            stats: stats,
+            extraMods: extraMods
         };
     },
     methods: {
@@ -104,6 +158,9 @@ Vue.component('item', {
         },
         energyType(energyType) {
             return this.energies[energyType];
+        },
+        extraMod(extraMod) {
+            return this.extraMods[extraMod];
         },
         transferItem(characterId) {
             let user = JSON.parse(localStorage.getItem('user'));
@@ -117,6 +174,9 @@ Vue.component('item', {
                     }
                 }
             ).then(response => this.item.location = characterId);
+        },
+        statClass(value) {
+            return value >= 20 ? 'high' : (value >= 10 ? 'medium' : 'low');
         }
     }
 });

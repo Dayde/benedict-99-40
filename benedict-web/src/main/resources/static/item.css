@@ -42,7 +42,7 @@
 .item-details {
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: #0000006b;
     width: -webkit-fill-available;
 }
 
@@ -50,14 +50,39 @@
     text-align: center;
 }
 
+.item-mod {
+    height: 40px;
+}
+
+.item-energy {
+    border: solid gray 1px;
+}
+
 .item-stats {
     display: flex;
     flex-direction: column;
 }
 
+.extra-mod-icon {
+    height: 40px;
+    width: auto;
+}
+
 .stat-icon {
     height: 16px;
     width: auto;
+}
+
+.item-stats .low {
+    color: palevioletred;
+}
+
+.item-stats .medium {
+    color: white;
+}
+
+.item-stats .high {
+    color: lawngreen;
 }
 
 .location {
