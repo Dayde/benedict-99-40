@@ -1,11 +1,11 @@
 package fr.destiny.benedict.web.model;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
+
+import static java.util.Collections.emptySet;
 
 public enum ExtraModEnum {
-    OUTLAW(3625698764L, Arrays.asList(
+    OUTLAW(3625698764L, Set.of(
             // Taken Invigoration
             399528760L,
             // Taken Repurposing
@@ -15,7 +15,7 @@ public enum ExtraModEnum {
             // Taken Barrier
             3570105787L
     )),
-    FORGE(720857L, Arrays.asList(
+    FORGE(720857L, Set.of(
             // Fallen Invigoration
             3395883122L,
             // Fallen Repurposing
@@ -25,11 +25,11 @@ public enum ExtraModEnum {
             // Fallen Barrier
             3099724909L
     )),
-    COLLECTOR(3047801520L, Collections.emptyList()),
-    SENTRY(2684355120L, Collections.emptyList()),
-    INVADER(1233336930L, Collections.emptyList()),
-    REAPER(149961592L, Collections.emptyList()),
-    OPULENCE(4106547009L, Arrays.asList(
+    COLLECTOR(3047801520L, emptySet()),
+    SENTRY(2684355120L, emptySet()),
+    INVADER(1233336930L, emptySet()),
+    REAPER(149961592L, emptySet()),
+    OPULENCE(4106547009L, Set.of(
             // Shielding Hand
             499567183L,
             // Giving Hand
@@ -49,7 +49,7 @@ public enum ExtraModEnum {
             // Hive Barrier
             3967424085L
     )),
-    UNDYING(2620967748L, Arrays.asList(
+    UNDYING(2620967748L, Set.of(
             // Dreambane Mod
             3895804619L,
             // Relay Defender
@@ -87,12 +87,12 @@ public enum ExtraModEnum {
             // Enhanced Resistant Tether
             2037533514L
     )),
-    NONE(0, Collections.emptyList());
+    NONE(0, emptySet());
 
     private final long hash;
-    private final List<Long> applicableMods;
+    private final Set<Long> applicableMods;
 
-    ExtraModEnum(long hash, List<Long> applicableMods) {
+    ExtraModEnum(long hash, Set<Long> applicableMods) {
         this.hash = hash;
         this.applicableMods = applicableMods;
     }
@@ -110,7 +110,7 @@ public enum ExtraModEnum {
         return hash;
     }
 
-    public List<Long> getApplicableMods() {
+    public Set<Long> getApplicableMods() {
         return applicableMods;
     }
 }
