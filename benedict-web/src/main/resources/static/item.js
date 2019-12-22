@@ -39,6 +39,11 @@ const extraMods = {
         value: 'UNDYING',
         icon: 'https://www.bungie.net/common/destiny2_content/icons/ab1ac861002da83d3c29186a0b685132.png'
     },
+    'DAWN': {
+        name: 'Dawn',
+        value: 'DAWN',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/81a5c9470746dc2a50974efd3a0ecc54.png'
+    },
     'NONE': {
         name: 'None',
         value: 'NONE',

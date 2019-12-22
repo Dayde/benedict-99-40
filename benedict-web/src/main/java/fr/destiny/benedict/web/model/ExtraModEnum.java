@@ -87,6 +87,40 @@ public enum ExtraModEnum {
             // Enhanced Resistant Tether
             2037533514L
     )),
+    DAWN(2357307006L, Set.of(
+            // Quick Charge
+            1484685884L,
+            // Striking Light
+            1484685885L,
+            // Heavy Handed
+            1484685886L,
+            // Powerful Friends
+            1484685887L,
+            // Firepower
+            3185435908L,
+            // Heal Thyself
+            3185435909L,
+            // Charged Up
+            3185435910L,
+            // Blast Radius
+            3185435911L,
+            // Protective Light
+            3523075120L,
+            // Extra Reserves
+            3523075121L,
+            // Precisely Charged
+            3523075122L,
+            // Stacks on Stacks
+            3523075123L,
+            // Empowered Finish
+            3632726236L,
+            // High-Energy Fire
+            3632726237L,
+            // Taking Charge
+            3632726238L,
+            // Shield Break Charge
+            3632726239L
+    )),
     NONE(0, emptySet());
 
     private final long hash;
