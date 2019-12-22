@@ -2,12 +2,11 @@ package fr.destiny.benedict.web.model;
 
 import fr.destiny.api.model.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ItemInstance implements Comparable {
+public class ItemInstance {
 
     private long itemHash;
     private long instanceId;
@@ -23,7 +22,6 @@ public class ItemInstance implements Comparable {
     private ExtraModEnum extraMod;
 
     private Map<StatEnum, Integer> stats;
-    private int totalStats;
 
 
     public ItemInstance(long instanceId,
@@ -54,7 +52,6 @@ public class ItemInstance implements Comparable {
             for (StatEnum stat : StatEnum.values()) {
                 int statValue = stats.get(stat.getHashString()).getValue();
                 this.stats.put(stat, statValue);
-                this.totalStats += statValue;
             }
         }
 
@@ -76,7 +73,6 @@ public class ItemInstance implements Comparable {
                 StatEnum stat = StatEnum.modOf(socket.getPlugHash());
                 if (stat != null && this.stats.containsKey(stat)) {
                     this.stats.put(stat, this.stats.get(stat) - 10);
-                    this.totalStats -= 10;
                     continue;
                 }
             }
@@ -122,10 +118,6 @@ public class ItemInstance implements Comparable {
         return stats;
     }
 
-    public int getTotalStats() {
-        return totalStats;
-    }
-
     public EnergyEnum getEnergyType() {
         return energyType;
     }
@@ -140,22 +132,6 @@ public class ItemInstance implements Comparable {
 
     public String getLocation() {
         return location;
-    }
-
-    @Override
-    public int compareTo(@NotNull Object o) {
-        if (o instanceof ItemInstance) {
-            ItemInstance other = (ItemInstance) o;
-            int result = this.energyType.compareTo(other.energyType);
-            if (result != 0) {
-                return result;
-            }
-            if (totalStats == 0) {
-                return -Integer.compare(this.energy, other.energy);
-            }
-            return -Integer.compare(this.totalStats, other.totalStats);
-        }
-        throw new RuntimeException("Illegal argument");
     }
 
     @Override

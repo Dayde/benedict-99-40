@@ -73,32 +73,38 @@ const stats = {
     MOBILITY: {
         name: 'Mobility',
         value: 'MOBILITY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/c9aa8439fc71c9ee336ba713535569ad.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/c9aa8439fc71c9ee336ba713535569ad.png',
+        weight: 3 / 5
     },
     RESILIENCE: {
         name: 'Resilience',
         value: 'RESILIENCE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/9f5f65d08b24defb660cebdfd7bae727.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/9f5f65d08b24defb660cebdfd7bae727.png',
+        weight: 3 / 5
     },
     RECOVERY: {
         name: 'Recovery',
         value: 'RECOVERY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/47e16a27c8387243dcf9b5d94e26ccc4.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/47e16a27c8387243dcf9b5d94e26ccc4.png',
+        weight: 4 / 5
     },
     DISCIPLINE: {
         name: 'Discipline',
         value: 'DISCIPLINE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/ca62128071dc254fe75891211b98b237.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/ca62128071dc254fe75891211b98b237.png',
+        weight: 3 / 5
     },
     INTELLECT: {
         name: 'Intellect',
         value: 'INTELLECT',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/59732534ce7060dba681d1ba84c055a6.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/59732534ce7060dba681d1ba84c055a6.png',
+        weight: 1
     },
     STRENGTH: {
         name: 'Strength',
         value: 'STRENGTH',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/c7eefc8abbaa586eeab79e962a79d6ad.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/c7eefc8abbaa586eeab79e962a79d6ad.png',
+        weight: 3 / 5
     },
 };
 
@@ -130,7 +136,7 @@ Vue.component('item', {
                 {{ ( item.stats[statName] < 10 ? '&nbsp;&nbsp;' : '' ) + item.stats[statName] }}
             </span>
             <span>------</span>
-            <span>{{ item.totalStats }}</span>
+            <span :class="totalStatClass(item.totalWeightedStats)">{{ item.totalWeightedStats | formatNumber }}</span>
         </div>
     </div>
     <div :id="'item' + item.instanceId">
@@ -182,6 +188,13 @@ Vue.component('item', {
         },
         statClass(value) {
             return value >= 20 ? 'high' : (value >= 10 ? 'medium' : 'low');
+        },
+        totalStatClass(value) {
+            return value >= 40 ? 'high' : (value >= 35 ? 'medium' : 'low');
         }
     }
+});
+
+Vue.filter("formatNumber", function (value) {
+    return value.toFixed(1);
 });
