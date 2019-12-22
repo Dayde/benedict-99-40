@@ -6,13 +6,31 @@ Vue.component('sweep-result', {
 <main v-else-if="loading" class="loading">
 </main>
 <main v-else class="result">
+    <div class="item-filters">
+        <div>
+            <label v-for="energy in energies" :title="energy.name" v-tippy="{ followCursor: true, touchHold: true }" :for="energy.name">
+                <input :id="energy.name" :name="energy.name" type="checkbox" v-model="energyFilter" :value="energy.value">
+                <img class="form-img" :src="energy.icon" :alt="energy.name">
+            </label>
+        </div>
+        <div>
+            <label v-for="extraMod in extraMods" :title="extraMod.name" v-tippy="{ followCursor: true, touchHold: true }" :for="extraMod.name">
+                <input :id="extraMod.name" :name="extraMod.name" type="checkbox" v-model="extraModFilter" :value="extraMod.value">
+                <img class="form-img" :src="extraMod.icon" :alt="extraMod.name">
+            </label>
+        </div>
+    </div>
     <div class="item-containers">
-        <item :item="item" :key="item.instanceId" v-for="item in result" ></item>
+        <item :item="item" :key="item.instanceId" v-for="item in filteredResult" ></item>
     </div>
 </main>
 `,
     data() {
         return {
+            energyFilter: [],
+            energies: energies,
+            extraModFilter: [],
+            extraMods: extraMods,
             error: false,
             loading: true,
             result: null
@@ -96,6 +114,15 @@ Vue.component('sweep-result', {
                         this.loading = false;
                     }
                 });
+        }
+    },
+    computed: {
+        filteredResult() {
+            return this.result == null ? null :
+                this.result.filter(item =>
+                    (this.energyFilter.length === 0 || this.energyFilter.indexOf(item.energyType) > -1) &&
+                    (this.extraModFilter.length === 0 || this.extraModFilter.indexOf(item.extraMod) > -1)
+                );
         }
     }
 });

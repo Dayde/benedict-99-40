@@ -3,6 +3,13 @@
     overflow-y: auto;
 }
 
+.item-filters {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
 .item-containers {
     display: flex;
     flex-direction: row;

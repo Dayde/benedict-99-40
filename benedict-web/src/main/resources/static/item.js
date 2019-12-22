@@ -47,7 +47,7 @@ const extraMods = {
     'NONE': {
         name: 'None',
         value: 'NONE',
-        icon: ''
+        icon: 'https://www.bungie.net/img/misc/missing_icon_d2.png'
     },
 };
 

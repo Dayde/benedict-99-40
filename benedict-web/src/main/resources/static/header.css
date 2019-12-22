@@ -22,24 +22,24 @@
     display: flex;
 }
 
-[type=radio] {
+[type=radio], [type=checkbox] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-[type=radio] + img {
+[type=radio] + img, [type=checkbox] + img {
     cursor: pointer;
     filter: brightness(65%);
 }
 
-[type=radio] + img:hover, [type=radio]:focus + img {
+[type=radio] + img:hover, [type=radio]:focus + img, [type=checkbox] + img:hover, [type=checkbox]:focus + img {
     background-color: rgba(100, 100, 100, 0.4);
     filter: brightness(95%);
 }
 
-[type=radio]:checked + img {
+[type=radio]:checked + img, [type=checkbox]:checked + img {
     background-color: rgba(100, 100, 100, 0.4);
     border: white solid 2px;
     margin: 0;
