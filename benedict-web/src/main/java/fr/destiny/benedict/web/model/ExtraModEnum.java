@@ -121,6 +121,47 @@ public enum ExtraModEnum {
             // Shield Break Charge
             3632726239L
     )),
+    WORTHY(2655746324L, Set.of(
+            // Global reach
+            179977572L,
+            // Blessing of Rasputin
+            179977573L,
+            // Light of the Fire
+            179977574L,
+            // Warmind's Light
+            179977575L,
+            // Grasp of the Warmind
+            179977568L,
+            // Modular Lightning
+            1789319806L,
+            // Strength of Rasputin
+            1789319807L,
+            // Sheltering Energy
+            1789319804L,
+            // Chosen of the Warmind
+            1789319805L,
+            // Burning Cells
+            2216063963L,
+            // Wrath of Rasputin
+            2216063962L,
+            // Fireteam Medic
+            2216063961L,
+            // Rage of the Warmind
+            2216063960L,
+            // Incinerating Light
+            2216063967L,
+            // Cellular Suppression
+            2597888510L,
+            // Power of Rasputin
+            2597888511L,
+            // Warmind's Protection
+            2597888508L,
+            // Warmind's Longevity
+            2597888509L,
+            // Light from  Darkness
+            2597888506L
+    )),
+
     NONE(0, emptySet());
 
     private final long hash;
