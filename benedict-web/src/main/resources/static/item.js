@@ -74,6 +74,19 @@ const energies = {
     }
 };
 
+const tierTypes = {
+    LEGENDARY: {
+        name: 'Legendary',
+        value: 'LEGENDARY',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/7eea47cc31d9b065213f85169e668b6e.png'
+    },
+    EXOTIC: {
+        name: 'Exotic',
+        value: 'EXOTIC',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/ee21b5bc72f9e48366c9addff163a187.png'
+    }
+};
+
 const stats = {
     MOBILITY: {
         name: 'Mobility',

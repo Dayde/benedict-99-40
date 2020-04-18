@@ -19,6 +19,12 @@ Vue.component('sweep-result', {
                 <img class="form-img" :src="extraMod.icon" :alt="extraMod.name">
             </label>
         </div>
+        <div>
+            <label v-for="tierType in tierTypes" :title="tierType.name" v-tippy="{ followCursor: true, touchHold: true }" :for="tierType.name">
+                <input :id="tierType.name" :name="tierType.name" type="checkbox" v-model="tierTypeFilter" :value="tierType.value">
+                <img class="form-img" :src="tierType.icon" :alt="tierType.name">
+            </label>
+        </div>
     </div>
     <div class="item-containers">
         <item :item="item" :key="item.instanceId" v-for="item in filteredResult" ></item>
@@ -31,6 +37,8 @@ Vue.component('sweep-result', {
             energies: energies,
             extraModFilter: [],
             extraMods: extraMods,
+            tierTypeFilter: [],
+            tierTypes: tierTypes,
             error: false,
             loading: true,
             result: null
@@ -105,6 +113,7 @@ Vue.component('sweep-result', {
                     this.result = _.sortBy(response.data, 'totalWeightedStats');
                     this.result = this.result.reverse();
                     this.result = _.sortBy(this.result, 'energyType');
+                    this.result = _.sortBy(this.result, 'tierType');
                 }, error => {
                     if (axios.isCancel(error)) {
                         // another request was made no worry
@@ -122,7 +131,8 @@ Vue.component('sweep-result', {
             return this.result == null ? null :
                 this.result.filter(item =>
                     (this.energyFilter.length === 0 || this.energyFilter.indexOf(item.energyType) > -1) &&
-                    (this.extraModFilter.length === 0 || this.extraModFilter.indexOf(item.extraMod) > -1)
+                    (this.extraModFilter.length === 0 || this.extraModFilter.indexOf(item.extraMod) > -1) &&
+                    (this.tierTypeFilter.length === 0 || this.tierTypeFilter.indexOf(item.tierType) > -1)
                 );
         }
     }

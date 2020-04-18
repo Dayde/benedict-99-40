@@ -35,9 +35,8 @@ public class SweepService {
                 token
         );
 
-        // We want to sort legendary stuff only
         return itemInstances.stream()
-                .filter(item -> "Legendary".equals(item.getTierType()))
+                .filter(item -> item.getTierType() != null)
                 .collect(Collectors.toList());
     }
 }

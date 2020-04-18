@@ -12,7 +12,7 @@ public class ItemInstance {
     private long instanceId;
     private String name;
     private String icon;
-    private String tierType;
+    private TierType tierType;
     private String location;
 
     private int powerLevel;
@@ -34,7 +34,7 @@ public class ItemInstance {
         this.instanceId = instanceId;
         this.name = itemDefinition.getDisplayProperties().getName();
         this.icon = itemDefinition.getDisplayProperties().getIcon();
-        this.tierType = itemDefinition.getInventory().getTierTypeName();
+        this.tierType = TierType.fromString(itemDefinition.getInventory().getTierTypeName());
 
         this.powerLevel = instance.getPrimaryStat().getValue();
 
@@ -102,7 +102,7 @@ public class ItemInstance {
         return icon;
     }
 
-    public String getTierType() {
+    public TierType getTierType() {
         return tierType;
     }
 
