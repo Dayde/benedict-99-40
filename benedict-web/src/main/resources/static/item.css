@@ -39,6 +39,10 @@
     font-size: 14px;
 }
 
+.maxpower {
+    color: gold;
+}
+
 .item-details {
     display: flex;
     flex-direction: column;

@@ -109,7 +109,7 @@ Vue.component('sweep-result', {
                 })
                 .then(response => {
                     this.loading = false;
-                    this.result = computeTotalStats(response.data);
+                    this.result = enrichResults(response.data);
                     this.result = _.sortBy(response.data, 'totalWeightedStats');
                     this.result = this.result.reverse();
                     this.result = _.sortBy(this.result, 'energyType');
@@ -138,15 +138,22 @@ Vue.component('sweep-result', {
     }
 });
 
-let computeTotalStats = function (items) {
+function computeTotalStats(item) {
+    let total = 0;
+    let totalWeighted = 0;
+    for (let statName in item.stats) {
+        total += parseInt(item.stats[statName]);
+        totalWeighted += parseInt(item.stats[statName]) * stats[statName].weight;
+    }
+    item.totalStats = total;
+    item.totalWeightedStats = totalWeighted;
+}
+
+let enrichResults = function (items) {
+    items = _.sortBy(items, item => -parseInt(item.powerLevel));
+    let maxPower = items[0].powerLevel;
     for (let item of items) {
-        let total = 0;
-        let totalWeighted = 0;
-        for (let statName in item.stats) {
-            total += parseInt(item.stats[statName]);
-            totalWeighted += parseInt(item.stats[statName]) * stats[statName].weight;
-        }
-        item.totalStats = total;
-        item.totalWeightedStats = totalWeighted;
+        computeTotalStats(item);
+        item.maxPower = item.powerLevel === maxPower;
     }
 };

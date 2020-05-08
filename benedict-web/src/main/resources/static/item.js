@@ -133,7 +133,7 @@ Vue.component('item', {
          v-tippy="{ html: '#item' + item.instanceId, trigger: 'click', interactive: true, reactive: true, hideOnClick: true }">
         <img :src="'https://www.bungie.net' + item.icon" :alt="item.name"/>
         <img v-if="item.masterwork" src="/masterwork.png" alt="masterwork" :class="{ masterwork: item.masterwork }" />
-        <span class="top-right">
+        <span class="top-right" :class="{ maxpower: item.maxPower }">
             {{item.powerLevel}}
         </span>
     </div>
