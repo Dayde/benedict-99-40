@@ -46,6 +46,10 @@ public class ItemInstance {
             this.energyType = EnergyEnum.NONE;
         }
 
+        if (this.energy == 10) {
+            this.masterwork = true;
+        }
+
         this.stats = new HashMap<>();
         Map<String, DestinyDestinyStat> stats = statsComponent.getStats();
         if (!stats.isEmpty()) {
@@ -56,16 +60,9 @@ public class ItemInstance {
         }
 
         this.extraMod = ExtraModEnum.NONE;
-        for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
+        for (
+                DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
             if (socket == null || socket.getPlugHash() == null) {
-                continue;
-            }
-
-            if (itemDefinitions.get(socket.getPlugHash())
-                    .getDisplayProperties()
-                    .getName()
-                    .equals("Masterwork")) {
-                this.masterwork = true;
                 continue;
             }
 
