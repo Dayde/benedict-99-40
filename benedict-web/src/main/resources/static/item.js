@@ -49,6 +49,11 @@ const extraMods = {
         value: 'WORTHY',
         icon: 'https://www.bungie.net/common/destiny2_content/icons/d83dfa810bd766e96dae6d94afce3955.png'
     },
+    'ARRIVALS': {
+        name: 'Arrivals',
+        value: 'ARRIVALS',
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/0f5a0654f6206e0c1ad26611d84b6668.png'
+    },
     'NONE': {
         name: 'None',
         value: 'NONE',

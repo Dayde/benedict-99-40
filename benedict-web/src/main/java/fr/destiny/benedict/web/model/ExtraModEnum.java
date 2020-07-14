@@ -161,6 +161,32 @@ public enum ExtraModEnum {
             // Light from  Darkness
             2597888506L
     )),
+    ARRIVALS(4153634494L, Set.of(
+            // ARGENT ORDNANCE
+            4272180932L,
+            // CHARGE HARVESTER
+            2263321587L,
+            // ENERGY CONVERTER
+            2263321586L,
+            // KINDLING THE FLAME
+            4272180935L,
+            // LUCENT BLADE
+            2979815165L,
+            // PRECISION CHARGE
+            2263321584L,
+            // RADIANT LIGHT
+            2979815167L,
+            // REACTIVE PULSE
+            2979815166L,
+            // SUPERCHARGED
+            4272180934L,
+            // SURPRISE ATTACK
+            2263321585L,
+            // SUSTAINED CHARGE
+            4272180933L,
+            // SWIFT CHARGE
+            2979815164L
+    )),
 
     NONE(0, emptySet());
 
