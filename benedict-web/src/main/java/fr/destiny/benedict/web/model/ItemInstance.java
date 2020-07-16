@@ -69,7 +69,7 @@ public class ItemInstance {
             if (!stats.isEmpty()) {
                 StatEnum stat = StatEnum.modOf(socket.getPlugHash());
                 if (stat != null && this.stats.containsKey(stat)) {
-                    this.stats.put(stat, this.stats.get(stat) - 10);
+                    this.stats.put(stat, this.stats.get(stat) - stat.modValue(socket.getPlugHash()));
                     continue;
                 }
             }
