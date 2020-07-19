@@ -60,8 +60,7 @@ public class ItemInstance {
         }
 
         this.extraMod = ExtraModEnum.NONE;
-        for (
-                DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
+        for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
             if (socket == null || socket.getPlugHash() == null) {
                 continue;
             }
@@ -78,6 +77,10 @@ public class ItemInstance {
             if (extraMod != null) {
                 this.extraMod = extraMod;
             }
+        }
+
+        if (this.masterwork) {
+            this.stats.replaceAll((stat, value) -> value - 2);
         }
 
         this.location = location;
