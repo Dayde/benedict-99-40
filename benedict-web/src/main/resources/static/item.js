@@ -159,7 +159,7 @@ Vue.component('item', {
                 {{ ( item.stats[statName] < 10 ? '&nbsp;&nbsp;' : '' ) + item.stats[statName] }}
             </span>
             <span>------</span>
-            <span :class="totalStatClass(item.totalWeightedStats)">{{ item.totalWeightedStats | formatNumber }}</span>
+            <span :class="totalStatClass(item.totalWeightedStats)">{{ item.totalWeightedStats | formatNumber }} / {{ item.totalStats }}</span>
         </div>
     </div>
     <div :id="'item' + item.instanceId">
