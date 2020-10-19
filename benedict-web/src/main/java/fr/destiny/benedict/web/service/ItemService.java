@@ -123,7 +123,6 @@ public class ItemService {
                                 socketsComponent,
                                 statsComponent,
                                 itemDefinition,
-                                itemDefinitions,
                                 location
                         );
                         if (item.getEnergyType() != EnergyEnum.NONE) {

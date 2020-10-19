@@ -27,8 +27,8 @@ public class ItemInstance {
     public ItemInstance(long instanceId,
                         DestinyEntitiesItemsDestinyItemInstanceComponent instance,
                         DestinyEntitiesItemsDestinyItemSocketsComponent socketsComponent,
-                        DestinyEntitiesItemsDestinyItemStatsComponent statsComponent, DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition,
-                        Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions,
+                        DestinyEntitiesItemsDestinyItemStatsComponent statsComponent,
+                        DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition,
                         String location) {
         this.itemHash = itemDefinition.getHash();
         this.instanceId = instanceId;
@@ -59,7 +59,6 @@ public class ItemInstance {
             }
         }
 
-        this.extraMod = ExtraModEnum.NONE;
         for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
             if (socket == null || socket.getPlugHash() == null) {
                 continue;
@@ -69,13 +68,16 @@ public class ItemInstance {
                 StatEnum stat = StatEnum.modOf(socket.getPlugHash());
                 if (stat != null && this.stats.containsKey(stat)) {
                     this.stats.put(stat, this.stats.get(stat) - stat.modValue(socket.getPlugHash()));
-                    continue;
                 }
             }
+        }
 
-            ExtraModEnum extraMod = ExtraModEnum.valueOf(socket.getPlugHash());
+        this.extraMod = ExtraModEnum.NONE;
+        for (DestinyDefinitionsDestinyItemSocketEntryDefinition socket : itemDefinition.getSockets().getSocketEntries()) {
+            ExtraModEnum extraMod = ExtraModEnum.valueOf(socket.getSingleInitialItemHash());
             if (extraMod != null) {
                 this.extraMod = extraMod;
+                break;
             }
         }
 
