@@ -22,15 +22,16 @@ public class ItemService {
 
     private static final String VAULT = "";
 
-    private Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
+    private final Map<Long, DestinyDefinitionsDestinyInventoryItemDefinition> itemDefinitions;
 
-    private Destiny2Api destiny2Api;
+    private final Destiny2Api destiny2Api;
 
     ItemService(@Autowired @Qualifier("destiny2ApiScoped") Destiny2Api destiny2Api, @Autowired DestinyInventoryItemRepository itemRepository) {
         this.destiny2Api = destiny2Api;
         this.itemDefinitions = ImmutableMap.copyOf(
                 itemRepository.findAll()
                         .stream()
+                        .filter(item -> item != null && item.getHash() != null)
                         .collect(Collectors.toMap(DestinyDefinitionsDestinyInventoryItemDefinition::getHash,
                                 item -> item))
         );

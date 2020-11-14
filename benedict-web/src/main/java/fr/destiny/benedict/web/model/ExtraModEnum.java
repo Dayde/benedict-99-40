@@ -187,6 +187,7 @@ public enum ExtraModEnum {
             // SWIFT CHARGE
             2979815164L
     )),
+    COMBAT_STYLE(2493100093L, emptySet()),
 
     NONE(0, emptySet());
 

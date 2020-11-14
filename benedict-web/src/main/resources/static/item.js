@@ -2,12 +2,12 @@ const extraMods = {
     'OUTLAW': {
         name: 'Outlaw',
         value: 'OUTLAW',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/2310924191f6e42e632ed2f2a22cfe58.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/c70116144be386def9e675d76dacfe64.png'
     },
     'FORGE': {
         name: 'Forge',
         value: 'FORGE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/cece37b0f41504fdb634484c88883676.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/cb09fb7d3af5b8d1ac64887d26a1c9be.png'
     },
     'COLLECTOR': {
         name: 'Collector',
@@ -32,27 +32,32 @@ const extraMods = {
     'OPULENCE': {
         name: 'Opulence',
         value: 'OPULENCE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/30756d23efef734db35fd58abdde81cb.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/b941b3ee58a7bc261d3995cb30e15321.png'
     },
     'UNDYING': {
         name: 'Undying',
         value: 'UNDYING',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/ab1ac861002da83d3c29186a0b685132.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/6bf9ba37386b907ddb514ec422fc74c9.png'
     },
     'DAWN': {
         name: 'Dawn',
         value: 'DAWN',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/81a5c9470746dc2a50974efd3a0ecc54.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/9f0572ebfdd88662a3ff9ef04cef1c12.png'
     },
     'WORTHY': {
         name: 'Worthy',
         value: 'WORTHY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/d83dfa810bd766e96dae6d94afce3955.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/2531d7bee79857f3b3dbdc72f99c3e16.png'
     },
     'ARRIVALS': {
         name: 'Arrivals',
         value: 'ARRIVALS',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/0f5a0654f6206e0c1ad26611d84b6668.png'
+        icon: 'https://bungie.net/common/destiny2_content/icons/78619168b73f73f3ec5cfdf655774fff.png'
+    },
+    'COMBAT_STYLE': {
+        name: 'Combat Style',
+        value: 'COMBAT_STYLE',
+        icon: 'https://bungie.net/common/destiny2_content/icons/53fa0b010b6b5e4b6bf9b8367d2980e0.png'
     },
     'NONE': {
         name: 'None',
@@ -90,45 +95,6 @@ const tierTypes = {
         value: 'EXOTIC',
         icon: 'https://www.bungie.net/common/destiny2_content/icons/ee21b5bc72f9e48366c9addff163a187.png'
     }
-};
-
-const stats = {
-    MOBILITY: {
-        name: 'Mobility',
-        value: 'MOBILITY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/c9aa8439fc71c9ee336ba713535569ad.png',
-        weight: 3 / 5
-    },
-    RESILIENCE: {
-        name: 'Resilience',
-        value: 'RESILIENCE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/9f5f65d08b24defb660cebdfd7bae727.png',
-        weight: 3 / 5
-    },
-    RECOVERY: {
-        name: 'Recovery',
-        value: 'RECOVERY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/47e16a27c8387243dcf9b5d94e26ccc4.png',
-        weight: 4 / 5
-    },
-    DISCIPLINE: {
-        name: 'Discipline',
-        value: 'DISCIPLINE',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/ca62128071dc254fe75891211b98b237.png',
-        weight: 3 / 5
-    },
-    INTELLECT: {
-        name: 'Intellect',
-        value: 'INTELLECT',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/59732534ce7060dba681d1ba84c055a6.png',
-        weight: 1
-    },
-    STRENGTH: {
-        name: 'Strength',
-        value: 'STRENGTH',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/c7eefc8abbaa586eeab79e962a79d6ad.png',
-        weight: 3 / 5
-    },
 };
 
 Vue.component('item', {

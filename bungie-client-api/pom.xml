@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>benedict</artifactId>
@@ -75,6 +75,10 @@
                             <token>\"string\"(.*\r\n.*\"byte\")</token>
                             <value>"integer"$1</value>
                         </replacement>
+                        <replacement>
+                            <token>\"string\"(.*\n.*\"byte\")</token>
+                            <value>"integer"$1</value>
+                        </replacement>
                     </replacements>
                     <regexFlags>
                         <regexFlag>MULTILINE</regexFlag>
@@ -84,6 +88,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>3.3.4</version>
                 <executions>
                     <execution>
                         <goals>
