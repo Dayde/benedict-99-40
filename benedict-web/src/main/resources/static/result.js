@@ -138,12 +138,22 @@ Vue.component('sweep-result', {
     }
 });
 
+function weight(statName) {
+    let weightKey = localStorage.getItem('classType') + "_" + statName;
+    let weight = localStorage.getItem(weightKey);
+    if (weight === null) {
+        weight = stats[statName].defaultWeight;
+        localStorage.setItem(weightKey, weight);
+    }
+    return weight;
+}
+
 function computeTotalStats(item) {
     let total = 0;
     let totalWeighted = 0;
     for (let statName in item.stats) {
         total += parseInt(item.stats[statName]);
-        totalWeighted += parseInt(item.stats[statName]) * stats[statName].weight;
+        totalWeighted += parseInt(item.stats[statName]) * weight(statName);
     }
     item.totalStats = total;
     item.totalWeightedStats = totalWeighted;
