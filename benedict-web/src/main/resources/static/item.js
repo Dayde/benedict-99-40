@@ -80,7 +80,7 @@ const energies = {
     ARC: {
         name: 'Arc',
         value: 'ARC',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/DestinyEnergyTypeDefinition_9fbcfcef99f4e8a40d8762ccb556fcd4.png'
+        icon: 'https://www.bungie.net/common/destiny2_content/icons/DestinyEnergyTypeDefinition_092d066688b879c807c3b460afdd61e6.png'
     }
 };
 
