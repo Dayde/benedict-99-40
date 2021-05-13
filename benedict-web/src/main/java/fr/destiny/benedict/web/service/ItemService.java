@@ -15,6 +15,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static fr.destiny.benedict.web.utils.Utils.mergeMaps;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 
 
 @Service
@@ -62,15 +64,15 @@ public class ItemService {
 
         Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances = profile.getItemComponents().getInstances().getData();
         if (instances == null) {
-            instances = Collections.emptyMap();
+            instances = emptyMap();
         }
         Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets = profile.getItemComponents().getSockets().getData();
         if (sockets == null) {
-            sockets = Collections.emptyMap();
+            sockets = emptyMap();
         }
         Map<String, DestinyEntitiesItemsDestinyItemStatsComponent> stats = profile.getItemComponents().getStats().getData();
         if (stats == null) {
-            stats = Collections.emptyMap();
+            stats = emptyMap();
         }
 
         return generateItemInstances(instanceIdsByItemHash, instances, sockets, stats, classType, itemCategory);
@@ -81,7 +83,9 @@ public class ItemService {
             Map<String, DestinyEntitiesItemsDestinyItemInstanceComponent> instances,
             Map<String, DestinyEntitiesItemsDestinyItemSocketsComponent> sockets,
             Map<String, DestinyEntitiesItemsDestinyItemStatsComponent> stats,
-            ClassType classType, ItemCategory itemCategory) {
+            ClassType classType,
+            ItemCategory itemCategory
+    ) {
         Set<ItemInstance> itemInstances = new HashSet<>();
         instanceIdsByItemHash.forEach((itemHash, instanceIds) -> {
             DestinyDefinitionsDestinyInventoryItemDefinition itemDefinition = itemDefinitions.get(itemHash);
@@ -109,13 +113,13 @@ public class ItemService {
                         if (socketsComponent == null) {
                             socketsComponent =
                                     new DestinyEntitiesItemsDestinyItemSocketsComponent();
-                            socketsComponent.setSockets(Collections.emptyList());
+                            socketsComponent.setSockets(emptyList());
                         }
                         DestinyEntitiesItemsDestinyItemStatsComponent statsComponent = stats.get(Long.toString(instanceId));
                         if (statsComponent == null) {
                             statsComponent =
                                     new DestinyEntitiesItemsDestinyItemStatsComponent();
-                            statsComponent.setStats(Collections.emptyMap());
+                            statsComponent.setStats(emptyMap());
                         }
 
                         ItemInstance item = new ItemInstance(
