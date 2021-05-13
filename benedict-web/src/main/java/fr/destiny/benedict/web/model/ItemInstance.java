@@ -19,7 +19,6 @@ public class ItemInstance {
     private boolean masterwork;
     private int energy;
     private EnergyEnum energyType;
-    private ExtraModEnum extraMod;
 
     private Map<StatEnum, Integer> stats;
 
@@ -59,25 +58,16 @@ public class ItemInstance {
             }
         }
 
-        for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
-            if (socket == null || socket.getPlugHash() == null) {
-                continue;
-            }
+        if (!stats.isEmpty()) {
+            for (DestinyEntitiesItemsDestinyItemSocketState socket : socketsComponent.getSockets()) {
+                if (socket == null || socket.getPlugHash() == null || !socket.getIsEnabled()) {
+                    continue;
+                }
 
-            if (!stats.isEmpty()) {
                 StatEnum stat = StatEnum.modOf(socket.getPlugHash());
                 if (stat != null && this.stats.containsKey(stat)) {
                     this.stats.put(stat, this.stats.get(stat) - stat.modValue(socket.getPlugHash()));
                 }
-            }
-        }
-
-        this.extraMod = ExtraModEnum.NONE;
-        for (DestinyDefinitionsDestinyItemSocketEntryDefinition socket : itemDefinition.getSockets().getSocketEntries()) {
-            ExtraModEnum extraMod = ExtraModEnum.valueOf(socket.getSingleInitialItemHash());
-            if (extraMod != null) {
-                this.extraMod = extraMod;
-                break;
             }
         }
 
@@ -126,10 +116,6 @@ public class ItemInstance {
 
     public int getEnergy() {
         return energy;
-    }
-
-    public ExtraModEnum getExtraMod() {
-        return extraMod;
     }
 
     public String getLocation() {

@@ -1,71 +1,3 @@
-const extraMods = {
-    'OUTLAW': {
-        name: 'Outlaw',
-        value: 'OUTLAW',
-        icon: 'https://bungie.net/common/destiny2_content/icons/c70116144be386def9e675d76dacfe64.png'
-    },
-    'FORGE': {
-        name: 'Forge',
-        value: 'FORGE',
-        icon: 'https://bungie.net/common/destiny2_content/icons/cb09fb7d3af5b8d1ac64887d26a1c9be.png'
-    },
-    'COLLECTOR': {
-        name: 'Collector',
-        value: 'COLLECTOR',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/a476d6aa4d42f3f4df05a3298da5ca23.png'
-    },
-    'SENTRY': {
-        name: 'Sentry',
-        value: 'SENTRY',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/dddf7d646bb7765abed73f0602e5a01b.png'
-    },
-    'INVADER': {
-        name: 'Invader',
-        value: 'INVADER',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/ffaddf1976ccd56af63d68aead7bcd39.png'
-    },
-    'REAPER': {
-        name: 'Reaper',
-        value: 'REAPER',
-        icon: 'https://www.bungie.net/common/destiny2_content/icons/cc1d90765bb304c4a744b4e9651ede9e.png'
-    },
-    'OPULENCE': {
-        name: 'Opulence',
-        value: 'OPULENCE',
-        icon: 'https://bungie.net/common/destiny2_content/icons/b941b3ee58a7bc261d3995cb30e15321.png'
-    },
-    'UNDYING': {
-        name: 'Undying',
-        value: 'UNDYING',
-        icon: 'https://bungie.net/common/destiny2_content/icons/6bf9ba37386b907ddb514ec422fc74c9.png'
-    },
-    'DAWN': {
-        name: 'Dawn',
-        value: 'DAWN',
-        icon: 'https://bungie.net/common/destiny2_content/icons/9f0572ebfdd88662a3ff9ef04cef1c12.png'
-    },
-    'WORTHY': {
-        name: 'Worthy',
-        value: 'WORTHY',
-        icon: 'https://bungie.net/common/destiny2_content/icons/2531d7bee79857f3b3dbdc72f99c3e16.png'
-    },
-    'ARRIVALS': {
-        name: 'Arrivals',
-        value: 'ARRIVALS',
-        icon: 'https://bungie.net/common/destiny2_content/icons/78619168b73f73f3ec5cfdf655774fff.png'
-    },
-    'COMBAT_STYLE': {
-        name: 'Combat Style',
-        value: 'COMBAT_STYLE',
-        icon: 'https://bungie.net/common/destiny2_content/icons/53fa0b010b6b5e4b6bf9b8367d2980e0.png'
-    },
-    'NONE': {
-        name: 'None',
-        value: 'NONE',
-        icon: 'https://www.bungie.net/img/misc/missing_icon_d2.png'
-    },
-};
-
 const energies = {
     SOLAR: {
         name: 'Solar',
@@ -109,10 +41,6 @@ Vue.component('item', {
         </span>
     </div>
     <div class="item-details">
-        <span class="item-mod">
-            <img :src="extraMod(item.extraMod).icon"
-                 class="extra-mod-icon"/>
-        </span>
         <span class="item-energy">
             <img :src="energyType(item.energyType).icon"
                  class="stat-icon"/>
@@ -149,7 +77,6 @@ Vue.component('item', {
             classes: classes,
             energies: energies,
             stats: stats,
-            extraMods: extraMods
         };
     },
     methods: {
@@ -158,9 +85,6 @@ Vue.component('item', {
         },
         energyType(energyType) {
             return this.energies[energyType];
-        },
-        extraMod(extraMod) {
-            return this.extraMods[extraMod];
         },
         transferItem(characterId) {
             let user = JSON.parse(localStorage.getItem('user'));

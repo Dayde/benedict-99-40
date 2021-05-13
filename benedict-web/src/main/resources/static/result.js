@@ -14,12 +14,6 @@ Vue.component('sweep-result', {
             </label>
         </div>
         <div>
-            <label v-for="extraMod in extraMods" :title="extraMod.name" v-tippy="{ followCursor: true, touchHold: true }" :for="extraMod.name">
-                <input :id="extraMod.name" :name="extraMod.name" type="checkbox" v-model="extraModFilter" :value="extraMod.value">
-                <img class="form-img" :src="extraMod.icon" :alt="extraMod.name">
-            </label>
-        </div>
-        <div>
             <label v-for="tierType in tierTypes" :title="tierType.name" v-tippy="{ followCursor: true, touchHold: true }" :for="tierType.name">
                 <input :id="tierType.name" :name="tierType.name" type="checkbox" v-model="tierTypeFilter" :value="tierType.value">
                 <img class="form-img" :src="tierType.icon" :alt="tierType.name">
@@ -35,8 +29,6 @@ Vue.component('sweep-result', {
         return {
             energyFilter: [],
             energies: energies,
-            extraModFilter: [],
-            extraMods: extraMods,
             tierTypeFilter: [],
             tierTypes: tierTypes,
             error: false,
@@ -131,7 +123,6 @@ Vue.component('sweep-result', {
             return this.result == null ? null :
                 this.result.filter(item =>
                     (this.energyFilter.length === 0 || this.energyFilter.indexOf(item.energyType) > -1) &&
-                    (this.extraModFilter.length === 0 || this.extraModFilter.indexOf(item.extraMod) > -1) &&
                     (this.tierTypeFilter.length === 0 || this.tierTypeFilter.indexOf(item.tierType) > -1)
                 );
         }
